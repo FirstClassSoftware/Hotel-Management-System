@@ -5,10 +5,12 @@
  */
 package ResCust;
 
+import javax.swing.*;
+
 /**
  *
  * @author WhelanMyPC
  */
-public class ReservationView {
+public class ReservationView extends JFrame {
     
 }
