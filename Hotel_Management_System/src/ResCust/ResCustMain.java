@@ -27,7 +27,7 @@ public class ResCustMain {
         j.setVisible(true);
         j.add(v);
         
-        v.registerListener(c);
+        v.registerListener();
         v.setVisible(true);
     }
     

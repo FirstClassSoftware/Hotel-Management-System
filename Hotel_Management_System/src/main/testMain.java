@@ -3,21 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ResCust;
+package main;
 
-import testDatabase.*;
+import ResCust.*;
 
 /**
  *
  * @author Whelan
  */
-public class ReservationModel {
+public class testMain {
     
-    private tstDatabase t;
-    
-    public ReservationModel() {
-        
-        t = new tstDatabase();
+    public static void main(String[] args) {
+        ReservationView v = new ReservationView();
     }
     
 }
