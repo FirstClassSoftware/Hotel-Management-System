@@ -17,7 +17,7 @@ import java.sql.Statement;
  */
 public class tstDatabase {
     
-     private String host;
+    private String host;
     private String username;
     private String password;
     private Connection con;
@@ -31,22 +31,25 @@ public class tstDatabase {
         
         try {
         
-            host = "jdbc:derby://localhost:1527/StudentDatabase";
+            host = "jdbc:sqlite:filename.db";
             username = "student";
             password = "password";
         
             con = DriverManager.getConnection(host, username, password);
-            stmt = con.createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, 
+            stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
                     ResultSet.CONCUR_READ_ONLY);
             
-            //String sql = "CREATE DATABASE STUDENTS";
-            //stmt.executeUpdate(sql);
+            //SQL = "CREATE DATABASE APP";
+            //stmt.executeUpdate(SQL);
             
-            String sql = "TRUNCATE TABLE APP.STUDENTS";
-            stmt.executeUpdate(sql);
+            SQL = "CREATE TABLE RESERVATIONS" +
+                    "(ID INT PRIMARY KEY     NOT NULL"
+                    + "";
+            stmt.executeUpdate(SQL);
+                
             
-            SQL = "select * from APP.STUDENTS";
-            rs = stmt.executeQuery(SQL);
+            //SQL = "select * from APP.STUDENTS";
+            //rs = stmt.executeQuery(SQL);
             
           
             
@@ -56,6 +59,8 @@ public class tstDatabase {
             //st.setString(1, table);
             //st.executeUpdate(); 
         }
+                    
+        
         catch(SQLException err) {
             System.out.println(err.getMessage());
         }

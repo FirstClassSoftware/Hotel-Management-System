@@ -26,6 +26,7 @@ public class ResCustMain {
         j.setLocationRelativeTo(null);
         j.setVisible(true);
         j.add(v);
+        j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         v.registerListener();
         v.setVisible(true);
