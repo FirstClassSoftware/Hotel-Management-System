@@ -42,9 +42,19 @@ public class tstDatabase {
             //SQL = "CREATE DATABASE APP";
             //stmt.executeUpdate(SQL);
             
-            SQL = "CREATE TABLE RESERVATIONS" +
-                    "(ID INT PRIMARY KEY     NOT NULL"
-                    + "";
+            //SQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='table_name'";
+            //stmt.executeUpdate(SQL);
+            
+            SQL = "CREATE TABLE IF NOT EXISTS RESERVATIONS" +
+                    "(ID INT PRIMARY KEY     NOT NULL,"
+                    + "FLOOR_NUMBER TEXT,"
+                    + "ROOM_NUMBER TEXT,"
+                    + "START_DATE TEXT,"
+                    + "END_DATE TEXT,"
+                    + "CUST_FIRST TEXT,"
+                    + "CUST_LAST TEXT,"
+                    + "ROOM_TYPE TEXT,"
+                    + "COST DOUBLE)";
             stmt.executeUpdate(SQL);
                 
             
