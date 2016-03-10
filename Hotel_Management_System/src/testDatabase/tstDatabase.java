@@ -5,75 +5,28 @@
  */
 package testDatabase;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import ResCust.ReservationModel;
 /**
  *
  * @author Whelan
  */
 public class tstDatabase {
     
-    private String host;
-    private String username;
-    private String password;
-    private Connection con;
-    private Statement stmt;
-    private String SQL;
-    private ResultSet rs;
-    private String Database;
-    private String table;
+    ReservationModel m;
     
     public tstDatabase() {
         
-        try {
+        //m = new ReservationModel();
         
-            host = "jdbc:sqlite:filename.db";
-            username = "student";
-            password = "password";
+    }
+    
+    public static void main(String[] args) {
         
-            con = DriverManager.getConnection(host, username, password);
-            stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
-                    ResultSet.CONCUR_READ_ONLY);
-            
-            //SQL = "CREATE DATABASE APP";
-            //stmt.executeUpdate(SQL);
-            
-            //SQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='table_name'";
-            //stmt.executeUpdate(SQL);
-            
-            SQL = "CREATE TABLE IF NOT EXISTS RESERVATIONS" +
-                    "(ID INT PRIMARY KEY     NOT NULL,"
-                    + "FLOOR_NUMBER TEXT,"
-                    + "ROOM_NUMBER TEXT,"
-                    + "START_DATE TEXT,"
-                    + "END_DATE TEXT,"
-                    + "CUST_FIRST TEXT,"
-                    + "CUST_LAST TEXT,"
-                    + "ROOM_TYPE TEXT,"
-                    + "COST DOUBLE)";
-            stmt.executeUpdate(SQL);
-                
-            
-            //SQL = "select * from APP.STUDENTS";
-            //rs = stmt.executeQuery(SQL);
-            
-          
-            
-           // String SQL = "DELETE TABLE ?";
-             
-           // PreparedStatement st = con.prepareStatement(SQL);
-            //st.setString(1, table);
-            //st.executeUpdate(); 
-        }
-                    
+        ReservationModel model = new ReservationModel();
+        model.addNewReservation("1", "01", "01/01/1927", "02/04,1984", "John", "Jackson", "King", 10);
+        String out = model.printReservationsIDSort();
+        System.out.println(out);
         
-        catch(SQLException err) {
-            System.out.println(err.getMessage());
-        }
         
     }
     
