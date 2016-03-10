@@ -5,6 +5,11 @@
  */
 package ResCust;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import testDatabase.*;
 
 /**
@@ -13,11 +18,114 @@ import testDatabase.*;
  */
 public class ReservationModel {
     
-    private tstDatabase t;
+    private String host;
+    private String username;
+    private String password;
+    private Connection con;
+    private Statement stmt;
+    private String SQL;
+    private ResultSet rs;
+    private String Database;
+    private String table;
+    
+    private String[] columnNames = new String[9];
+    private String[] data;
     
     public ReservationModel() {
+         
+        try {
         
-        t = new tstDatabase();
+            host = "jdbc:sqlite:filename.db";
+            username = "student";
+            password = "password";
+        
+            con = DriverManager.getConnection(host, username, password);
+            stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
+                    ResultSet.CONCUR_READ_ONLY);
+            
+            //SQL = "CREATE DATABASE APP";
+            //stmt.executeUpdate(SQL);
+            
+            //SQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='table_name'";
+            //stmt.executeUpdate(SQL);
+            
+            SQL = "CREATE TABLE IF NOT EXISTS RESERVATIONS" +
+                    "(ID INT PRIMARY KEY     NOT NULL,"
+                    + "FLOOR_NUMBER VARCHAR(255),"
+                    + "ROOM_NUMBER VARCHAR(255),"
+                    + "START_DATE VARCHAR(255),"
+                    + "END_DATE VARCHAR(255),"
+                    + "CUST_FIRST VARCHAR(255),"
+                    + "CUST_LAST VARCHAR(255),"
+                    + "ROOM_TYPE VARCHAR(255),"
+                    + "COST DOUBLE)";
+            stmt.executeUpdate(SQL);
+                
+            columnNames[0] = "Floor Number";
+            columnNames[1] = "RoomNumber";
+            columnNames[2] = "Start Date";
+            columnNames[3] = "End Date";
+            columnNames[4] = "Customer First Name";
+            columnNames[5] = "Customer Last Name";
+            columnNames[6] = "Room Type";
+            columnNames[7] = "Cost";
+        
+            /*columnNames = {"Floor Number",
+                        "Room Number",
+                        "Start Date",
+                        "End Date",
+                        "Customer First Name",
+                        "Customer Last Name",
+                        "Room Type",
+                        "Cost"};
+            */     
+            
+            SQL = "select * from RESERVATIONS";
+            rs = stmt.executeQuery(SQL);
+            
+          
+            
+           // String SQL = "DELETE TABLE ?";
+             
+           // PreparedStatement st = con.prepareStatement(SQL);
+            //st.setString(1, table);
+            //st.executeUpdate(); 
+        }
+                    
+        
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+    } 
+    
+    public void addNewReservation(String floorNum, String roomNum, String startDate, 
+            String endDate, String custFirstName, String custLastName, String roomType, double cost) {
+        
+        int oldID;
+        int newID = 0;
+        try {
+            SQL = "select * from APP.STUDENTS";
+            rs = stmt.executeQuery(SQL);
+            if(!rs.isBeforeFirst()) {
+                newID = 1;
+            }
+            else {
+                while(rs.next()) {
+                    oldID = rs.getInt("ID");
+                    newID = oldID + 1;   
+                }
+            }
+            stmt.executeUpdate("INSERT INTO RESERVATIONS (ID, FLOOR_NUMBER, ROOM_NUMBER,"
+                    + "START_DATE, END_DATE, CUST_FIRST, CUST_LAST, ROOM_TYPE, COST)" 
+                    + "VALUES ( " + newID + ", '" + floorNum + "', '" + roomNum + "', "
+                    + startDate + "', '" + endDate + "', '" + custFirstName + "', '" 
+                    + custLastName + "', '" + roomType + "', '" + cost + ")");
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
     }
     
 }
