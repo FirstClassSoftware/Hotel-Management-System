@@ -39,7 +39,7 @@ public class ReservationModel {
             
             t = new tstDatabase();
         
-            host = "jdbc:sqlite:filename.db";
+            host = "jdbc:sqlite:hotelData.db";
             username = "student";
             password = "password";
         
@@ -122,9 +122,11 @@ public class ReservationModel {
             }
             stmt.executeUpdate("INSERT INTO RESERVATIONS (ID, FLOOR_NUMBER, ROOM_NUMBER,"
                     + "START_DATE, END_DATE, CUST_FIRST, CUST_LAST, ROOM_TYPE, COST)" 
-                    + "VALUES ( " + newID + ", '" + floorNum + "', '" + roomNum + "', "
+                    + "VALUES ( " + newID + ", '" + floorNum + "', '" + roomNum + "', '"
                     + startDate + "', '" + endDate + "', '" + custFirstName + "', '" 
-                    + custLastName + "', '" + roomType + "', '" + cost + ")");
+                    + custLastName + "', '" + roomType + "', " + cost + ")");
+            
+            //System.out.println("Successfully added to database");
         }
         catch(SQLException err) {
             System.out.println(err.getMessage());
@@ -145,7 +147,7 @@ public class ReservationModel {
                 String custLast = rs.getString("CUST_LAST");
                 String roomType = rs.getString("ROOM_TYPE");
                 double cost = rs.getDouble("COST");
-                out.append(idNum + " " + floorNum + " " + roomNum + " " + startDate + " " 
+                out.append(/*idNum + " " + */floorNum + " " + roomNum + " " + startDate + " " 
                         + endDate + " " + custFirst + " " + custLast + " " 
                         + roomType +  " " + cost);
                 out.append("\n");
