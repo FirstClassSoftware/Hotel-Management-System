@@ -129,5 +129,36 @@ public class Reservation {
 	public void setCost(double newCost) {
 		this.cost = newCost;
 	}
+        
+        
+        
+        
+        
+        
+        
+        
+        public Object get(int column) {
+            switch(column) {
+                case 0:
+                    return id;
+                case 1: 
+                    return floorNum;
+                case 2:
+                    return roomNum;
+                case 3: 
+                    return startDate;
+                case 4: 
+                    return endDate;
+                case 5:
+                    return custNameFirst;
+                case 6:
+                    return custNameLast;
+                case 7:
+                    return roomType;
+                case 8:
+                    return cost;
+            }
+            return null;
+        }
     
 }

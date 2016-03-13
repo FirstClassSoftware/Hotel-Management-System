@@ -12,13 +12,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.table.AbstractTableModel;
 //import testDatabase.*;
 
 /**
  *
  * @author Whelan
  */
-public class ReservationModel {
+public class ReservationModel extends AbstractTableModel {
     
     private String host;
     private String username;
@@ -108,6 +109,33 @@ public class ReservationModel {
         }
         
     } 
+    
+    
+    
+    public int getRowCount() {
+        getReservations();
+        return Reservations.size();
+    }
+    
+    public int getColumnCount() {
+        getReservations();
+        return Reservations.get(0).getSize();
+    }
+    
+    public Object getValueAt(int row, int column) {
+        getReservations();
+        return Reservations.get(row).get(column);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     public int getNumRows() {
         int rows = 0;
