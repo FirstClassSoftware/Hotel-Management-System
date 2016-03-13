@@ -10,7 +10,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import testDatabase.*;
+import java.util.List;
+import java.util.ArrayList;
+//import testDatabase.*;
 
 /**
  *
@@ -28,16 +30,18 @@ public class ReservationModel {
     private String Database;
     private String table;
     
+    private List<Reservation> Reservations;
+    
     private String[] columnNames = new String[9];
     private Object[][] data;
     
-    private tstDatabase t;
+    //private tstDatabase t;
     
     public ReservationModel() {
          
         try {
             
-            t = new tstDatabase();
+            //t = new tstDatabase();
             
             
         
@@ -105,6 +109,21 @@ public class ReservationModel {
         
     } 
     
+    public int getNumRows() {
+        int rows = 0;
+        try {
+            while(rs.next()) {
+                rows++;
+            }
+            return rows;
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return rows;
+        
+    }
+    
     public void addNewReservation(String floorNum, String roomNum, String startDate, 
             String endDate, String custFirstName, String custLastName, String roomType, double cost) {
         
@@ -149,32 +168,26 @@ public class ReservationModel {
         
     }
     
-    public Object[][] getReservations(ResultSet rs) {
-        StringBuilder out = new StringBuilder();
+    public List<Reservation> getReservations() {
+        Reservations = new ArrayList<Reservation>();
         try {
-            int dataTableRow = 0;
-            while(rs.next()) {
-                dataTableRow++;
+            ResultSet result = getResultSet();
+            
+            
+            while(result.next()) {
+                Reservation reserve = new Reservation(rs.getString("FLOOR_NUMBER"), rs.getString("ROOM_NUMBER"), 
+                        rs.getString("START_DATE"), rs.getString("END_DATE"), rs.getString("CUST_FIRST"), 
+                        rs.getString("CUST_LAST"), rs.getString("ROOM_TYPE"), rs.getDouble("COST"));
+                Reservations.add(reserve);
             }
             
-            data = new Object[dataTableRow][7];
             
-            int dataTableRows = 0;
-            while(rs.next()) {
-                
-                for (int i = 0; i < 7; i++) {
-                    data[dataTableRows][i] = rs.getObject(i+1);
-                }
-                dataTableRows++;
-                
-            }
-            return data;
         }
         catch(SQLException err) {
             System.out.println(err.getMessage());
         }
         
-        return data;
+        return Reservations;
     }
     
     
@@ -215,18 +228,6 @@ public class ReservationModel {
             System.out.println(err.getMessage());
         }
         return "SQL Error";
-    }
-    
-    public Object[][] getReservationsIDSort() {
-        try {
-            SQL = "select * from RESERVATIONS";
-            rs = stmt.executeQuery(SQL);
-            return getReservations(rs);
-        }
-        catch(SQLException err) {
-            System.out.println(err.getMessage());
-        }
-        return data;
     }
     
 }

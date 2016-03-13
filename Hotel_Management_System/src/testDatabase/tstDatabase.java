@@ -9,6 +9,8 @@ import ResCust.ReservationModel;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import ResCust.*;
 /**
  *
  * @author Whelan
@@ -31,6 +33,14 @@ public class tstDatabase {
         model.addNewReservation("1", "01", "01/01/1927", "02/04,1984", "John", "Jackson", "King", 10);
         String out = model.printReservationsIDSort();
         //System.out.println(out);
+        
+        List<Reservation> Reservations = model.getReservations();
+        
+        for (int i=0; i < Reservations.size() ; i++) {
+            Reservation reserve = Reservations.get(i);
+            
+            System.out.println(reserve.getcustNameFirst());
+        }
         
     }
     
