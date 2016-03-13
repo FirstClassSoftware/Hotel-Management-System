@@ -48,6 +48,7 @@ public class ReservationView extends JPanel implements ActionListener{
         add(pnlTopBtn, BorderLayout.PAGE_START);
         add(pnlBottomBtn, BorderLayout.PAGE_END);
         
+        pnlGrid.setLayout(new BorderLayout());
         pnlGrid.add(scrTableHold, BorderLayout.CENTER);
         
         tblMain.setModel(new javax.swing.table.DefaultTableModel(
@@ -61,6 +62,7 @@ public class ReservationView extends JPanel implements ActionListener{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        
         scrTableHold.setViewportView(tblMain);
         
         btnHome.setText("Home");

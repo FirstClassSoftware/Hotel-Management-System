@@ -11,6 +11,9 @@ package ResCust;
  */
 public class Reservation {
     
+    private int size = 9;
+    
+    private int id;
     private String floorNum;
     private String roomNum;
     private String startDate;
@@ -24,6 +27,7 @@ public class Reservation {
 		
 		// Initialize all values as null
 		
+        this.id = 0;
 	this.floorNum = null;
 	this.roomNum = null;
 	this.startDate = null;
@@ -35,9 +39,10 @@ public class Reservation {
 	
 	}
 	
-	public Reservation(String floorNum, String roomNum, String startDate, String endDate, String custNameFirst, String custNameLast,
+	public Reservation(int id, String floorNum, String roomNum, String startDate, String endDate, String custNameFirst, String custNameLast,
 						String roomType, double cost) {
 		
+                this.id = id;
 		this.floorNum = floorNum;
 		this.roomNum = roomNum;
 		this.startDate = startDate;
@@ -47,6 +52,18 @@ public class Reservation {
 		this.roomType = roomType;
 		this.cost = cost;
 	
+	}
+        
+        public int getSize() {
+            return this.size;
+        }
+        
+        public int getID() {
+		return this.id;
+	}
+	
+	public void setID(int newID) {
+		this.id = newID;
 	}
 	
 	public String getFloorNum() {

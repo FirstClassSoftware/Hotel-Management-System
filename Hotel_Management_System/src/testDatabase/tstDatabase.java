@@ -31,7 +31,7 @@ public class tstDatabase {
         
         ReservationModel model = new ReservationModel();
         model.addNewReservation("1", "01", "01/01/1927", "02/04,1984", "John", "Jackson", "King", 10);
-        String out = model.printReservationsIDSort();
+        //String out = model.printReservationsIDSort();
         //System.out.println(out);
         
         List<Reservation> Reservations = model.getReservations();
@@ -39,7 +39,7 @@ public class tstDatabase {
         for (int i=0; i < Reservations.size() ; i++) {
             Reservation reserve = Reservations.get(i);
             
-            System.out.println(reserve.getcustNameFirst());
+            System.out.println(reserve.getID());
         }
         
     }

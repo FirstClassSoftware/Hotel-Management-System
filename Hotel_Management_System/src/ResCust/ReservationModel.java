@@ -175,8 +175,9 @@ public class ReservationModel {
             
             
             while(result.next()) {
-                Reservation reserve = new Reservation(rs.getString("FLOOR_NUMBER"), rs.getString("ROOM_NUMBER"), 
-                        rs.getString("START_DATE"), rs.getString("END_DATE"), rs.getString("CUST_FIRST"), 
+                Reservation reserve = new Reservation(rs.getInt("ID"), rs.getString("FLOOR_NUMBER"), 
+                        rs.getString("ROOM_NUMBER"), rs.getString("START_DATE"), 
+                        rs.getString("END_DATE"), rs.getString("CUST_FIRST"), 
                         rs.getString("CUST_LAST"), rs.getString("ROOM_TYPE"), rs.getDouble("COST"));
                 Reservations.add(reserve);
             }
@@ -190,8 +191,17 @@ public class ReservationModel {
         return Reservations;
     }
     
+    /*
+    public Object[][] exportReservations(ArrayList<Reservation> reservations) {
+        data = new Object[reservations.size()][reservations.get(0).getSize()];
+        for (int i=0; i < reservations.size() ; i++) {
+            data[i][0] = reservations.get(i).getID();
+        }
+    }
+    */
     
     
+    /*
     public String printReservations(ResultSet rs) {
         StringBuilder out = new StringBuilder();
         try {
@@ -205,7 +215,7 @@ public class ReservationModel {
                 String custLast = rs.getString("CUST_LAST");
                 String roomType = rs.getString("ROOM_TYPE");
                 double cost = rs.getDouble("COST");
-                out.append(/*idNum + " " + */floorNum + " " + roomNum + " " + startDate + " " 
+                out.append(idNum + " " + floorNum + " " + roomNum + " " + startDate + " " 
                         + endDate + " " + custFirst + " " + custLast + " " 
                         + roomType +  " " + cost);
                 out.append("\n");
@@ -218,6 +228,8 @@ public class ReservationModel {
         return "SQL Error";
     }
     
+    
+    
     public String printReservationsIDSort() {
         try {
             SQL = "select * from RESERVATIONS";
@@ -229,5 +241,7 @@ public class ReservationModel {
         }
         return "SQL Error";
     }
+    
+    */
     
 }
