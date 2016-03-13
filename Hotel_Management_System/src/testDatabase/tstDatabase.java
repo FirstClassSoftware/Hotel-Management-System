@@ -6,6 +6,9 @@
 package testDatabase;
 
 import ResCust.ReservationModel;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 /**
  *
  * @author Whelan
@@ -22,11 +25,12 @@ public class tstDatabase {
     
     public static void main(String[] args) {
         
+        
+        
         ReservationModel model = new ReservationModel();
         model.addNewReservation("1", "01", "01/01/1927", "02/04,1984", "John", "Jackson", "King", 10);
         String out = model.printReservationsIDSort();
-        System.out.println(out);
-        
+        //System.out.println(out);
         
     }
     

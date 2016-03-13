@@ -29,7 +29,7 @@ public class ReservationModel {
     private String table;
     
     private String[] columnNames = new String[9];
-    private String[] data;
+    private Object[][] data;
     
     private tstDatabase t;
     
@@ -38,6 +38,8 @@ public class ReservationModel {
         try {
             
             t = new tstDatabase();
+            
+            
         
             host = "jdbc:sqlite:hotelData.db";
             username = "student";
@@ -134,6 +136,49 @@ public class ReservationModel {
         
     }
     
+    public ResultSet getResultSet() {
+        try {
+            SQL = "select * from RESERVATIONS";
+            rs = stmt.executeQuery(SQL);
+            return rs;
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return rs;
+        
+    }
+    
+    public Object[][] getReservations(ResultSet rs) {
+        StringBuilder out = new StringBuilder();
+        try {
+            int dataTableRow = 0;
+            while(rs.next()) {
+                dataTableRow++;
+            }
+            
+            data = new Object[dataTableRow][7];
+            
+            int dataTableRows = 0;
+            while(rs.next()) {
+                
+                for (int i = 0; i < 7; i++) {
+                    data[dataTableRows][i] = rs.getObject(i+1);
+                }
+                dataTableRows++;
+                
+            }
+            return data;
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+        return data;
+    }
+    
+    
+    
     public String printReservations(ResultSet rs) {
         StringBuilder out = new StringBuilder();
         try {
@@ -170,6 +215,18 @@ public class ReservationModel {
             System.out.println(err.getMessage());
         }
         return "SQL Error";
+    }
+    
+    public Object[][] getReservationsIDSort() {
+        try {
+            SQL = "select * from RESERVATIONS";
+            rs = stmt.executeQuery(SQL);
+            return getReservations(rs);
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return data;
     }
     
 }

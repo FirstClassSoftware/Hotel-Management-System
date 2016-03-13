@@ -27,36 +27,57 @@ public class ReservationViewB extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlGrid = new javax.swing.JPanel();
-        pnlTopBtn = new javax.swing.JPanel();
+        gridPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        topButtonPanel = new javax.swing.JPanel();
         homeButton = new javax.swing.JButton();
         editValButton = new javax.swing.JButton();
         bottomButtonPanel = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout pnlGridLayout = new javax.swing.GroupLayout(pnlGrid);
-        pnlGrid.setLayout(pnlGridLayout);
-        pnlGridLayout.setHorizontalGroup(
-            pnlGridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout gridPanelLayout = new javax.swing.GroupLayout(gridPanel);
+        gridPanel.setLayout(gridPanelLayout);
+        gridPanelLayout.setHorizontalGroup(
+            gridPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gridPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
-        pnlGridLayout.setVerticalGroup(
-            pnlGridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        gridPanelLayout.setVerticalGroup(
+            gridPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gridPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        add(pnlGrid, java.awt.BorderLayout.CENTER);
+        add(gridPanel, java.awt.BorderLayout.CENTER);
 
-        pnlTopBtn.setLayout(new javax.swing.BoxLayout(pnlTopBtn, javax.swing.BoxLayout.LINE_AXIS));
+        topButtonPanel.setLayout(new javax.swing.BoxLayout(topButtonPanel, javax.swing.BoxLayout.LINE_AXIS));
 
         homeButton.setText("Home");
-        pnlTopBtn.add(homeButton);
+        topButtonPanel.add(homeButton);
 
         editValButton.setText("Edit Values");
-        pnlTopBtn.add(editValButton);
+        topButtonPanel.add(editValButton);
 
-        add(pnlTopBtn, java.awt.BorderLayout.PAGE_START);
+        add(topButtonPanel, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout bottomButtonPanelLayout = new javax.swing.GroupLayout(bottomButtonPanel);
         bottomButtonPanel.setLayout(bottomButtonPanelLayout);
@@ -79,8 +100,10 @@ public class ReservationViewB extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottomButtonPanel;
     private javax.swing.JButton editValButton;
-    private javax.swing.JPanel pnlGrid;
+    private javax.swing.JPanel gridPanel;
     private javax.swing.JButton homeButton;
-    private javax.swing.JPanel pnlTopBtn;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel topButtonPanel;
     // End of variables declaration//GEN-END:variables
 }
