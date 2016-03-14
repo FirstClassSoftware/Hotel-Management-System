@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-//import testDatabase.*;
 
 /**
  *
@@ -28,24 +27,17 @@ public class ReservationModel extends AbstractTableModel {
     private Statement stmt;
     private String SQL;
     private ResultSet rs;
-    private String Database;
-    private String table;
     
     private List<Reservation> Reservations;
     
-    private String[] columnNames = new String[9];
-    private Object[][] data;
-    
-    //private tstDatabase t;
+    private final String[] columnNames = new String[] {"ID", "Floor Number", 
+        "Room Number", "Start Date", "End Date", "Customer First Name", 
+        "Customer Last Name", "Room Type", "Cost", "Remove Entry"};
     
     public ReservationModel() {
          
         try {
             
-            //t = new tstDatabase();
-            
-            
-        
             host = "jdbc:sqlite:hotelData.db";
             username = "student";
             password = "password";
@@ -53,12 +45,6 @@ public class ReservationModel extends AbstractTableModel {
             con = DriverManager.getConnection(host, username, password);
             stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
                     ResultSet.CONCUR_READ_ONLY);
-            
-            //SQL = "CREATE DATABASE APP";
-            //stmt.executeUpdate(SQL);
-            
-            //SQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='table_name'";
-            //stmt.executeUpdate(SQL);
             
             SQL = "CREATE TABLE IF NOT EXISTS RESERVATIONS" +
                     "(ID INT PRIMARY KEY     NOT NULL,"
@@ -71,36 +57,10 @@ public class ReservationModel extends AbstractTableModel {
                     + "ROOM_TYPE VARCHAR(255),"
                     + "COST DOUBLE)";
             stmt.executeUpdate(SQL);
-                
-            columnNames[0] = "Floor Number";
-            columnNames[1] = "RoomNumber";
-            columnNames[2] = "Start Date";
-            columnNames[3] = "End Date";
-            columnNames[4] = "Customer First Name";
-            columnNames[5] = "Customer Last Name";
-            columnNames[6] = "Room Type";
-            columnNames[7] = "Cost";
-        
-            /*columnNames = {"Floor Number",
-                        "Room Number",
-                        "Start Date",
-                        "End Date",
-                        "Customer First Name",
-                        "Customer Last Name",
-                        "Room Type",
-                        "Cost"};
-            */     
             
             SQL = "select * from RESERVATIONS";
             rs = stmt.executeQuery(SQL);
             
-          
-            
-           // String SQL = "DELETE TABLE ?";
-             
-           // PreparedStatement st = con.prepareStatement(SQL);
-            //st.setString(1, table);
-            //st.executeUpdate(); 
         }
                     
         
@@ -111,23 +71,34 @@ public class ReservationModel extends AbstractTableModel {
     } 
     
     
-    
+    @Override
     public int getRowCount() {
         getReservations();
         return Reservations.size();
     }
     
+    @Override
     public int getColumnCount() {
         getReservations();
         return Reservations.get(0).getSize();
     }
     
+    @Override
     public Object getValueAt(int row, int column) {
         getReservations();
         return Reservations.get(row).get(column);
     }
+
+    @Override
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
     
-    
+    @Override
+    public void setValueAt(Object value, int row, int col) {
+        getReservations();
+        Reservations.get(row).setValue(col, value);
+    }
     
     
     
@@ -218,58 +189,5 @@ public class ReservationModel extends AbstractTableModel {
         
         return Reservations;
     }
-    
-    /*
-    public Object[][] exportReservations(ArrayList<Reservation> reservations) {
-        data = new Object[reservations.size()][reservations.get(0).getSize()];
-        for (int i=0; i < reservations.size() ; i++) {
-            data[i][0] = reservations.get(i).getID();
-        }
-    }
-    */
-    
-    
-    /*
-    public String printReservations(ResultSet rs) {
-        StringBuilder out = new StringBuilder();
-        try {
-            while(rs.next()) {
-                int idNum = rs.getInt("ID");
-                String floorNum = rs.getString("FLOOR_NUMBER");
-                String roomNum = rs.getString("ROOM_NUMBER");
-                String startDate = rs.getString("START_DATE");
-                String endDate = rs.getString("END_DATE");
-                String custFirst = rs.getString("CUST_FIRST");
-                String custLast = rs.getString("CUST_LAST");
-                String roomType = rs.getString("ROOM_TYPE");
-                double cost = rs.getDouble("COST");
-                out.append(idNum + " " + floorNum + " " + roomNum + " " + startDate + " " 
-                        + endDate + " " + custFirst + " " + custLast + " " 
-                        + roomType +  " " + cost);
-                out.append("\n");
-            }
-            return out.toString();
-        }
-        catch(SQLException err) {
-            System.out.println(err.getMessage());
-        }
-        return "SQL Error";
-    }
-    
-    
-    
-    public String printReservationsIDSort() {
-        try {
-            SQL = "select * from RESERVATIONS";
-            rs = stmt.executeQuery(SQL);
-            return printReservations(rs);
-        }
-        catch(SQLException err) {
-            System.out.println(err.getMessage());
-        }
-        return "SQL Error";
-    }
-    
-    */
     
 }

@@ -130,6 +130,11 @@ public class Reservation {
 		this.cost = newCost;
 	}
         
+        public void setValue(int column, Object value) {
+            Object oldValue = get(column);
+            oldValue = value;
+        }
+        
         
         
         
