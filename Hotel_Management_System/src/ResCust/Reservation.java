@@ -131,8 +131,26 @@ public class Reservation {
 	}
         
         public void setValue(int column, Object value) {
-            Object oldValue = get(column);
-            oldValue = value;
+            switch(column) {
+                case 0:
+                    id = (Integer) value;
+                case 1: 
+                    floorNum = (String) value;
+                case 2:
+                    roomNum = (String) value;
+                case 3: 
+                    startDate = (String) value;
+                case 4: 
+                    endDate = (String) value;
+                case 5:
+                    custNameFirst = (String) value;
+                case 6:
+                    custNameLast = (String) value;
+                case 7:
+                    roomType = (String) value;
+                case 8:
+                    cost = (Double) value;
+            }
         }
         
         
