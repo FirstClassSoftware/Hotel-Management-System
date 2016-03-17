@@ -16,31 +16,47 @@ import java.awt.event.ActionListener;
  */
 public class ReservationView extends JPanel implements ActionListener{
     
+    ReservationModel model;
+    
     JPanel pnlGrid;
     JScrollPane scrTableHold;
     JTable tblMain;
     JPanel pnlTopBtn;
     JPanel pnlBottomBtn;
+    
     JButton btnHome;
     JButton btnNewRes;
     JButton btnEditVal;
     JButton btnGoToCust;
+    
+    JTextField fldSearchEntry;
+    JComboBox cmbSearchCategory;
+    JButton btnSearch;
+    
+    private final String[] columnNames = new String[] {"ID", "Floor Number", 
+        "Room Number", "Start Date", "End Date", "Customer First Name", 
+        "Customer Last Name", "Room Type", "Cost"};
     
     public ReservationView() {
         initializeComponents();
     }
     
     private void initializeComponents() {
+        model = new ReservationModel();
+        String[] cmbSearchCat = columnNames;
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
-        tblMain = new JTable(new ReservationModel());
+        tblMain = new JTable(model);
         pnlTopBtn = new JPanel();
         pnlBottomBtn = new JPanel();
         btnHome = new JButton();
         btnNewRes = new JButton();
         btnEditVal = new JButton();
         btnGoToCust = new JButton();
+        fldSearchEntry = new JTextField(20);
+        cmbSearchCategory = new JComboBox(cmbSearchCat);
+        btnSearch = new JButton();
         
         setLayout(new BorderLayout());
         
@@ -50,25 +66,31 @@ public class ReservationView extends JPanel implements ActionListener{
         
         pnlGrid.setLayout(new BorderLayout());
         pnlGrid.add(scrTableHold, BorderLayout.CENTER);
-        
-       
-        
-        
         scrTableHold.setViewportView(tblMain);
         
         btnHome.setText("Home");
         btnNewRes.setText("Add New Reservation");
         btnEditVal.setText("Edit Values");
         
-        pnlTopBtn.setLayout(new BoxLayout(pnlTopBtn, BoxLayout.LINE_AXIS));
+        pnlTopBtn.setLayout(new FlowLayout());
         pnlTopBtn.add(btnHome);
         pnlTopBtn.add(btnNewRes);
         pnlTopBtn.add(btnEditVal);
+        
+        btnSearch.setText("Search");
+        
+        pnlBottomBtn.setLayout(new FlowLayout());
+        pnlBottomBtn.add(fldSearchEntry);
+        pnlBottomBtn.add(cmbSearchCategory);
+        pnlBottomBtn.add(btnSearch);
         
     }
     
     public void registerListener() {
         btnHome.addActionListener(this);
+        btnNewRes.addActionListener(this);
+        btnEditVal.addActionListener(this);
+        btnSearch.addActionListener(this);
     }
     
     @Override

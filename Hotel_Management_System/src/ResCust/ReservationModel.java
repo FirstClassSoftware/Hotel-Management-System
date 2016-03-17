@@ -32,7 +32,7 @@ public class ReservationModel extends AbstractTableModel {
     
     private final String[] columnNames = new String[] {"ID", "Floor Number", 
         "Room Number", "Start Date", "End Date", "Customer First Name", 
-        "Customer Last Name", "Room Type", "Cost", "Remove Entry"};
+        "Customer Last Name", "Room Type", "Cost"};
     
     public ReservationModel() {
          
@@ -69,6 +69,13 @@ public class ReservationModel extends AbstractTableModel {
         }
         
     } 
+    
+    
+    
+    
+    
+    
+    
     
     
     @Override
