@@ -17,8 +17,6 @@ import ResCust.*;
  */
 public class tstDatabase {
     
-    ReservationModel m;
-    
     public tstDatabase() {
         
         //m = new ReservationModel();
@@ -29,17 +27,17 @@ public class tstDatabase {
         
         
         
-        ReservationModel model = new ReservationModel();
-        model.addNewReservation("1", "01", "01/01/1927", "02/04,1984", "John", "Jackson", "King", 10);
+        CustomerModel c = new CustomerModel();
+        c.addNewCustomer("John", "Jackson", "3", "02/04,1984", "800 Peachtree St", "0", "206", "911", "cwrok@gmail.com", "Credit Card");
         //String out = model.printReservationsIDSort();
         //System.out.println(out);
         
-        List<Reservation> Reservations = model.getReservations();
+        List<Customer> Customers = c.getCustomers();
         
-        for (int i=0; i < Reservations.size() ; i++) {
-            Reservation reserve = Reservations.get(i);
+        for (int i=0; i < Customers.size() ; i++) {
+            Customer cust = Customers.get(i);
             
-            System.out.println(reserve.getID());
+            System.out.println(cust.getID());
         }
         
     }

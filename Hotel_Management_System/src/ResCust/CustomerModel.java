@@ -18,7 +18,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Whelan
  */
-public class ReservationModel extends AbstractTableModel {
+public class CustomerModel extends AbstractTableModel {
     
     private String host;
     private String username;
@@ -28,13 +28,13 @@ public class ReservationModel extends AbstractTableModel {
     private String SQL;
     private ResultSet rs;
     
-    private List<Reservation> Reservations;
+    private List<Customer> Customers;
     
-    private final String[] columnNames = new String[] {"ID", "Floor Number", 
-        "Room Number", "Start Date", "End Date", "Customer First Name", 
-        "Customer Last Name", "Room Type", "Cost"};
+    private final String[] columnNames = new String[] {"First Name", "Last Name", 
+        "Number of Occupants", "Occupation Date", "Address", "Customer Tab", 
+        "Previous Room Number", "Phone Number", "Email", "Payment Method"};
     
-    public ReservationModel() {
+    public CustomerModel() {
          
         try {
             
@@ -46,22 +46,24 @@ public class ReservationModel extends AbstractTableModel {
             stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
                     ResultSet.CONCUR_READ_ONLY);
             
-            SQL = "CREATE TABLE IF NOT EXISTS RESERVATIONS" 
+            SQL = "CREATE TABLE IF NOT EXISTS CUSTOMERS" 
                     + "(ID INT PRIMARY KEY     NOT NULL,"
-                    + "FLOOR_NUMBER VARCHAR(255),"
-                    + "ROOM_NUMBER VARCHAR(255),"
-                    + "START_DATE VARCHAR(255),"
-                    + "END_DATE VARCHAR(255),"
-                    + "CUST_FIRST VARCHAR(255),"
-                    + "CUST_LAST VARCHAR(255),"
-                    + "ROOM_TYPE VARCHAR(255),"
-                    + "COST DOUBLE)";
+                    + "FIRST_NAME VARCHAR(255),"
+                    + "LAST_NAME VARCHAR(255),"
+                    + "NUMBER_OF_OCCUPANTS VARCHAR(255),"
+                    + "OCCUPATION_DATE VARCHAR(255),"
+                    + "ADDRESS VARCHAR(255),"
+                    + "TAB VARCHAR(255),"
+                    + "PREVIOUS_ROOM_NUM VARCHAR(255),"
+                    + "PHONE_NUM VARCHAR(255),"
+                    + "EMAIL VARCHAR(255),"
+                    + "PAYMENT_METHOD VARCHAR(255))";
             stmt.executeUpdate(SQL);
             
-            SQL = "select * from RESERVATIONS";
+            SQL = "select * from CUSTOMERS";
             rs = stmt.executeQuery(SQL);
             
-            System.out.println("success");
+            System.out.println("table created");
             
         }
                     
@@ -82,21 +84,21 @@ public class ReservationModel extends AbstractTableModel {
     
     @Override
     public int getRowCount() {
-        getReservations();
-        return Reservations.size();
+        getCustomers();
+        return Customers.size();
     }
     
     @Override
     public int getColumnCount() {
-        getReservations();
-        return 9;
-        //return Reservations.get(0).getSize();
+        getCustomers();
+        return 11;
+        //return Customers.get(0).getSize();
     }
     
     @Override
     public Object getValueAt(int row, int column) {
-        getReservations();
-        return Reservations.get(row).get(column);
+        getCustomers();
+        return Customers.get(row).get(column);
     }
 
     @Override
@@ -106,8 +108,8 @@ public class ReservationModel extends AbstractTableModel {
     
     @Override
     public void setValueAt(Object value, int row, int col) {
-        getReservations();
-        Reservations.get(row).setValue(col, value);
+        getCustomers();
+        Customers.get(row).setValue(col, value);
     }
     
     
@@ -133,13 +135,14 @@ public class ReservationModel extends AbstractTableModel {
         
     }
     
-    public void addNewReservation(String floorNum, String roomNum, String startDate, 
-            String endDate, String custFirstName, String custLastName, String roomType, double cost) {
+    public void addNewCustomer(String firstName, String lastName, String numOfOccupants, 
+            String occupationDate, String address, String tab, String lastRoomNum, 
+            String phoneNum, String email, String paymentMethod) {
         
         int oldID;
         int newID = 0;
         try {
-            SQL = "select * from RESERVATIONS";
+            SQL = "select * from CUSTOMERS";
             rs = stmt.executeQuery(SQL);
             if(!rs.isBeforeFirst()) {
                 newID = 1;
@@ -150,13 +153,15 @@ public class ReservationModel extends AbstractTableModel {
                     newID = oldID + 1;   
                 }
             }
-            stmt.executeUpdate("INSERT INTO RESERVATIONS (ID, FLOOR_NUMBER, ROOM_NUMBER,"
-                    + "START_DATE, END_DATE, CUST_FIRST, CUST_LAST, ROOM_TYPE, COST)" 
-                    + "VALUES ( " + newID + ", '" + floorNum + "', '" + roomNum + "', '"
-                    + startDate + "', '" + endDate + "', '" + custFirstName + "', '" 
-                    + custLastName + "', '" + roomType + "', " + cost + ")");
+            stmt.executeUpdate("INSERT INTO CUSTOMERS (ID, FIRST_NAME, LAST_NAME,"
+                    + "NUMBER_OF_OCCUPANTS, OCCUPATION_DATE, ADDRESS, TAB, "
+                    + "PREVIOUS_ROOM_NUM, PHONE_NUM, EMAIL, PAYMENT_METHOD)" 
+                    + "VALUES ( " + newID + ", '" + firstName + "', '" + lastName + "', '"
+                    + numOfOccupants + "', '" + occupationDate + "', '" + address + "', '" 
+                    + tab + "', '" + lastRoomNum + "', '" + phoneNum + "', '"
+                    + email + "', '" + paymentMethod + "')");
             
-            //System.out.println("Successfully added to database");
+            System.out.println("Successfully added to database");
         }
         catch(SQLException err) {
             System.out.println(err.getMessage());
@@ -166,7 +171,7 @@ public class ReservationModel extends AbstractTableModel {
     
     public ResultSet getResultSet() {
         try {
-            SQL = "select * from RESERVATIONS";
+            SQL = "select * from CUSTOMERS";
             rs = stmt.executeQuery(SQL);
             return rs;
         }
@@ -177,18 +182,18 @@ public class ReservationModel extends AbstractTableModel {
         
     }
     
-    public List<Reservation> getReservations() {
-        Reservations = new ArrayList<Reservation>();
+    public List<Customer> getCustomers() {
+        Customers = new ArrayList<Customer>();
         try {
-            ResultSet result = getResultSet();
-            
+            ResultSet result = this.getResultSet();
             
             while(result.next()) {
-                Reservation reserve = new Reservation(rs.getInt("ID"), rs.getString("FLOOR_NUMBER"), 
-                        rs.getString("ROOM_NUMBER"), rs.getString("START_DATE"), 
-                        rs.getString("END_DATE"), rs.getString("CUST_FIRST"), 
-                        rs.getString("CUST_LAST"), rs.getString("ROOM_TYPE"), rs.getDouble("COST"));
-                Reservations.add(reserve);
+                Customer customer = new Customer(rs.getInt("ID"), rs.getString("FIRST_NAME"), 
+                        rs.getString("LAST_NAME"), rs.getString("NUMBER_OF_OCCUPANTS"), 
+                        rs.getString("OCCUPATION_DATE"), rs.getString("ADDRESS"), 
+                        rs.getString("TAB"), rs.getString("PREVIOUS_ROOM_NUM"), 
+                        rs.getString("PHONE_NUM"), rs.getString("EMAIL"), rs.getString("PAYMENT_METHOD"));
+                Customers.add(customer);
             }
             
             
@@ -197,7 +202,7 @@ public class ReservationModel extends AbstractTableModel {
             System.out.println(err.getMessage());
         }
         
-        return Reservations;
+        return Customers;
     }
     
 }
