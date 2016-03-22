@@ -27,6 +27,7 @@ public class CustomerView extends JPanel implements ActionListener{
     JTable tblMain;
     JPanel pnlTopBtn;
     JPanel pnlBottomBtn;
+    AddNewCustView newCustView;
     
     JButton btnHome;
     JButton btnNewCust;
@@ -50,6 +51,8 @@ public class CustomerView extends JPanel implements ActionListener{
         model = new CustomerModel();
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
+        newCustView = new AddNewCustView();
+        
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
@@ -115,6 +118,13 @@ public class CustomerView extends JPanel implements ActionListener{
         if (e.getSource() == btnGoToRes) {
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
             cardLayout.show(contentPane, "Reservation Screen");
+        }
+        
+        if (e.getSource() == btnNewCust) {
+            JFrame frame = new JFrame();
+            frame.setSize(300, 300);
+            frame.setVisible(true);
+            frame.add(newCustView);
         }
         
     }
