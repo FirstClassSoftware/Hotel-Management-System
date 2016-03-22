@@ -61,7 +61,7 @@ public class ReservationModel extends AbstractTableModel {
             SQL = "select * from RESERVATIONS";
             rs = stmt.executeQuery(SQL);
             
-            System.out.println("success");
+            //System.out.println("success");
             
         }
                     

@@ -63,7 +63,7 @@ public class CustomerModel extends AbstractTableModel {
             SQL = "select * from CUSTOMERS";
             rs = stmt.executeQuery(SQL);
             
-            System.out.println("table created");
+            //System.out.println("table created");
             
         }
                     
@@ -208,5 +208,11 @@ public class CustomerModel extends AbstractTableModel {
         
         return Customers;
     }
+    
+    
+    
+    
+    
+    
     
 }

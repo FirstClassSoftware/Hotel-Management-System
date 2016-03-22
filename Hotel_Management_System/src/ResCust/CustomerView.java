@@ -70,6 +70,8 @@ public class CustomerView extends JPanel implements ActionListener{
         add(pnlTopBtn, BorderLayout.PAGE_START);
         add(pnlBottomBtn, BorderLayout.PAGE_END);
         
+        tblMain.setAutoCreateRowSorter(true);
+        
         pnlGrid.setLayout(new BorderLayout());
         pnlGrid.add(scrTableHold, BorderLayout.CENTER);
         scrTableHold.setViewportView(tblMain);
