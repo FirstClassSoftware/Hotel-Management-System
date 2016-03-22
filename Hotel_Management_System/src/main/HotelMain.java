@@ -3,25 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ResCust;
+package main;
 
-// When finished, plan is to add the ReservationView panel to the already created
-// mainFrame, but for testing, I will add it to a new Jframe in this main method
 import javax.swing.JFrame;
 import java.awt.Toolkit;
 
 /**
  *
- * @author Whelan
+ * @author WhelanMyPC
  */
-public class ResCustMain {
+public class HotelMain {
     
-    /*
     public static void main(String[] args) {
-        ReservationView v = new ReservationView();
-        //ReservationModel m = new ReservationModel();
-        
-        
+        MainPanelCard c = new MainPanelCard();
         
         JFrame j = new JFrame();
         Toolkit tk = Toolkit.getDefaultToolkit();
@@ -30,12 +24,8 @@ public class ResCustMain {
         j.setSize(xSize,ySize);
         j.setLocationRelativeTo(null);
         j.setVisible(true);
-        j.add(v);
+        j.add(c);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        v.registerListener();
-        v.setVisible(true);
     }
-    */
     
 }

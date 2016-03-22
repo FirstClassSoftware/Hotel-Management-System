@@ -102,7 +102,7 @@ public class ReservationViewB extends javax.swing.JPanel {
         add(bottomButtonPanel, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
 
-    public void registerListener(ReservationControl controller) {
+    public void registerListener() {
         //btnAddStudent.addActionListener(controller);
     }
 

@@ -16,11 +16,11 @@ import java.awt.event.ActionListener;
  *
  * @author WhelanMyPC
  */
-public class ReservationView extends JPanel implements ActionListener{
-    
-    ReservationModel model;
+public class CustomerView extends JPanel implements ActionListener{
     
     JPanel contentPane;
+    
+    CustomerModel model;
     
     JPanel pnlGrid;
     JScrollPane scrTableHold;
@@ -29,25 +29,26 @@ public class ReservationView extends JPanel implements ActionListener{
     JPanel pnlBottomBtn;
     
     JButton btnHome;
-    JButton btnNewRes;
+    JButton btnNewCust;
     JButton btnEditVal;
-    JButton btnGoToCust;
+    JButton btnGoToRes;
     
     JTextField fldSearchEntry;
     JComboBox cmbSearchCategory;
     JButton btnSearch;
     
-    private final String[] columnNames = new String[] {"ID", "Floor Number", 
-        "Room Number", "Start Date", "End Date", "Customer First Name", 
-        "Customer Last Name", "Room Type", "Cost"};
+    private String[] columnNames;
     
-    public ReservationView(MainPanelCard c) {
+    public CustomerView(MainPanelCard c) {
+        
         contentPane = c;
         initializeComponents();
+        
     }
     
     private void initializeComponents() {
-        model = new ReservationModel();
+        model = new CustomerModel();
+        columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
         
         pnlGrid = new JPanel();
@@ -56,9 +57,9 @@ public class ReservationView extends JPanel implements ActionListener{
         pnlTopBtn = new JPanel();
         pnlBottomBtn = new JPanel();
         btnHome = new JButton();
-        btnNewRes = new JButton();
+        btnNewCust = new JButton();
         btnEditVal = new JButton();
-        btnGoToCust = new JButton();
+        btnGoToRes = new JButton();
         fldSearchEntry = new JTextField(20);
         cmbSearchCategory = new JComboBox(cmbSearchCat);
         btnSearch = new JButton();
@@ -74,15 +75,15 @@ public class ReservationView extends JPanel implements ActionListener{
         scrTableHold.setViewportView(tblMain);
         
         btnHome.setText("Home");
-        btnNewRes.setText("Add New Reservation");
+        btnNewCust.setText("Add New Customer");
         btnEditVal.setText("Edit Values");
-        btnGoToCust.setText("Go To Customer Screen");
+        btnGoToRes.setText("Go to Reservations Screen");
         
         pnlTopBtn.setLayout(new FlowLayout());
         pnlTopBtn.add(btnHome);
-        pnlTopBtn.add(btnNewRes);
+        pnlTopBtn.add(btnNewCust);
         pnlTopBtn.add(btnEditVal);
-        pnlTopBtn.add(btnGoToCust);
+        pnlTopBtn.add(btnGoToRes);
         
         btnSearch.setText("Search");
         
@@ -92,15 +93,14 @@ public class ReservationView extends JPanel implements ActionListener{
         pnlBottomBtn.add(btnSearch);
         
         registerListener();
-        
     }
     
     public void registerListener() {
         btnHome.addActionListener(this);
-        btnNewRes.addActionListener(this);
+        btnNewCust.addActionListener(this);
         btnEditVal.addActionListener(this);
         btnSearch.addActionListener(this);
-        btnGoToCust.addActionListener(this);
+        btnGoToRes.addActionListener(this);
     }
     
     @Override
@@ -110,10 +110,9 @@ public class ReservationView extends JPanel implements ActionListener{
             System.exit(0);
         }
         
-        if (e.getSource() == btnGoToCust) {
+        if (e.getSource() == btnGoToRes) {
             CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.show(contentPane, "Customer Screen");
-            //cardLayout.next(contentPane);
+            cardLayout.show(contentPane, "Reservation Screen");
         }
         
     }
