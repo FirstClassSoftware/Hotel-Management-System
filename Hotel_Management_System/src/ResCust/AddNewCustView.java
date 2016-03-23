@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
 import java.awt.FlowLayout;
 
 /**
@@ -49,12 +51,17 @@ public class AddNewCustView extends JPanel {
     
     
     public AddNewCustView() {
-        this.setLayout(new FlowLayout());
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
         
-        pnlLabel = new JPanel();
-        pnlLabel.setLayout(new BoxLayout(pnlLabel, BoxLayout.PAGE_AXIS));
+        //pnlLabel = new JPanel();
+        //pnlLabel.setLayout(new BoxLayout(pnlLabel, BoxLayout.PAGE_AXIS));
         
         lblFirstName = new JLabel("First Name");
+        c.gridx = 0;
+        c.gridy = 0;
+        this.add(lblFirstName, c);
+        
         lblLastName = new JLabel("Last Name");
         lblNumOfOccupants = new JLabel("Number of Occupants");
         lblOccupationDate = new JLabel("Occupation Date");
@@ -65,6 +72,9 @@ public class AddNewCustView extends JPanel {
         lblEmail = new JLabel("Email Address");
         lblPaymentMethod = new JLabel("Payment Method");
         
+        
+        
+        /*
         pnlLabel.add(lblFirstName);
         pnlLabel.add(lblLastName);
         pnlLabel.add(lblNumOfOccupants);
@@ -77,15 +87,49 @@ public class AddNewCustView extends JPanel {
         pnlLabel.add(lblPaymentMethod);
         
         this.add(pnlLabel);
+        */
         
-        pnlTextField = new JPanel(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        //pnlTextField = new JPanel();
+        //pnlTextField.setLayout(new BoxLayout(pnlTextField, BoxLayout.PAGE_AXIS));
         
-        txtFirstName = new JTextField();
+        int txtSize = 20;
+        txtFirstName = new JTextField(txtSize);
+        c.gridx = 1;
+        c.gridy = 0;
+        this.add(txtFirstName, c);
+        
+        txtLastName = new JTextField(txtSize);
+        txtNumOfOccupants = new JTextField(txtSize);
+        txtOccupationDate = new JTextField(txtSize);
+        txtAddress = new JTextField(txtSize);
+        txtTab = new JTextField(txtSize);
+        txtLastRoomNum = new JTextField(txtSize);
+        txtPhoneNum = new JTextField(txtSize);
+        txtEmail = new JTextField(txtSize);
+        txtPaymentMethod = new JTextField(txtSize);
+        
+        /*
+        pnlTextField.add(txtFirstName);
+        pnlTextField.add(txtLastName);
+        pnlTextField.add(txtNumOfOccupants);
+        pnlTextField.add(txtOccupationDate);
+        pnlTextField.add(txtAddress);
+        pnlTextField.add(txtTab);
+        pnlTextField.add(txtLastRoomNum);
+        pnlTextField.add(txtPhoneNum);
+        pnlTextField.add(txtEmail);
+        pnlTextField.add(txtPaymentMethod);
+        
+        this.add(pnlTextField);
+        */
+        
         btnSubmit = new JButton();
         btnSubmit.setText("Submit");
-        
-        this.add(txtFirstName);
-        this.add(btnSubmit);
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 2;
+        //c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(btnSubmit, c);
     }
     
 }
