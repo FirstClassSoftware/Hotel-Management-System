@@ -122,7 +122,7 @@ public class CustomerView extends JPanel implements ActionListener{
         
         if (e.getSource() == btnNewCust) {
             JFrame frame = new JFrame();
-            frame.setSize(300, 300);
+            frame.setSize(300, 100);
             frame.setVisible(true);
             frame.add(newCustView);
         }
