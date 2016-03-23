@@ -16,13 +16,14 @@ public class Item {
     
     // Instance Variables
     
-    private int size = 5;
+    private int size = 6;
     
     private int id;
     private String itemName;
     private int currentAmount;
     private int maxAmount;
     private double itemCost;
+    private double itemStatus;
     
     
     // Constructors
@@ -35,18 +36,20 @@ public class Item {
         this.currentAmount = 0;
         this.maxAmount = 0;
         this.itemCost = 0.0;
+        this.itemStatus = 0.0;
     }
     
     /* This constructor sets the item values to the specified parameters:
     id, itemName, currentAmount, maxAmount, itemCost
     */
     public Item(int id, String itemName, int currentAmount, int maxAmount, double
-            itemCost) {
+            itemCost, double itemStatus) {
         this.id = id;
         this.itemName = itemName;
         this.currentAmount = currentAmount;
         this.maxAmount = maxAmount;
         this.itemCost = itemCost;
+        this.itemStatus = itemStatus;
     }
 
     
@@ -92,6 +95,14 @@ public class Item {
         return this.itemCost;
     }
     
+    /* Returns the status of the item
+    PRECONDITIONS: none
+    POSTCONDITIONS: the item's status will be returned to the user
+    */
+    public double getItemStatus() {
+        return this.itemStatus;
+    }
+    
     public Object get(int column) {
         switch(column) {
             case 0:
@@ -104,6 +115,8 @@ public class Item {
                 return maxAmount;
             case 4:
                 return itemCost;
+            case 5:
+                return itemStatus;
         }
         return null;
     }
@@ -151,6 +164,14 @@ public class Item {
         this.itemCost = newItemCost;
     }
     
+    /* Sets the status of the item
+    PRECONDITIONS: itemStatus exists in the database
+    POSTCONDITIONS: the item's status will be changed and set to newItemStatus
+    */
+    public void setItemStatus(double newItemStatus) {
+        this.itemStatus = newItemStatus;
+    }
+    
     public void setValue(int column, Object value) {
         switch(column) {
             case 0:
@@ -163,6 +184,8 @@ public class Item {
                 maxAmount = (Integer) value;
             case 4:
                 itemCost = (Double) value;
+            case 5:
+                itemStatus = (Double) value;
         }
     }
 
