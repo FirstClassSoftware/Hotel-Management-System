@@ -198,32 +198,30 @@ public class Employee {
     public Object get(int column) {
         switch(column) {
             case 0:
-                return id;
-            case 1:
                 return employeeID;
-            case 2:
+            case 1:
                 return firstName;
-            case 3:
+            case 2:
                 return lastName;
-            case 4:
+            case 3:
                 return employeeStatus;
-            case 5:
+            case 4:
                 return clockIn;
-            case 6:
+            case 5:
                 return clockOut;
-            case 7:
+            case 6:
                 return hoursWorked;
-            case 8:
+            case 7:
                 return hourlyWage;
-            case 9:
+            case 8:
                 return dailyPay;
-            case 10:
+            case 9:
                 return deductions;
-            case 11:
+            case 10:
                 return bonus;
-            case 12:
+            case 11:
                 return tax;
-            case 13:
+            case 12:
                 return totalPay;
         }
         return null;
@@ -355,32 +353,30 @@ public class Employee {
     public void setValue(int  column, Object value) {
         switch(column) {
             case 0:
-                id = (Integer) value;
-            case 1:
                 employeeID = (String) value;
-            case 2:
+            case 1:
                 firstName = (String) value;
-            case 3:
+            case 2:
                 lastName = (String) value;
-            case 4:
+            case 3:
                 employeeStatus = (String) value;
-            case 5:
+            case 4:
                 clockIn = (String) value;
-            case 6:
+            case 5:
                 clockOut = (String) value;
-            case 7:
+            case 6:
                 hoursWorked = (Integer) value;
-            case 8:
+            case 7:
                 hourlyWage = (Double) value;
-            case 9:
+            case 8:
                 dailyPay = (Double) value;
-            case 10:
+            case 9:
                 deductions = (Double) value;
-            case 11:
+            case 10:
                 bonus = (Double) value;
-            case 12:
+            case 11:
                 tax = (Double) value;
-            case 13:
+            case 12:
                 totalPay = (Double) value;
         }
     }
