@@ -106,16 +106,14 @@ public class Item {
     public Object get(int column) {
         switch(column) {
             case 0:
-                return id;
-            case 1:
                 return itemName;
-            case 2:
+            case 1:
                 return currentAmount;
-            case 3:
+            case 2:
                 return maxAmount;
-            case 4:
+            case 3:
                 return itemCost;
-            case 5:
+            case 4:
                 return itemStatus;
         }
         return null;
@@ -175,16 +173,14 @@ public class Item {
     public void setValue(int column, Object value) {
         switch(column) {
             case 0:
-                id = (Integer) value;
-            case 1:
                 itemName = (String) value;
-            case 2:
+            case 1:
                 currentAmount = (Integer) value;
-            case 3:
+            case 2:
                 maxAmount = (Integer) value;
-            case 4:
+            case 3:
                 itemCost = (Double) value;
-            case 5:
+            case 4:
                 itemStatus = (Double) value;
         }
     }
