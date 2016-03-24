@@ -119,7 +119,7 @@ public class InventoryModel extends AbstractTableModel {
         int oldID;
         int newID = 0;
         try {
-            SQL = "selecct * from INVENTORY";
+            SQL = "select * from INVENTORY";
             rs = stmt.executeQuery(SQL);
             
             if (!rs.isBeforeFirst()) {
