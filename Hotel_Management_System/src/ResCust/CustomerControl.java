@@ -25,16 +25,20 @@ public class CustomerControl implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource() == view.btnHome) {
+        if (e.getSource() == view.getBtnHome()) {
             System.exit(0);
         }
         
-        if (e.getSource() == view.btnGoToRes) {
+        if (e.getSource() == view.getBtnGoToRes()) {
             view.goToRes();
         }
         
-        if (e.getSource() == view.btnNewCust) {
+        if (e.getSource() == view.getBtnNewCust()) {
             view.showNewCustScreen();
+        }
+        
+        if (e.getSource() == view.getNewCustView().getBtnSubmit()) {
+            System.exit(0);
         }
         
     }

@@ -9,8 +9,6 @@ import main.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
@@ -29,14 +27,14 @@ public class CustomerView extends JPanel {
     JPanel pnlBottomBtn;
     AddNewCustView newCustView;
     
-    JButton btnHome;
-    JButton btnNewCust;
-    JButton btnEditVal;
-    JButton btnGoToRes;
+    private JButton btnHome;
+    private JButton btnNewCust;
+    private JButton btnEditVal;
+    private JButton btnGoToRes;
     
-    JTextField fldSearchEntry;
-    JComboBox cmbSearchCategory;
-    JButton btnSearch;
+    private JTextField fldSearchEntry;
+    private JComboBox cmbSearchCategory;
+    private JButton btnSearch;
     
     private String[] columnNames;
     
@@ -52,7 +50,7 @@ public class CustomerView extends JPanel {
         //model = new CustomerModel();
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
-        newCustView = new AddNewCustView();
+        newCustView = new AddNewCustView(this);
         
         
         pnlGrid = new JPanel();
@@ -107,6 +105,31 @@ public class CustomerView extends JPanel {
         btnEditVal.addActionListener(controller);
         btnSearch.addActionListener(controller);
         btnGoToRes.addActionListener(controller);
+        newCustView.getBtnSubmit().addActionListener(controller);
+    }
+    
+    public AddNewCustView getNewCustView() {
+        return newCustView;
+    }
+    
+    public JButton getBtnHome() {
+        return btnHome;
+    }
+    
+    public JButton getBtnNewCust() {
+        return btnNewCust;
+    }
+    
+    public JButton getBtnEditVal() {
+        return btnEditVal;
+    }
+    
+    public JButton getBtnSearc() {
+        return btnSearch;
+    }
+    
+    public JButton getBtnGoToRes() {
+        return btnGoToRes;
     }
     
     public void goToRes() {
