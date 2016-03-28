@@ -139,6 +139,25 @@ public class CustomerModel extends AbstractTableModel {
         
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void addNewCustomer(String firstName, String lastName, String numOfOccupants, 
             String occupationDate, String address, String tab, String lastRoomNum, 
             String phoneNum, String email, String paymentMethod) {
@@ -173,18 +192,17 @@ public class CustomerModel extends AbstractTableModel {
         
     }
     
-    public ResultSet getResultSet() {
-        try {
-            SQL = "select * from CUSTOMERS";
-            rs = stmt.executeQuery(SQL);
-            return rs;
-        }
-        catch(SQLException err) {
-            System.out.println(err.getMessage());
-        }
-        return rs;
-        
-    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     public List<Customer> getCustomers() {
         Customers = new ArrayList<Customer>();
@@ -209,10 +227,58 @@ public class CustomerModel extends AbstractTableModel {
         return Customers;
     }
     
+    public ResultSet getResultSet() {
+        try {
+            SQL = "select * from CUSTOMERS";
+            rs = stmt.executeQuery(SQL);
+            return rs;
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        return rs;
+        
+    }
     
     
     
     
     
+    
+    
+    
+    
+    public Customer getCustomer(int column, String querie) {
+        getCustomers();
+        for(int i =0; i< Customers.size(); i++) {
+            if(Customers.get(i).get(column).equals(querie)) {
+                System.out.println("Successfully retreived customer");
+                return Customers.get(i);
+            }
+        }
+        return new Customer();
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void deleteAllFromTable() {
+        
+        try {
+            stmt.executeUpdate("delete from CUSTOMERS");
+            
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+    }
     
 }

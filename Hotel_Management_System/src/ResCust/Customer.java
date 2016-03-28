@@ -73,7 +73,7 @@ public class Customer {
     }
 	
     // returns firstName value of Customer
-    public String firstName() {
+    public String getFirstName() {
         return this.firstName;
     }
 	
