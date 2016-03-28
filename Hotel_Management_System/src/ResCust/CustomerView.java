@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  *
  * @author WhelanMyPC
  */
-public class CustomerView extends JPanel implements ActionListener{
+public class CustomerView extends JPanel {
     
     JPanel contentPane;
     
@@ -40,15 +40,16 @@ public class CustomerView extends JPanel implements ActionListener{
     
     private String[] columnNames;
     
-    public CustomerView(MainPanelCard c) {
+    public CustomerView(MainPanelCard c, CustomerModel m) {
         
+        model = m;
         contentPane = c;
         initializeComponents();
         
     }
     
     private void initializeComponents() {
-        model = new CustomerModel();
+        //model = new CustomerModel();
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
         newCustView = new AddNewCustView();
@@ -97,36 +98,27 @@ public class CustomerView extends JPanel implements ActionListener{
         pnlBottomBtn.add(cmbSearchCategory);
         pnlBottomBtn.add(btnSearch);
         
-        registerListener();
+        //registerListener();
     }
     
-    public void registerListener() {
-        btnHome.addActionListener(this);
-        btnNewCust.addActionListener(this);
-        btnEditVal.addActionListener(this);
-        btnSearch.addActionListener(this);
-        btnGoToRes.addActionListener(this);
+    public void registerListener(CustomerControl controller) {
+        btnHome.addActionListener(controller);
+        btnNewCust.addActionListener(controller);
+        btnEditVal.addActionListener(controller);
+        btnSearch.addActionListener(controller);
+        btnGoToRes.addActionListener(controller);
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-        if (e.getSource() == btnHome) {
-            System.exit(0);
-        }
-        
-        if (e.getSource() == btnGoToRes) {
-            CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.show(contentPane, "Reservation Screen");
-        }
-        
-        if (e.getSource() == btnNewCust) {
-            JFrame frame = new JFrame();
-            frame.setSize(400, 500);
-            frame.setVisible(true);
-            frame.add(newCustView);
-        }
-        
+    public void goToRes() {
+        CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+        cardLayout.show(contentPane, "Reservation Screen");
+    }
+    
+    public void showNewCustScreen() {
+        JFrame frame = new JFrame();
+        frame.setSize(400, 500);
+        frame.setVisible(true);
+        frame.add(newCustView);
     }
     
 }

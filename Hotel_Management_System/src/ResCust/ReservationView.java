@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  *
  * @author WhelanMyPC
  */
-public class ReservationView extends JPanel implements ActionListener{
+public class ReservationView extends JPanel {
     
     ReservationModel model;
     
@@ -41,13 +41,14 @@ public class ReservationView extends JPanel implements ActionListener{
         "Room Number", "Start Date", "End Date", "Customer First Name", 
         "Customer Last Name", "Room Type", "Cost"};
     
-    public ReservationView(MainPanelCard c) {
+    public ReservationView(MainPanelCard c, ReservationModel model) {
+        this.model = model;
         contentPane = c;
         initializeComponents();
     }
     
     private void initializeComponents() {
-        model = new ReservationModel();
+        //model = new ReservationModel();
         String[] cmbSearchCat = columnNames;
         
         pnlGrid = new JPanel();
@@ -91,31 +92,22 @@ public class ReservationView extends JPanel implements ActionListener{
         pnlBottomBtn.add(cmbSearchCategory);
         pnlBottomBtn.add(btnSearch);
         
-        registerListener();
+        //registerListener();
         
     }
     
-    public void registerListener() {
-        btnHome.addActionListener(this);
-        btnNewRes.addActionListener(this);
-        btnEditVal.addActionListener(this);
-        btnSearch.addActionListener(this);
-        btnGoToCust.addActionListener(this);
+    public void registerListener(ReservationControl controller) {
+        btnHome.addActionListener(controller);
+        btnNewRes.addActionListener(controller);
+        btnEditVal.addActionListener(controller);
+        btnSearch.addActionListener(controller);
+        btnGoToCust.addActionListener(controller);
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-        if (e.getSource() == btnHome) {
-            System.exit(0);
-        }
-        
-        if (e.getSource() == btnGoToCust) {
-            CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-            cardLayout.show(contentPane, "Customer Screen");
-            //cardLayout.next(contentPane);
-        }
-        
+    public void goToCust() {
+        CardLayout cardLayout = (CardLayout) contentPane.getLayout();
+        cardLayout.show(contentPane, "Customer Screen");
+        //cardLayout.next(contentPane);
     }
     
 }

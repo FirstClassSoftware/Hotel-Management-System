@@ -15,16 +15,28 @@ import java.awt.CardLayout;
  */
 public class MainPanelCard extends JPanel {
     
-    ReservationView r;
-    CustomerView c;
+    ReservationModel resModel;
+    ReservationView resView;
+    ReservationControl resControl;
+    
+    CustomerModel custModel;
+    CustomerView custView;
+    CustomerControl custControl;
     
     public MainPanelCard() {
-        r = new ReservationView(this);
-        c = new CustomerView(this);
+        resModel = new ReservationModel();
+        resView = new ReservationView(this, resModel);
+        resControl = new ReservationControl(resModel, resView);
+        resView.registerListener(resControl);
+        
+        custModel = new CustomerModel();
+        custView = new CustomerView(this, custModel);
+        custControl = new CustomerControl(custModel, custView);
+        custView.registerListener(custControl);
         
         this.setLayout(new CardLayout());
-        this.add(r, "Reservation Screen");
-        this.add(c, "Customer Screen");
+        this.add(resView, "Reservation Screen");
+        this.add(custView, "Customer Screen");
     }
     
 }

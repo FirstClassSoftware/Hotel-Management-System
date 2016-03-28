@@ -7,6 +7,7 @@ package main;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
+import ResCust.*;
 
 /**
  *
@@ -15,6 +16,16 @@ import java.awt.Toolkit;
 public class HotelMain {
     
     public static void main(String[] args) {
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         MainPanelCard c = new MainPanelCard();
         
         JFrame j = new JFrame();
