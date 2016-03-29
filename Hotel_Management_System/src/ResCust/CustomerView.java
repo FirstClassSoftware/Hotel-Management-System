@@ -19,6 +19,8 @@ public class CustomerView extends JPanel {
     JPanel contentPane;
     
     CustomerModel model;
+            
+    JFrame popupFrame;
     
     JPanel pnlGrid;
     JScrollPane scrTableHold;
@@ -47,10 +49,10 @@ public class CustomerView extends JPanel {
     }
     
     private void initializeComponents() {
-        //model = new CustomerModel();
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
         newCustView = new AddNewCustView(this);
+        popupFrame = new JFrame();
         
         
         pnlGrid = new JPanel();
@@ -96,7 +98,6 @@ public class CustomerView extends JPanel {
         pnlBottomBtn.add(cmbSearchCategory);
         pnlBottomBtn.add(btnSearch);
         
-        //registerListener();
     }
     
     public void registerListener(CustomerControl controller) {
@@ -124,12 +125,20 @@ public class CustomerView extends JPanel {
         return btnEditVal;
     }
     
-    public JButton getBtnSearc() {
+    public JButton getBtnSearch() {
         return btnSearch;
     }
     
     public JButton getBtnGoToRes() {
         return btnGoToRes;
+    }
+    
+    public int getComboColumn() {
+        return cmbSearchCategory.getSelectedIndex();
+    }
+    
+    public String getFldSearchEntry() {
+        return fldSearchEntry.getText();
     }
     
     public void goToRes() {
@@ -138,10 +147,17 @@ public class CustomerView extends JPanel {
     }
     
     public void showNewCustScreen() {
-        JFrame frame = new JFrame();
-        frame.setSize(400, 500);
-        frame.setVisible(true);
-        frame.add(newCustView);
+        //JFrame frame = new JFrame();
+        popupFrame.setSize(400, 500);
+        popupFrame.setVisible(true);
+        //newCustView = new AddNewCustView(this);
+        popupFrame.add(newCustView);
     }
+    
+    public void closeNewCustScreen() {
+        popupFrame.setVisible(false);
+    }
+    
+    
     
 }

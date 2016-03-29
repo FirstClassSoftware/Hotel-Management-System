@@ -38,7 +38,31 @@ public class CustomerControl implements ActionListener {
         }
         
         if (e.getSource() == view.getNewCustView().getBtnSubmit()) {
-            System.exit(0);
+            //System.exit(0);
+            AddNewCustView addPanel = view.getNewCustView();
+            
+            String firstName = addPanel.getTxtFirstName().getText();
+            String lastName = addPanel.getTxtLastName().getText();
+            String numOfOccupants = addPanel.getTxtNumOfOccupants().getText();
+            String occupationDate = addPanel.getTxtOccupationDate().getText();
+            String address = addPanel.getTxtAddress().getText();
+            String tab = addPanel.getTxtTab().getText();
+            String lastRoomNum = addPanel.getTxtLastRoomNum().getText();
+            String phoneNum = addPanel.getTxtPhoneNum().getText();
+            String email = addPanel.getTxtEmail().getText();
+            String paymentMethod = addPanel.getTxtPaymentMethod().getText();
+            
+            model.addNewCustomer(firstName, lastName, numOfOccupants, occupationDate, 
+                    address, tab, lastRoomNum, phoneNum, email, paymentMethod);
+            
+            view.closeNewCustScreen();
+            
+        }
+        
+        if (e.getSource() == view.getBtnSearch()) {
+            int column = view.getComboColumn();
+            String querie = view.getFldSearchEntry();
+            model.getCustomer(column, querie);
         }
         
     }

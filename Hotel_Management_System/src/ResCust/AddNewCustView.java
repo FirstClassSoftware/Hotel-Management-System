@@ -21,33 +21,29 @@ import java.awt.Insets;
 public class AddNewCustView extends JPanel {
     CustomerView parentCustView;
     
-    JPanel pnlLabel;
-    JPanel pnlTextField;
-    JPanel pnlButton;
+    private JLabel lblFirstName;
+    private JLabel lblLastName;
+    private JLabel lblNumOfOccupants;
+    private JLabel lblOccupationDate;
+    private JLabel lblAddress;
+    private JLabel lblTab;
+    private JLabel lblLastRoomNum;
+    private JLabel lblPhoneNum;
+    private JLabel lblEmail;
+    private JLabel lblPaymentMethod;
     
-    JLabel lblFirstName;
-    JLabel lblLastName;
-    JLabel lblNumOfOccupants;
-    JLabel lblOccupationDate;
-    JLabel lblAddress;
-    JLabel lblTab;
-    JLabel lblLastRoomNum;
-    JLabel lblPhoneNum;
-    JLabel lblEmail;
-    JLabel lblPaymentMethod;
+    private JTextField txtFirstName;
+    private JTextField txtLastName;
+    private JTextField txtNumOfOccupants;
+    private JTextField txtOccupationDate;
+    private JTextField txtAddress;
+    private JTextField txtTab;
+    private JTextField txtLastRoomNum;
+    private JTextField txtPhoneNum;
+    private JTextField txtEmail;
+    private JTextField txtPaymentMethod;
     
-    JTextField txtFirstName;
-    JTextField txtLastName;
-    JTextField txtNumOfOccupants;
-    JTextField txtOccupationDate;
-    JTextField txtAddress;
-    JTextField txtTab;
-    JTextField txtLastRoomNum;
-    JTextField txtPhoneNum;
-    JTextField txtEmail;
-    JTextField txtPaymentMethod;
-    
-    JButton btnSubmit;
+    private JButton btnSubmit;
     
     
     public AddNewCustView(CustomerView parentCustView) {
@@ -188,25 +184,299 @@ public class AddNewCustView extends JPanel {
         c.anchor = c.CENTER;
         this.add(btnSubmit, c);
     }
+
+    /**
+     * @return the lblFirstName
+     */
+    public JLabel getLblFirstName() {
+        return lblFirstName;
+    }
+
+    /**
+     * @param lblFirstName the lblFirstName to set
+     */
+    public void setLblFirstName(JLabel lblFirstName) {
+        this.lblFirstName = lblFirstName;
+    }
+
+    /**
+     * @return the lblLastName
+     */
+    public JLabel getLblLastName() {
+        return lblLastName;
+    }
+
+    /**
+     * @param lblLastName the lblLastName to set
+     */
+    public void setLblLastName(JLabel lblLastName) {
+        this.lblLastName = lblLastName;
+    }
+
+    /**
+     * @return the lblNumOfOccupants
+     */
+    public JLabel getLblNumOfOccupants() {
+        return lblNumOfOccupants;
+    }
+
+    /**
+     * @param lblNumOfOccupants the lblNumOfOccupants to set
+     */
+    public void setLblNumOfOccupants(JLabel lblNumOfOccupants) {
+        this.lblNumOfOccupants = lblNumOfOccupants;
+    }
+
+    /**
+     * @return the lblOccupationDate
+     */
+    public JLabel getLblOccupationDate() {
+        return lblOccupationDate;
+    }
+
+    /**
+     * @param lblOccupationDate the lblOccupationDate to set
+     */
+    public void setLblOccupationDate(JLabel lblOccupationDate) {
+        this.lblOccupationDate = lblOccupationDate;
+    }
+
+    /**
+     * @return the lblAddress
+     */
+    public JLabel getLblAddress() {
+        return lblAddress;
+    }
+
+    /**
+     * @param lblAddress the lblAddress to set
+     */
+    public void setLblAddress(JLabel lblAddress) {
+        this.lblAddress = lblAddress;
+    }
+
+    /**
+     * @return the lblTab
+     */
+    public JLabel getLblTab() {
+        return lblTab;
+    }
+
+    /**
+     * @param lblTab the lblTab to set
+     */
+    public void setLblTab(JLabel lblTab) {
+        this.lblTab = lblTab;
+    }
+
+    /**
+     * @return the lblLastRoomNum
+     */
+    public JLabel getLblLastRoomNum() {
+        return lblLastRoomNum;
+    }
+
+    /**
+     * @param lblLastRoomNum the lblLastRoomNum to set
+     */
+    public void setLblLastRoomNum(JLabel lblLastRoomNum) {
+        this.lblLastRoomNum = lblLastRoomNum;
+    }
+
+    /**
+     * @return the lblPhoneNum
+     */
+    public JLabel getLblPhoneNum() {
+        return lblPhoneNum;
+    }
+
+    /**
+     * @param lblPhoneNum the lblPhoneNum to set
+     */
+    public void setLblPhoneNum(JLabel lblPhoneNum) {
+        this.lblPhoneNum = lblPhoneNum;
+    }
+
+    /**
+     * @return the lblEmail
+     */
+    public JLabel getLblEmail() {
+        return lblEmail;
+    }
+
+    /**
+     * @param lblEmail the lblEmail to set
+     */
+    public void setLblEmail(JLabel lblEmail) {
+        this.lblEmail = lblEmail;
+    }
+
+    /**
+     * @return the lblPaymentMethod
+     */
+    public JLabel getLblPaymentMethod() {
+        return lblPaymentMethod;
+    }
+
+    /**
+     * @param lblPaymentMethod the lblPaymentMethod to set
+     */
+    public void setLblPaymentMethod(JLabel lblPaymentMethod) {
+        this.lblPaymentMethod = lblPaymentMethod;
+    }
+
+    /**
+     * @return the txtFirstName
+     */
+    public JTextField getTxtFirstName() {
+        return txtFirstName;
+    }
+
+    /**
+     * @param txtFirstName the txtFirstName to set
+     */
+    public void setTxtFirstName(JTextField txtFirstName) {
+        this.txtFirstName = txtFirstName;
+    }
+
+    /**
+     * @return the txtLastName
+     */
+    public JTextField getTxtLastName() {
+        return txtLastName;
+    }
+
+    /**
+     * @param txtLastName the txtLastName to set
+     */
+    public void setTxtLastName(JTextField txtLastName) {
+        this.txtLastName = txtLastName;
+    }
+
+    /**
+     * @return the txtNumOfOccupants
+     */
+    public JTextField getTxtNumOfOccupants() {
+        return txtNumOfOccupants;
+    }
+
+    /**
+     * @param txtNumOfOccupants the txtNumOfOccupants to set
+     */
+    public void setTxtNumOfOccupants(JTextField txtNumOfOccupants) {
+        this.txtNumOfOccupants = txtNumOfOccupants;
+    }
+
+    /**
+     * @return the txtOccupationDate
+     */
+    public JTextField getTxtOccupationDate() {
+        return txtOccupationDate;
+    }
+
+    /**
+     * @param txtOccupationDate the txtOccupationDate to set
+     */
+    public void setTxtOccupationDate(JTextField txtOccupationDate) {
+        this.txtOccupationDate = txtOccupationDate;
+    }
+
+    /**
+     * @return the txtAddress
+     */
+    public JTextField getTxtAddress() {
+        return txtAddress;
+    }
+
+    /**
+     * @param txtAddress the txtAddress to set
+     */
+    public void setTxtAddress(JTextField txtAddress) {
+        this.txtAddress = txtAddress;
+    }
+
+    /**
+     * @return the txtTab
+     */
+    public JTextField getTxtTab() {
+        return txtTab;
+    }
+
+    /**
+     * @param txtTab the txtTab to set
+     */
+    public void setTxtTab(JTextField txtTab) {
+        this.txtTab = txtTab;
+    }
+
+    /**
+     * @return the txtLastRoomNum
+     */
+    public JTextField getTxtLastRoomNum() {
+        return txtLastRoomNum;
+    }
+
+    /**
+     * @param txtLastRoomNum the txtLastRoomNum to set
+     */
+    public void setTxtLastRoomNum(JTextField txtLastRoomNum) {
+        this.txtLastRoomNum = txtLastRoomNum;
+    }
+
+    /**
+     * @return the txtPhoneNum
+     */
+    public JTextField getTxtPhoneNum() {
+        return txtPhoneNum;
+    }
+
+    /**
+     * @param txtPhoneNum the txtPhoneNum to set
+     */
+    public void setTxtPhoneNum(JTextField txtPhoneNum) {
+        this.txtPhoneNum = txtPhoneNum;
+    }
+
+    /**
+     * @return the txtEmail
+     */
+    public JTextField getTxtEmail() {
+        return txtEmail;
+    }
+
+    /**
+     * @param txtEmail the txtEmail to set
+     */
+    public void setTxtEmail(JTextField txtEmail) {
+        this.txtEmail = txtEmail;
+    }
+
+    /**
+     * @return the txtPaymentMethod
+     */
+    public JTextField getTxtPaymentMethod() {
+        return txtPaymentMethod;
+    }
+
+    /**
+     * @param txtPaymentMethod the txtPaymentMethod to set
+     */
+    public void setTxtPaymentMethod(JTextField txtPaymentMethod) {
+        this.txtPaymentMethod = txtPaymentMethod;
+    }
     
-    /*
-    JTextField txtFirstName;
-    JTextField txtLastName;
-    JTextField txtNumOfOccupants;
-    JTextField txtOccupationDate;
-    JTextField txtAddress;
-    JTextField txtTab;
-    JTextField txtLastRoomNum;
-    JTextField txtPhoneNum;
-    JTextField txtEmail;
-    JTextField txtPaymentMethod;
-    */
-    
+    /**
+     * @return the btnSubmit
+     */
     public JButton getBtnSubmit() {
         return btnSubmit;
     }
-    public String getFirstName() {
-        return txtFirstName.getText();
+
+    /**
+     * @param btnSubmit the btnSubmit to set
+     */
+    public void setBtnSubmit(JButton btnSubmit) {
+        this.btnSubmit = btnSubmit;
     }
     
 }

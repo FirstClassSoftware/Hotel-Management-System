@@ -91,8 +91,8 @@ public class CustomerModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         getCustomers();
-        return 10;
-        //return Customers.get(0).getSize();
+        int columns = 10;
+        return columns;
     }
     
     @Override
@@ -189,6 +189,8 @@ public class CustomerModel extends AbstractTableModel {
         catch(SQLException err) {
             System.out.println(err.getMessage());
         }
+        
+        this.fireTableDataChanged();
         
     }
     
