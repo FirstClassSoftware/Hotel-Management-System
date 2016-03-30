@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ResCust;
+package CustomerModule;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -477,6 +477,21 @@ public class AddNewCustView extends JPanel {
      */
     public void setBtnSubmit(JButton btnSubmit) {
         this.btnSubmit = btnSubmit;
+    }
+    
+    public void resetFields() {
+        
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        txtNumOfOccupants.setText("");
+        txtOccupationDate.setText("");
+        txtAddress.setText("");
+        txtTab.setText("");
+        txtLastRoomNum.setText("");
+        txtPhoneNum.setText("");
+        txtEmail.setText("");
+        txtPaymentMethod.setText("");
+        
     }
     
 }

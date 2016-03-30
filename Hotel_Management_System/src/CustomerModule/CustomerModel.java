@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ResCust;
+package CustomerModule;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -112,6 +112,11 @@ public class CustomerModel extends AbstractTableModel {
         Customers.get(row).setValue(col, value);
     }
     
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return true;
+    }
+    
     
     
     
@@ -207,7 +212,7 @@ public class CustomerModel extends AbstractTableModel {
     
     
     public List<Customer> getCustomers() {
-        Customers = new ArrayList<Customer>();
+        Customers = new ArrayList<>();
         try {
             ResultSet result = this.getResultSet();
             
@@ -250,17 +255,44 @@ public class CustomerModel extends AbstractTableModel {
     
     
     
-    public Customer getCustomer(int column, String querie) {
+    public List<Customer> getCustSearch(int column, String querie) {
         getCustomers();
+        List<Customer> custSearchOut = new ArrayList<>();
         for(int i =0; i< Customers.size(); i++) {
             if(Customers.get(i).get(column).equals(querie)) {
-                System.out.println("Successfully retreived customer");
-                return Customers.get(i);
+                //System.out.println("Successfully retreived customer");
+                custSearchOut.add(Customers.get(i));
             }
         }
-        return new Customer();
+        
+        return custSearchOut;
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void setCustomerValue(Object value, int row, int column) {
+        
+        try {
+            //UPDATE users SET role=99 WHERE name='Fred'
+            stmt.executeUpdate("UPDATE users SET " + );
+            
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+    }
     
     
     

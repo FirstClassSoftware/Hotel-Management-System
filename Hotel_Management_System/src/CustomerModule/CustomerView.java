@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ResCust;
+package CustomerModule;
 
 import main.*;
 
@@ -33,6 +33,7 @@ public class CustomerView extends JPanel {
     private JButton btnNewCust;
     private JButton btnEditVal;
     private JButton btnGoToRes;
+    private JButton btnRefreshTable;
     
     private JTextField fldSearchEntry;
     private JComboBox cmbSearchCategory;
@@ -64,6 +65,7 @@ public class CustomerView extends JPanel {
         btnNewCust = new JButton();
         btnEditVal = new JButton();
         btnGoToRes = new JButton();
+        btnRefreshTable = new JButton();
         fldSearchEntry = new JTextField(20);
         cmbSearchCategory = new JComboBox(cmbSearchCat);
         btnSearch = new JButton();
@@ -84,12 +86,14 @@ public class CustomerView extends JPanel {
         btnNewCust.setText("Add New Customer");
         btnEditVal.setText("Edit Values");
         btnGoToRes.setText("Go to Reservations Screen");
+        btnRefreshTable.setText("Refresh Table");
         
         pnlTopBtn.setLayout(new FlowLayout());
         pnlTopBtn.add(btnHome);
         pnlTopBtn.add(btnNewCust);
         pnlTopBtn.add(btnEditVal);
         pnlTopBtn.add(btnGoToRes);
+        pnlTopBtn.add(btnRefreshTable);
         
         btnSearch.setText("Search");
         
@@ -106,6 +110,7 @@ public class CustomerView extends JPanel {
         btnEditVal.addActionListener(controller);
         btnSearch.addActionListener(controller);
         btnGoToRes.addActionListener(controller);
+        btnRefreshTable.addActionListener(controller);
         newCustView.getBtnSubmit().addActionListener(controller);
     }
     
@@ -133,6 +138,10 @@ public class CustomerView extends JPanel {
         return btnGoToRes;
     }
     
+    public JButton getBtnRefreshTable() {
+        return btnRefreshTable;
+    }
+    
     public int getComboColumn() {
         return cmbSearchCategory.getSelectedIndex();
     }
@@ -151,11 +160,20 @@ public class CustomerView extends JPanel {
         popupFrame.setSize(400, 500);
         popupFrame.setVisible(true);
         //newCustView = new AddNewCustView(this);
+        newCustView.resetFields();
         popupFrame.add(newCustView);
     }
     
     public void closeNewCustScreen() {
         popupFrame.setVisible(false);
+    }
+    
+    public void setTableModel(CustomerTableModelSearch model) {
+        tblMain.setModel(model);
+    }
+    
+    public void refreshTableModel() {
+        tblMain.setModel(model);
     }
     
     

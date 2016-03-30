@@ -7,7 +7,6 @@ package main;
 
 import javax.swing.JFrame;
 import java.awt.Toolkit;
-import ResCust.*;
 
 /**
  *

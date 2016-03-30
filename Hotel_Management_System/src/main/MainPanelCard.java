@@ -5,7 +5,12 @@
  */
 package main;
 
-import ResCust.*;
+import ReservationModule.ReservationModel;
+import ReservationModule.ReservationControl;
+import ReservationModule.ReservationView;
+import CustomerModule.CustomerControl;
+import CustomerModule.CustomerModel;
+import CustomerModule.CustomerView;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
 

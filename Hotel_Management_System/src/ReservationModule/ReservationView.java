@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ResCust;
+package ReservationModule;
 
 import main.*;
 
 import javax.swing.*;
 import java.awt.*;
+//import CustomerModule.*;
 
 /**
  *

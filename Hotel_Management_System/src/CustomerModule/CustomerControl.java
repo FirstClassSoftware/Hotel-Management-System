@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ResCust;
+package CustomerModule;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -37,8 +37,11 @@ public class CustomerControl implements ActionListener {
             view.showNewCustScreen();
         }
         
+        if (e.getSource() == view.getBtnRefreshTable()) {
+            view.refreshTableModel();
+        }
+        
         if (e.getSource() == view.getNewCustView().getBtnSubmit()) {
-            //System.exit(0);
             AddNewCustView addPanel = view.getNewCustView();
             
             String firstName = addPanel.getTxtFirstName().getText();
@@ -62,7 +65,9 @@ public class CustomerControl implements ActionListener {
         if (e.getSource() == view.getBtnSearch()) {
             int column = view.getComboColumn();
             String querie = view.getFldSearchEntry();
-            model.getCustomer(column, querie);
+            
+            CustomerTableModelSearch newModel = new CustomerTableModelSearch(model.getCustSearch(column, querie));
+            view.setTableModel(newModel);
         }
         
     }
