@@ -41,6 +41,12 @@ public class CustomerControl implements ActionListener {
             view.refreshTableModel();
         }
         
+        if (e.getSource() == view.getBtnDeleteRow()) {
+            int row = view.getSelectedRow();
+            model.deleteRowFromTable(row);
+            //view.refreshTableModel();
+        }
+        
         if (e.getSource() == view.getNewCustView().getBtnSubmit()) {
             AddNewCustView addPanel = view.getNewCustView();
             

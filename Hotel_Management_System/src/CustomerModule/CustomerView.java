@@ -31,7 +31,7 @@ public class CustomerView extends JPanel {
     
     private JButton btnHome;
     private JButton btnNewCust;
-    private JButton btnEditVal;
+    private JButton btnDeleteRow;
     private JButton btnGoToRes;
     private JButton btnRefreshTable;
     
@@ -63,7 +63,7 @@ public class CustomerView extends JPanel {
         pnlBottomBtn = new JPanel();
         btnHome = new JButton();
         btnNewCust = new JButton();
-        btnEditVal = new JButton();
+        btnDeleteRow = new JButton();
         btnGoToRes = new JButton();
         btnRefreshTable = new JButton();
         fldSearchEntry = new JTextField(20);
@@ -84,14 +84,14 @@ public class CustomerView extends JPanel {
         
         btnHome.setText("Home");
         btnNewCust.setText("Add New Customer");
-        btnEditVal.setText("Edit Values");
+        btnDeleteRow.setText("Delete Row");
         btnGoToRes.setText("Go to Reservations Screen");
         btnRefreshTable.setText("Refresh Table");
         
         pnlTopBtn.setLayout(new FlowLayout());
         pnlTopBtn.add(btnHome);
         pnlTopBtn.add(btnNewCust);
-        pnlTopBtn.add(btnEditVal);
+        pnlTopBtn.add(btnDeleteRow);
         pnlTopBtn.add(btnGoToRes);
         pnlTopBtn.add(btnRefreshTable);
         
@@ -107,7 +107,7 @@ public class CustomerView extends JPanel {
     public void registerListener(CustomerControl controller) {
         btnHome.addActionListener(controller);
         btnNewCust.addActionListener(controller);
-        btnEditVal.addActionListener(controller);
+        btnDeleteRow.addActionListener(controller);
         btnSearch.addActionListener(controller);
         btnGoToRes.addActionListener(controller);
         btnRefreshTable.addActionListener(controller);
@@ -126,8 +126,8 @@ public class CustomerView extends JPanel {
         return btnNewCust;
     }
     
-    public JButton getBtnEditVal() {
-        return btnEditVal;
+    public JButton getBtnDeleteRow() {
+        return btnDeleteRow;
     }
     
     public JButton getBtnSearch() {
@@ -162,6 +162,10 @@ public class CustomerView extends JPanel {
         //newCustView = new AddNewCustView(this);
         newCustView.resetFields();
         popupFrame.add(newCustView);
+    }
+    
+    public int getSelectedRow() {
+        return tblMain.getSelectedRow();
     }
     
     public void closeNewCustScreen() {

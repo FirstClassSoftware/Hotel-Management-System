@@ -34,6 +34,10 @@ public class CustomerModel extends AbstractTableModel {
         "Number of Occupants", "Occupation Date", "Address", "Customer Tab", 
         "Previous Room Number", "Phone Number", "Email", "Payment Method"};
     
+    private final String[] columnNamesSQL = new String[] {"FIRST_NAME", "LAST_NAME", 
+        "NUMBER_OF_OCCUPANTS", "OCCUPATION_DATE", "ADDRESS", "CUSTOMER_TAB", 
+        "PREVIOUS_ROOM_NUMBER", "PHONE_NUMBER", "EMAIL", "PAYMENT_METHOD"};
+    
     public CustomerModel() {
          
         try {
@@ -109,7 +113,8 @@ public class CustomerModel extends AbstractTableModel {
     @Override
     public void setValueAt(Object value, int row, int col) {
         getCustomers();
-        Customers.get(row).setValue(col, value);
+        //Customers.get(row).setValue(col, value);
+        setCustomerValue(value, row, col);
     }
     
     @Override
@@ -285,7 +290,9 @@ public class CustomerModel extends AbstractTableModel {
         
         try {
             //UPDATE users SET role=99 WHERE name='Fred'
-            stmt.executeUpdate("UPDATE users SET " + );
+            row++;
+            stmt.executeUpdate("UPDATE CUSTOMERS SET " + columnNamesSQL[column] + " = '" + value + "' WHERE ID = " + row);
+            //System.out.println("Successfully updated value");
             
         }
         catch(SQLException err) {
@@ -301,7 +308,19 @@ public class CustomerModel extends AbstractTableModel {
     
     
     
-    
+    public void deleteRowFromTable(int row) {
+        
+        try {
+            row++;
+            stmt.executeUpdate("delete from CUSTOMERS WHERE ID = " + row);
+            //this.fireTableRowsDeleted(0, Customers.size());
+            
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+    }
     
     public void deleteAllFromTable() {
         
