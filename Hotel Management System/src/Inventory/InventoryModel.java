@@ -7,6 +7,7 @@ package Inventory;
 
 import java.sql.*;
 import java.util.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -28,6 +29,9 @@ public class InventoryModel extends AbstractTableModel {
     private final String[] columnNames = new String[] {"Item Name", "Current Amount",
         "Maximum Amount", "Item Cost", "Item Status"};
     
+    private final String[] columnNamesSQL = new String[] {"ITEM_NAMAE",
+        "CURRENT_AMOUNT", "MAXIMUM_AMOUNT", "ITEM_COST", "ITEM_STATUS"};
+    
     public InventoryModel() {
         
         try {
@@ -37,30 +41,30 @@ public class InventoryModel extends AbstractTableModel {
             password = "password";
             
             con = DriverManager.getConnection(host, username, password);
+            // System.out.println("Opened database successfully");
+            
             stmt = con.createStatement(ResultSet.TYPE_FORWARD_ONLY,
                     ResultSet.CONCUR_READ_ONLY);
             
             SQL = "CREATE TABLE IF NOT EXISTS INVENTORY"
                     + "(ID INT PRIMARY KEY      NOT NULL,"
-                    + "ITEM_NAME VARCHAR(255),"
-                    + "CURRENT_AMOUNT VARCHAR(255),"
-                    + "MAXIMUM_AMOUNT VARCHAR(255),"
-                    + "ITEM_COST VARCHAR(255),"
-                    + "ITEM_STATUS VARCHAR(255)";
+                    + "ITEM_NAME        VARCHAR(255),"
+                    + "CURRENT_AMOUNT   INT,"
+                    + "MAXIMUM_AMOUNT   INT,"
+                    + "ITEM_COST        DOUBLE,"
+                    + "ITEM_STATUS      DOUBLE";
             stmt.executeUpdate(SQL);
             
             SQL = "select * from INVENTORY";
             rs = stmt.executeQuery(SQL);
             
-            
-            
+        
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
+        
+        // System.out.println("Table created successfully");
     }
-    
-    
-    
     
     
     @Override
@@ -72,8 +76,8 @@ public class InventoryModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         getInventory();
-        return 5;
-        //return Inventory.get(0).getSize();
+        int columns = 5;
+        return columns;
     }
     
     @Override
@@ -88,14 +92,15 @@ public class InventoryModel extends AbstractTableModel {
     }
     
     @Override
-    public void setValueAt(Object value, int row, int col) {
-        getInventory();
-        Inventory.get(row).setValue(col, value);
+    public boolean isCellEditable(int row, int column) {
+        return true;
     }
     
-    
-    
-    
+    @Override
+    public void setValueAt(Object value, int row, int column) {
+        getInventory();
+        setItemValue(value, row, column);
+    }
     
     public String[] getColumnNames() {
         return columnNames;
@@ -115,9 +120,11 @@ public class InventoryModel extends AbstractTableModel {
     }
     
     public void addNewInventory(String itemName, int currentAmount, int maxAmount,
-            double itemCost, double itemStatus) {
+            double itemCost) {
+        
         int oldID;
         int newID = 0;
+        
         try {
             SQL = "select * from INVENTORY";
             rs = stmt.executeQuery(SQL);
@@ -131,18 +138,38 @@ public class InventoryModel extends AbstractTableModel {
                 }
             }
             
-            stmt.executeUpdate("INSERT INTO INVENTORY(ID, ITEM_NAME, CURRENT_AMOUNT,"
-                    + "MAXIMUM_AMOUNT, ITEM_COST, ITEM_STATUS)"
-                    + "VALUES ( " + newID + ", '" + itemName + "', '" + currentAmount
-                    + "', '" + maxAmount + "', '" + itemCost + "', '" + itemStatus
-                    + "')");
+            stmt.executeUpdate("INSERT INTO INVENTORY (ID, ITEM_NAME, CURRENT_AMOUNT,"
+                    + "MAXIMUM_AMOUNT, ITEM_COST) "
+                    + "VALUES (" + newID + ", '" + itemName + "', " + currentAmount
+                    + ", " + maxAmount + ", " + itemCost + ")");
             
-            System.out.println("Successfully added to database");
+            // System.out.println("Successfully added to database");
             
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
         
+        this.fireTableDataChanged();
+        
+    }
+    
+    public List<Item> getInventory() {
+        Inventory = new ArrayList<Item>();
+        try {
+            ResultSet result = this.getResultSet();
+            
+            while(result.next()) {
+                Item item = new Item(rs.getInt("ID"), rs.getString("ITEM_NAME"),
+                        rs.getInt("CURRENT_AMOUNT"), rs.getInt("MAXIMUM_AMOUNT"),
+                        rs.getDouble("ITEM_COST"), rs.getDouble("ITEM_STATUS"));
+                
+                Inventory.add(item);
+            }
+        } catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+        return Inventory;
     }
     
     public ResultSet getResultSet() {
@@ -156,23 +183,38 @@ public class InventoryModel extends AbstractTableModel {
         return rs;
     }
     
-    public List<Item> getInventory() {
-        Inventory = new ArrayList<Item>();
-        try {
-            ResultSet result = this.getResultSet();
-            
-            while(result.next()) {
-                Item item = new Item(rs.getInt("ID"), rs.getString("ITEM_NAME"),
-                rs.getInt("CURRENT_AMOUNT"), rs.getInt("MAXIMUM_AMOUNT"),
-                rs.getDouble("ITEM_COST"), rs.getDouble("ITEM_STATUS"));
-                
-                Inventory.add(item);
+    public List<Item> getItemSearch(int column, String query) {
+        getInventory();
+        List<Item> itemSearch = new ArrayList<>();
+        for (int i  = 0; i < Inventory.size(); i++) {
+            if(Inventory.get(i).get(column).equals(query)) {
+                //System.out.println("Retrieving item...");
+                itemSearch.add(Inventory.get(i));
             }
+        }
+        return itemSearch;
+    }
+    
+    public void setItemValue(Object value, int row, int column) {
+        try {
+            // UPDATE users SET role = 99 WHERE name = 'Fred'
+            row++;
+            stmt.executeUpdate("UPDATE INVENTORY SET " + columnNamesSQL[column] + " = '" + value + "' WHERE ID = " + row);
+            // System.out.println("Successfully udpated...");
         } catch(SQLException err) {
             System.out.println(err.getMessage());
         }
-        
-        return Inventory;
     }
+    
+    public void deleteRow(int row) {
+        try {
+            row++;
+            
+            stmt.executeUpdate("DELETE FROM CUSTOMERS WHERE ID = " + row);
+        } catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+    }
+    
 
 }

@@ -6,68 +6,74 @@
 package Inventory;
 
 import main.*;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  *
  * @author jessicaluu
  */
-public class InventoryView extends JPanel implements ActionListener {
+public class InventoryView extends JPanel {
     
     JPanel contentPane;
     
     InventoryModel model;
     
+    JFrame frame;
+    
     JPanel pnlGrid;
     JScrollPane scrTableHold;
     JTable tblMain;
-    JPanel pnlTopBtn;
-    JPanel pnlBottomBtn;
+    JPanel pnlTop;
+    JPanel pnlBottom;
+    AddNewInventory newItemView;
+    LowItemPopup lowItemView;
     
-    JButton btnHome;
-    JButton btnNewItem;
-    JButton btnEditVal;
+    private JButton btnHome;
+    private JButton btnNewItem;
+    private JButton btnEditItem;
+    private JButton btnDeleteItem;
     
-    JProgressBar progressItemStatus;
+    private JProgressBar progressItemStatus;
     
-    JTextField fldSearchEntry;
-    JComboBox cmbSearchCategory;
-    JButton btnSearch;
+    private JTextField txtSearch;
+    private JComboBox cmbSearch;
+    private JButton btnSearch;
     
-    private final String[] columnNames = new String[] {"Item Name", 
-        "Current Amount", "Maximum Amount", "Item Cost", "Item Status"};
+    private String[] columnNames;
     
-    public InventoryView(MainPanelCard c) {
+    public InventoryView(MainPanelCard c, InventoryModel m) {
+        this.model = m;
         contentPane = c;
         initializeComponents();
     }
     
     private void initializeComponents() {
-        model = new InventoryModel();
+        columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
+        newItemView = new AddNewInventory(this);
+        lowItemView = new LowItemPopup(this);
+        frame = new JFrame();
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
         tblMain = new JTable(model);
-        pnlTopBtn = new JPanel();
-        pnlBottomBtn = new JPanel();
+        pnlTop = new JPanel();
+        pnlBottom = new JPanel();
         btnHome = new JButton();
         btnNewItem = new JButton();
-        btnEditVal = new JButton();
+        btnEditItem = new JButton();
+        btnDeleteItem = new JButton();
         progressItemStatus = new JProgressBar();
-        fldSearchEntry = new JTextField(20);
-        cmbSearchCategory = new JComboBox(cmbSearchCat);
+        txtSearch = new JTextField(20);
+        cmbSearch = new JComboBox(cmbSearchCat);
         btnSearch = new JButton();
         
         setLayout(new BorderLayout());
         
         add(pnlGrid, BorderLayout.CENTER);
-        add(pnlTopBtn, BorderLayout.PAGE_START);
-        add(pnlBottomBtn, BorderLayout.PAGE_END);
+        add(pnlTop, BorderLayout.PAGE_START);
+        add(pnlBottom, BorderLayout.PAGE_END);
         
         tblMain.setAutoCreateRowSorter(true);
         
@@ -76,44 +82,90 @@ public class InventoryView extends JPanel implements ActionListener {
         scrTableHold.setViewportView(tblMain);
         
         btnHome.setText("Home");
-        btnNewItem.setText("Add New Inventory");
-        btnEditVal.setText("Edit Values");
+        btnNewItem.setText("Add New Item");
+        btnEditItem.setText("Edit Item");
+        btnDeleteItem.setText("Delete Item");
         
-        pnlTopBtn.setLayout(new FlowLayout());
-        pnlTopBtn.add(btnHome);
-        pnlTopBtn.add(btnNewItem);
-        pnlTopBtn.add(btnEditVal);
+        pnlTop.setLayout(new FlowLayout());
+        pnlTop.add(btnHome);
+        pnlTop.add(btnNewItem);
+        pnlTop.add(btnEditItem);
+        pnlTop.add(btnDeleteItem);
         
         btnSearch.setText("Search");
         
-        pnlBottomBtn.setLayout(new FlowLayout());
-        pnlBottomBtn.add(fldSearchEntry);
-        pnlBottomBtn.add(cmbSearchCategory);
-        pnlBottomBtn.add(btnSearch);
-        
-        registerListener();
+        pnlBottom.setLayout(new FlowLayout());
+        pnlBottom.add(txtSearch);
+        pnlBottom.add(cmbSearch);
+        pnlBottom.add(btnSearch);
         
     }
     
-    public void registerListener() {
-        btnHome.addActionListener(this);
-        btnNewItem.addActionListener(this);
-        btnEditVal.addActionListener(this);
-        btnSearch.addActionListener(this);
+    public void registerListener(InventoryController controller) {
+        btnHome.addActionListener(controller);
+        btnNewItem.addActionListener(controller);
+        btnEditItem.addActionListener(controller);
+        btnDeleteItem.addActionListener(controller);
+        btnSearch.addActionListener(controller);
+        
+        newItemView.getBtnOK().addActionListener(controller);
+        lowItemView.getBtnOK().addActionListener(controller);
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
-        if (e.getSource() == btnHome) {
-            System.exit(0);
-        }
-        
-        if (e.getSource() == btnNewItem) {
-            AddNewInventory addItem = new AddNewInventory();
-            addItem.setVisible(true);
-        }
-        
+    public AddNewInventory getNewItemView() {
+        return newItemView;
     }
     
+    public LowItemPopup getLowItemView() {
+        return lowItemView;
+    }
+    
+    public JButton getBtnHome() {
+        return btnHome;
+    }
+    
+    public JButton getBtnNewItem() {
+        return btnNewItem;
+    }
+    
+    public JButton getBtnEditItem() {
+        return btnEditItem;
+    }
+    
+    public JButton getBtnDeleteItem() {
+        return btnDeleteItem;
+    }
+    
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+    
+    public String getTxtSearch() {
+        return txtSearch.getText();
+    }
+    
+    public int getCmbSearchColumn() {
+        return cmbSearch.getSelectedIndex();
+    }
+    
+    public void showNewItemView() {
+        frame.setSize(360, 180);
+        frame.setVisible(true);
+        newItemView.resetFields();
+        frame.add(newItemView);
+    }
+    
+    public void closeView() {
+        frame.setVisible(false);
+    }
+    
+    public void showLowItemView() {
+        frame.setSize(300, 140);
+        frame.setVisible(true);
+        frame.add(lowItemView);
+    }
+    
+    public int getSelectedRow() {
+        return tblMain.getSelectedRow();
+    }
 }
