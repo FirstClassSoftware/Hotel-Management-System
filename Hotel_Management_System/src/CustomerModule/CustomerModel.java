@@ -34,9 +34,12 @@ public class CustomerModel extends AbstractTableModel {
         "Number of Occupants", "Occupation Date", "Address", "Customer Tab", 
         "Previous Room Number", "Phone Number", "Email", "Payment Method"};
     
+    private final String tableNameSQL = "CUSTOMERS";
+    
     private final String[] columnNamesSQL = new String[] {"ID", "FIRST_NAME", "LAST_NAME", 
         "NUMBER_OF_OCCUPANTS", "OCCUPATION_DATE", "ADDRESS", "CUSTOMER_TAB", 
         "PREVIOUS_ROOM_NUMBER", "PHONE_NUMBER", "EMAIL", "PAYMENT_METHOD"};
+    int colNameArrayValue;
     
     public CustomerModel() {
          
@@ -50,21 +53,22 @@ public class CustomerModel extends AbstractTableModel {
             stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
                     ResultSet.CONCUR_READ_ONLY);
             
-            SQL = "CREATE TABLE IF NOT EXISTS CUSTOMERS" 
-                    + "(ID INT PRIMARY KEY     NOT NULL,"
-                    + "FIRST_NAME VARCHAR(255),"
-                    + "LAST_NAME VARCHAR(255),"
-                    + "NUMBER_OF_OCCUPANTS VARCHAR(255),"
-                    + "OCCUPATION_DATE VARCHAR(255),"
-                    + "ADDRESS VARCHAR(255),"
-                    + "TAB VARCHAR(255),"
-                    + "PREVIOUS_ROOM_NUM VARCHAR(255),"
-                    + "PHONE_NUM VARCHAR(255),"
-                    + "EMAIL VARCHAR(255),"
-                    + "PAYMENT_METHOD VARCHAR(255))";
+            colNameArrayValue = 0;
+            SQL = "CREATE TABLE IF NOT EXISTS " + tableNameSQL 
+                    + "(" + columnNamesSQL[colNameArrayValue++] + " INT PRIMARY KEY     NOT NULL,"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255),"
+                    + columnNamesSQL[colNameArrayValue++] + " VARCHAR(255))";
             stmt.executeUpdate(SQL);
             
-            SQL = "select * from CUSTOMERS";
+            SQL = "select * from " + tableNameSQL;
             rs = stmt.executeQuery(SQL);
             
             //System.out.println("table created");
@@ -175,7 +179,7 @@ public class CustomerModel extends AbstractTableModel {
         int oldID;
         int newID = 0;
         try {
-            SQL = "select * from CUSTOMERS";
+            SQL = "select * from " + tableNameSQL;
             rs = stmt.executeQuery(SQL);
             if(!rs.isBeforeFirst()) {
                 newID = 1;
@@ -186,10 +190,22 @@ public class CustomerModel extends AbstractTableModel {
                     newID = oldID + 1;   
                 }
             }
-            stmt.executeUpdate("INSERT INTO CUSTOMERS (ID, FIRST_NAME, LAST_NAME,"
-                    + "NUMBER_OF_OCCUPANTS, OCCUPATION_DATE, ADDRESS, TAB, "
-                    + "PREVIOUS_ROOM_NUM, PHONE_NUM, EMAIL, PAYMENT_METHOD)" 
-                    + "VALUES ( " + newID + ", '" + firstName + "', '" + lastName + "', '"
+            
+            colNameArrayValue = 0;
+            stmt.executeUpdate("INSERT INTO " + tableNameSQL +" (" 
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ", "
+                    + columnNamesSQL[colNameArrayValue++] + ") "
+                    + "VALUES ( " 
+                    + newID + ", '" + firstName + "', '" + lastName + "', '"
                     + numOfOccupants + "', '" + occupationDate + "', '" + address + "', '" 
                     + tab + "', '" + lastRoomNum + "', '" + phoneNum + "', '"
                     + email + "', '" + paymentMethod + "')");
@@ -221,12 +237,26 @@ public class CustomerModel extends AbstractTableModel {
         try {
             ResultSet result = this.getResultSet();
             
+            colNameArrayValue = 0;
             while(result.next()) {
-                Customer customer = new Customer(rs.getInt("ID"), rs.getString("FIRST_NAME"), 
-                        rs.getString("LAST_NAME"), rs.getString("NUMBER_OF_OCCUPANTS"), 
-                        rs.getString("OCCUPATION_DATE"), rs.getString("ADDRESS"), 
-                        rs.getString("TAB"), rs.getString("PREVIOUS_ROOM_NUM"), 
-                        rs.getString("PHONE_NUM"), rs.getString("EMAIL"), rs.getString("PAYMENT_METHOD"));
+                //System.out.println(rs.getInt(columnNamesSQL[colNameArrayValue++]));
+                Customer customer = new Customer(
+                        
+                        rs.getInt(columnNamesSQL[colNameArrayValue++]),
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
+                        rs.getString(columnNamesSQL[colNameArrayValue++])
+                );
+                
+                System.out.println(customer.getID());
+                System.out.println(Customers.isEmpty());
                 Customers.add(customer);
             }
             
@@ -241,7 +271,7 @@ public class CustomerModel extends AbstractTableModel {
     
     public ResultSet getResultSet() {
         try {
-            SQL = "select * from CUSTOMERS";
+            SQL = "select * from " + tableNameSQL;
             rs = stmt.executeQuery(SQL);
             return rs;
         }
@@ -269,7 +299,8 @@ public class CustomerModel extends AbstractTableModel {
             //UPDATE users SET role=99 WHERE name='Fred'
             if(column != 0) {
             int id = Customers.get(row).getID();
-            stmt.executeUpdate("UPDATE CUSTOMERS SET " + columnNamesSQL[column] + " = '" + value + "' WHERE ID = " + id);
+            stmt.executeUpdate("UPDATE " + tableNameSQL + " SET " + columnNamesSQL[column] 
+                    + " = '" + value + "' WHERE ID = " + id);
             }
             //System.out.println("Successfully updated value");
             
@@ -292,7 +323,7 @@ public class CustomerModel extends AbstractTableModel {
         try {
             //row++;
             //int id = Customers.get(row).getID();
-            stmt.executeUpdate("delete from CUSTOMERS WHERE ID = " + id);
+            stmt.executeUpdate("delete from " + tableNameSQL + " WHERE ID = " + id);
             this.fireTableDataChanged();
             
         }
@@ -305,7 +336,7 @@ public class CustomerModel extends AbstractTableModel {
     public void deleteAllFromTable() {
         
         try {
-            stmt.executeUpdate("delete from CUSTOMERS");
+            stmt.executeUpdate("delete from " + tableNameSQL);
             
         }
         catch(SQLException err) {

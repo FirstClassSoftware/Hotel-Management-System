@@ -11,6 +11,7 @@ import ReservationModule.ReservationView;
 import CustomerModule.CustomerControl;
 import CustomerModule.CustomerModel;
 import CustomerModule.CustomerView;
+import RoomModule.RoomsModel;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
 
@@ -28,6 +29,8 @@ public class MainPanelCard extends JPanel {
     CustomerView custView;
     CustomerControl custControl;
     
+    RoomsModel hotelModel;
+    
     public MainPanelCard() {
         resModel = new ReservationModel();
         resView = new ReservationView(this, resModel);
@@ -38,6 +41,8 @@ public class MainPanelCard extends JPanel {
         custView = new CustomerView(this, custModel);
         custControl = new CustomerControl(custModel, custView);
         custView.registerListener(custControl);
+        
+        hotelModel = new RoomsModel();
         
         this.setLayout(new CardLayout());
         this.add(resView, "Reservation Screen");

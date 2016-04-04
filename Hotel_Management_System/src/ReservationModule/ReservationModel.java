@@ -178,7 +178,7 @@ public class ReservationModel extends AbstractTableModel {
     }
     
     public List<Reservation> getReservations() {
-        Reservations = new ArrayList<Reservation>();
+        Reservations = new ArrayList<>();
         try {
             ResultSet result = getResultSet();
             

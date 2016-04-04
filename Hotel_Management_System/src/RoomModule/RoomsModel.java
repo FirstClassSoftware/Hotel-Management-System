@@ -19,7 +19,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Whelan
  */
-public class HotelModel extends AbstractTableModel {
+public class RoomsModel extends AbstractTableModel {
     
     private String host;
     private String username;
@@ -37,7 +37,7 @@ public class HotelModel extends AbstractTableModel {
     private final String[] columnNamesSQL = new String[] {"ID", "ROOM_NUMBER", "ROOM_TYPE", 
         "RESERVED", "RESERVATION_START_DATE", "RESERVATION_END_DATE"};
     
-    public HotelModel() {
+    public RoomsModel() {
          
         try {
             
@@ -49,7 +49,7 @@ public class HotelModel extends AbstractTableModel {
             stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
                     ResultSet.CONCUR_READ_ONLY);
             
-            SQL = "CREATE TABLE IF NOT EXISTS HOTEL" 
+            SQL = "CREATE TABLE IF NOT EXISTS ROOMS" 
                     + "(ID INT PRIMARY KEY     NOT NULL,"
                     + "ROOM_NUMBER INTEGER,"
                     + "ROOM_TYPE VARCHAR(255),"
@@ -58,10 +58,10 @@ public class HotelModel extends AbstractTableModel {
                     + "RESERVATION_END_DATE VARCHAR(255))";
             stmt.executeUpdate(SQL);
             
-            SQL = "select * from HOTEL";
+            SQL = "select * from ROOMS";
             rs = stmt.executeQuery(SQL);
             
-            System.out.println("table created");
+            //System.out.println("table created");
             
         }
                     
@@ -168,7 +168,7 @@ public class HotelModel extends AbstractTableModel {
         int oldID;
         int newID = 0;
         try {
-            SQL = "select * from HOTEL";
+            SQL = "select * from ROOMS";
             rs = stmt.executeQuery(SQL);
             if(!rs.isBeforeFirst()) {
                 newID = 1;
@@ -179,7 +179,7 @@ public class HotelModel extends AbstractTableModel {
                     newID = oldID + 1;   
                 }
             }
-            stmt.executeUpdate("INSERT INTO CUSTOMERS (ID, ROOM_NUMBER, ROOM_TYPE,"
+            stmt.executeUpdate("INSERT INTO ROOMS (ID, ROOM_NUMBER, ROOM_TYPE,"
                     + "RESERVED, RESERVATION_START_DATE, RESERVATION_END_DATE)" 
                     + "VALUES ( " + newID + ", '" + roomNum + "', '" + roomType + "', '"
                     + isReserved + "', '" + reservationStartDate + "', '" 
@@ -230,7 +230,7 @@ public class HotelModel extends AbstractTableModel {
     
     public ResultSet getResultSet() {
         try {
-            SQL = "select * from HOTEL";
+            SQL = "select * from ROOMS";
             rs = stmt.executeQuery(SQL);
             return rs;
         }
@@ -259,7 +259,7 @@ public class HotelModel extends AbstractTableModel {
             //UPDATE users SET role=99 WHERE name='Fred'
             if(column != 0) {
             int id = Rooms.get(row).getID();
-            stmt.executeUpdate("UPDATE HOTEL SET " + columnNamesSQL[column] + " = '" + value + "' WHERE ID = " + id);
+            stmt.executeUpdate("UPDATE ROOMS SET " + columnNamesSQL[column] + " = '" + value + "' WHERE ID = " + id);
             }
             //System.out.println("Successfully updated value");
             
@@ -282,7 +282,7 @@ public class HotelModel extends AbstractTableModel {
         try {
             //row++;
             //int id = Customers.get(row).getID();
-            stmt.executeUpdate("delete from HOTEL WHERE ID = " + id);
+            stmt.executeUpdate("delete from ROOMS WHERE ID = " + id);
             this.fireTableDataChanged();
             
         }
@@ -295,7 +295,7 @@ public class HotelModel extends AbstractTableModel {
     public void deleteAllFromTable() {
         
         try {
-            stmt.executeUpdate("delete from HOTEL");
+            stmt.executeUpdate("delete from ROOMS");
             
         }
         catch(SQLException err) {
