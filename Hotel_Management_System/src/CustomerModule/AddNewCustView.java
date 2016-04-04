@@ -19,7 +19,7 @@ import java.awt.Insets;
  * @author Whelan
  */
 public class AddNewCustView extends JPanel {
-    CustomerView parentCustView;
+    //CustomerView parentCustView;
     
     private JLabel lblFirstName;
     private JLabel lblLastName;
@@ -46,8 +46,8 @@ public class AddNewCustView extends JPanel {
     private JButton btnSubmit;
     
     
-    public AddNewCustView(CustomerView parentCustView) {
-        this.parentCustView = parentCustView;
+    public AddNewCustView(/*CustomerView parentCustView*/) {
+        //this.parentCustView = parentCustView;
         
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();

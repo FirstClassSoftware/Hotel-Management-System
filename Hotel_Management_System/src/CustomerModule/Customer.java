@@ -163,24 +163,26 @@ public class Customer {
     public void setValue(int column, Object value) {
         switch(column) {
             case 0:
+                id = id;
+            case 1:
                 firstName = (String) value;
-            case 1: 
+            case 2: 
                 lastName = (String) value;
-            case 2:
+            case 3:
                 numOfOccupants = (String) value;
-            case 3: 
-                occupationDate = (String) value;
             case 4: 
+                occupationDate = (String) value;
+            case 5: 
                 address = (String) value;
-            case 5:
-                tab = (String) value;
             case 6:
-                lastRoomNum = (String) value;
+                tab = (String) value;
             case 7:
-                phoneNum = (String) value;
+                lastRoomNum = (String) value;
             case 8:
-                email = (String) value;
+                phoneNum = (String) value;
             case 9:
+                email = (String) value;
+            case 10:
                 paymentMethod = (String) value;
         }
     }
@@ -195,24 +197,26 @@ public class Customer {
     public Object get(int column) {
         switch(column) {
             case 0:
+                return Integer.toString(id);
+            case 1:
                 return firstName;
-            case 1: 
+            case 2: 
                 return lastName;
-            case 2:
+            case 3:
                 return numOfOccupants;
-            case 3: 
-                return occupationDate;
             case 4: 
+                return occupationDate;
+            case 5: 
                 return address;
-            case 5:
-                return tab;
             case 6:
-                return lastRoomNum;
+                return tab;
             case 7:
-                return phoneNum;
+                return lastRoomNum;
             case 8:
-                return email;
+                return phoneNum;
             case 9:
+                return email;
+            case 10:
                 return paymentMethod;
         }
         return null;

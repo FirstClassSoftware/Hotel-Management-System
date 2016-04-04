@@ -9,7 +9,7 @@ import main.*;
 
 import javax.swing.*;
 import java.awt.*;
-//import CustomerModule.*;
+import CustomerModule.*;
 
 /**
  *
@@ -19,6 +19,10 @@ public class ReservationView extends JPanel {
     
     ReservationModel model;
     
+    JFrame popupFrame;
+    AddNewResChoiceView choiceView;
+    AddNewCustView newCustView;
+    
     JPanel contentPane;
     
     JPanel pnlGrid;
@@ -27,14 +31,14 @@ public class ReservationView extends JPanel {
     JPanel pnlTopBtn;
     JPanel pnlBottomBtn;
     
-    JButton btnHome;
-    JButton btnNewRes;
-    JButton btnEditVal;
-    JButton btnGoToCust;
+    private JButton btnHome;
+    private JButton btnNewRes;
+    private JButton btnDeleteRow;
+    private JButton btnGoToCust;
     
-    JTextField fldSearchEntry;
-    JComboBox cmbSearchCategory;
-    JButton btnSearch;
+    private JTextField fldSearchEntry;
+    private JComboBox cmbSearchCategory;
+    private JButton btnSearch;
     
     private final String[] columnNames = new String[] {"ID", "Floor Number", 
         "Room Number", "Start Date", "End Date", "Customer First Name", 
@@ -50,14 +54,18 @@ public class ReservationView extends JPanel {
         //model = new ReservationModel();
         String[] cmbSearchCat = columnNames;
         
+        popupFrame = new JFrame();
+        choiceView = new AddNewResChoiceView(this);
+        newCustView = new AddNewCustView();
+        
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
         tblMain = new JTable(model);
         pnlTopBtn = new JPanel();
         pnlBottomBtn = new JPanel();
         btnHome = new JButton();
-        btnNewRes = new JButton();
-        btnEditVal = new JButton();
+        btnNewRes= new JButton();
+        btnDeleteRow = new JButton();
         btnGoToCust = new JButton();
         fldSearchEntry = new JTextField(20);
         cmbSearchCategory = new JComboBox(cmbSearchCat);
@@ -73,40 +81,111 @@ public class ReservationView extends JPanel {
         pnlGrid.add(scrTableHold, BorderLayout.CENTER);
         scrTableHold.setViewportView(tblMain);
         
-        btnHome.setText("Home");
-        btnNewRes.setText("Add New Reservation");
-        btnEditVal.setText("Edit Values");
-        btnGoToCust.setText("Go To Customer Screen");
+        getBtnHome().setText("Home");
+        getBtnNewRes().setText("Add New Reservation");
+        getBtnDeleteRow().setText("Delete Row");
+        getBtnGoToCust().setText("Go To Customer Screen");
         
         pnlTopBtn.setLayout(new FlowLayout());
-        pnlTopBtn.add(btnHome);
-        pnlTopBtn.add(btnNewRes);
-        pnlTopBtn.add(btnEditVal);
-        pnlTopBtn.add(btnGoToCust);
+        pnlTopBtn.add(getBtnHome());
+        pnlTopBtn.add(getBtnNewRes());
+        pnlTopBtn.add(getBtnDeleteRow());
+        pnlTopBtn.add(getBtnGoToCust());
         
-        btnSearch.setText("Search");
+        getBtnSearch().setText("Search");
         
         pnlBottomBtn.setLayout(new FlowLayout());
-        pnlBottomBtn.add(fldSearchEntry);
-        pnlBottomBtn.add(cmbSearchCategory);
-        pnlBottomBtn.add(btnSearch);
+        pnlBottomBtn.add(getFldSearchEntry());
+        pnlBottomBtn.add(getCmbSearchCategory());
+        pnlBottomBtn.add(getBtnSearch());
         
         //registerListener();
         
     }
     
     public void registerListener(ReservationControl controller) {
-        btnHome.addActionListener(controller);
-        btnNewRes.addActionListener(controller);
-        btnEditVal.addActionListener(controller);
-        btnSearch.addActionListener(controller);
-        btnGoToCust.addActionListener(controller);
+        getBtnHome().addActionListener(controller);
+        getBtnNewRes().addActionListener(controller);
+        getBtnDeleteRow().addActionListener(controller);
+        getBtnSearch().addActionListener(controller);
+        getBtnGoToCust().addActionListener(controller);
+        choiceView.getBtnNewCust().addActionListener(controller);
+        choiceView.getBtnExistingCust().addActionListener(controller);
     }
+
+    public JButton getBtnHome() {
+        return btnHome;
+    }
+
+    public JButton getBtnNewRes() {
+        return btnNewRes;
+    }
+
+    public JButton getBtnDeleteRow() {
+        return btnDeleteRow;
+    }
+
+    public JButton getBtnGoToCust() {
+        return btnGoToCust;
+    }
+
+    public JTextField getFldSearchEntry() {
+        return fldSearchEntry;
+    }
+
+    public JComboBox getCmbSearchCategory() {
+        return cmbSearchCategory;
+    }
+
+    public JButton getBtnSearch() {
+        return btnSearch;
+    }
+    
     
     public void goToCust() {
         CardLayout cardLayout = (CardLayout) contentPane.getLayout();
         cardLayout.show(contentPane, "Customer Screen");
         //cardLayout.next(contentPane);
     }
+    
+    public void showNewResChoiceView() {
+        popupFrame.getContentPane().removeAll();
+        popupFrame.setSize(400, 300);
+        popupFrame.setVisible(true);
+        popupFrame.setLocationRelativeTo(null);
+        //choiceView.resetFields();
+        popupFrame.add(choiceView);
+        
+    }
+    
+    public int getSelectedRow() {
+        int row = tblMain.getSelectedRow();
+        System.out.println(row);
+        return tblMain.getSelectedRow();
+    }
+    
+    public void refreshTableModel() {
+        tblMain.setModel(model);
+    }
+    
+    public AddNewResChoiceView getChoiceView() {
+        return choiceView;
+    }
+    
+    public int getValueAtCell(int row, int column) {
+        String idString = (String) tblMain.getValueAt(row, column);
+        int id = Integer.parseInt(idString);
+        return id;
+    }
+    
+    public void showNewCustScreen() {
+        popupFrame.getContentPane().removeAll();
+        popupFrame.setSize(400, 500);
+        popupFrame.setVisible(true);
+        popupFrame.setLocationRelativeTo(null);
+        newCustView.resetFields();
+        popupFrame.add(newCustView);
+    }
+     
     
 }

@@ -30,11 +30,11 @@ public class CustomerModel extends AbstractTableModel {
     
     private List<Customer> Customers;
     
-    private final String[] columnNames = new String[] {"First Name", "Last Name", 
+    private final String[] columnNames = new String[] {"ID", "First Name", "Last Name", 
         "Number of Occupants", "Occupation Date", "Address", "Customer Tab", 
         "Previous Room Number", "Phone Number", "Email", "Payment Method"};
     
-    private final String[] columnNamesSQL = new String[] {"FIRST_NAME", "LAST_NAME", 
+    private final String[] columnNamesSQL = new String[] {"ID", "FIRST_NAME", "LAST_NAME", 
         "NUMBER_OF_OCCUPANTS", "OCCUPATION_DATE", "ADDRESS", "CUSTOMER_TAB", 
         "PREVIOUS_ROOM_NUMBER", "PHONE_NUMBER", "EMAIL", "PAYMENT_METHOD"};
     
@@ -95,7 +95,7 @@ public class CustomerModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         getCustomers();
-        int columns = 10;
+        int columns = 11;
         return columns;
     }
     
@@ -194,7 +194,7 @@ public class CustomerModel extends AbstractTableModel {
                     + tab + "', '" + lastRoomNum + "', '" + phoneNum + "', '"
                     + email + "', '" + paymentMethod + "')");
             
-            System.out.println("Successfully added to database");
+            //System.out.println("Successfully added to database");
         }
         catch(SQLException err) {
             System.out.println(err.getMessage());
@@ -290,8 +290,10 @@ public class CustomerModel extends AbstractTableModel {
         
         try {
             //UPDATE users SET role=99 WHERE name='Fred'
-            row++;
-            stmt.executeUpdate("UPDATE CUSTOMERS SET " + columnNamesSQL[column] + " = '" + value + "' WHERE ID = " + row);
+            if(column != 0) {
+            int id = Customers.get(row).getID();
+            stmt.executeUpdate("UPDATE CUSTOMERS SET " + columnNamesSQL[column] + " = '" + value + "' WHERE ID = " + id);
+            }
             //System.out.println("Successfully updated value");
             
         }
@@ -308,12 +310,13 @@ public class CustomerModel extends AbstractTableModel {
     
     
     
-    public void deleteRowFromTable(int row) {
+    public void deleteRowFromTable(int id) {
         
         try {
-            row++;
-            stmt.executeUpdate("delete from CUSTOMERS WHERE ID = " + row);
-            //this.fireTableRowsDeleted(0, Customers.size());
+            //row++;
+            //int id = Customers.get(row).getID();
+            stmt.executeUpdate("delete from CUSTOMERS WHERE ID = " + id);
+            this.fireTableDataChanged();
             
         }
         catch(SQLException err) {

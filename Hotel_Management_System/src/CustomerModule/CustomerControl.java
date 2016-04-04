@@ -8,6 +8,10 @@ package CustomerModule;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.RowFilter;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author WhelanMyPC
@@ -43,8 +47,12 @@ public class CustomerControl implements ActionListener {
         
         if (e.getSource() == view.getBtnDeleteRow()) {
             int row = view.getSelectedRow();
-            model.deleteRowFromTable(row);
-            //view.refreshTableModel();
+            int column = 0;
+            if (row >= 0) {
+                int id = view.getValueAtCell(row, column);
+                model.deleteRowFromTable(id);
+                view.refreshTableModel();
+            }
         }
         
         if (e.getSource() == view.getNewCustView().getBtnSubmit()) {
@@ -72,9 +80,17 @@ public class CustomerControl implements ActionListener {
             int column = view.getComboColumn();
             String querie = view.getFldSearchEntry();
             
-            CustomerTableModelSearch newModel = new CustomerTableModelSearch(model.getCustSearch(column, querie));
-            view.setTableModel(newModel);
+            //String text = filterText.getText();
+            try {
+                TableRowSorter sorter = view.getSorter();
+                sorter.setRowFilter(RowFilter.regexFilter(querie, column));
+                view.setSorter(sorter);
+            } catch (PatternSyntaxException pse) {
+                System.err.println("Bad regex pattern");
+            }
         }
+        
+        
         
     }
 }

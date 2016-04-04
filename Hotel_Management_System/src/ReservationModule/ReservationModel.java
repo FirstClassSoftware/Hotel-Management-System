@@ -200,4 +200,30 @@ public class ReservationModel extends AbstractTableModel {
         return Reservations;
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    public void deleteRowFromTable(int row) {
+        
+        try {
+            //row++;
+            int id = Reservations.get(row).getID();
+            stmt.executeUpdate("delete from RESERVATIONS WHERE ID = " + id);
+            this.fireTableDataChanged();
+            
+        }
+        catch(SQLException err) {
+            System.out.println(err.getMessage());
+        }
+        
+    }
+    
 }

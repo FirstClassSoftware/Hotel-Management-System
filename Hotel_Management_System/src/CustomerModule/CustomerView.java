@@ -9,6 +9,8 @@ import main.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -19,6 +21,8 @@ public class CustomerView extends JPanel {
     JPanel contentPane;
     
     CustomerModel model;
+    
+    TableRowSorter<CustomerModel> sorter;
             
     JFrame popupFrame;
     
@@ -52,9 +56,8 @@ public class CustomerView extends JPanel {
     private void initializeComponents() {
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
-        newCustView = new AddNewCustView(this);
+        newCustView = new AddNewCustView();
         popupFrame = new JFrame();
-        
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
@@ -69,6 +72,9 @@ public class CustomerView extends JPanel {
         fldSearchEntry = new JTextField(20);
         cmbSearchCategory = new JComboBox(cmbSearchCat);
         btnSearch = new JButton();
+        
+        sorter = new TableRowSorter<>(model);
+        tblMain.setRowSorter(sorter);
         
         setLayout(new BorderLayout());
         
@@ -102,6 +108,13 @@ public class CustomerView extends JPanel {
         pnlBottomBtn.add(cmbSearchCategory);
         pnlBottomBtn.add(btnSearch);
         
+        /*
+        try {
+                    sorter.setRowFilter(RowFilter.regexFilter(fldSearchEntry.getText(), 1));
+                } catch (PatternSyntaxException pse) {
+                    System.err.println("Bad regex pattern");
+                }
+                */
     }
     
     public void registerListener(CustomerControl controller) {
@@ -156,15 +169,16 @@ public class CustomerView extends JPanel {
     }
     
     public void showNewCustScreen() {
-        //JFrame frame = new JFrame();
         popupFrame.setSize(400, 500);
         popupFrame.setVisible(true);
-        //newCustView = new AddNewCustView(this);
+        popupFrame.setLocationRelativeTo(null);
         newCustView.resetFields();
         popupFrame.add(newCustView);
     }
     
     public int getSelectedRow() {
+        int row = tblMain.getSelectedRow();
+        System.out.println(row);
         return tblMain.getSelectedRow();
     }
     
@@ -172,12 +186,27 @@ public class CustomerView extends JPanel {
         popupFrame.setVisible(false);
     }
     
-    public void setTableModel(CustomerTableModelSearch model) {
-        tblMain.setModel(model);
+    public Object getTableModel() {
+        return tblMain.getModel();
     }
     
     public void refreshTableModel() {
         tblMain.setModel(model);
+    }
+    
+    public TableRowSorter getSorter() {
+        return sorter;
+    }
+    
+    public void setSorter(TableRowSorter sorter) {
+        //this.sorter = sorter;
+        tblMain.setRowSorter(sorter);
+    }
+    
+    public int getValueAtCell(int row, int column) {
+        String idString = (String) tblMain.getValueAt(row, column);
+        int id = Integer.parseInt(idString);
+        return id;
     }
     
     
