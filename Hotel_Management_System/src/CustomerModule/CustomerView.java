@@ -99,7 +99,7 @@ public class CustomerView extends JPanel {
         pnlTopBtn.add(btnNewCust);
         pnlTopBtn.add(btnDeleteRow);
         pnlTopBtn.add(btnGoToRes);
-        pnlTopBtn.add(btnRefreshTable);
+        //pnlTopBtn.add(btnRefreshTable);
         
         btnSearch.setText("Search");
         

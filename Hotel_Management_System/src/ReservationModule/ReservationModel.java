@@ -39,8 +39,8 @@ public class ReservationModel extends AbstractTableModel {
         try {
             
             host = "jdbc:sqlite:hotelData.db";
-            username = "student";
-            password = "password";
+            username = "";
+            password = "";
         
             con = DriverManager.getConnection(host, username, password);
             stmt = con.createStatement( ResultSet.TYPE_FORWARD_ONLY, 
