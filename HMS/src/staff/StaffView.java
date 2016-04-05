@@ -5,8 +5,10 @@
  */
 package staff;
 
+import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 
 /**
@@ -15,10 +17,12 @@ import javax.swing.JTable;
  */
 public class StaffView extends javax.swing.JPanel {
 
+    private JPanel allPanelContainer;
     /**
      * Creates new form staffView
      */
-    public StaffView() {
+    public StaffView(JPanel panelContainer) {
+        this.allPanelContainer = panelContainer;
         initComponents();
     }
     
@@ -38,6 +42,11 @@ public class StaffView extends javax.swing.JPanel {
     
     void addDeleteButtonListener(ActionListener listenForDeleteButton) {
         deleteButton.addActionListener(listenForDeleteButton);
+    }
+    
+    public void goToHomeView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "Home View");
     }
     
     void displayErrorMessage(String errorMessage) {

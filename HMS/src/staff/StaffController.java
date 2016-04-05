@@ -39,24 +39,7 @@ public class StaffController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            // Possibly disconnect this panel from the parent frame
-            // and connect the home panel to the parent frame.
-            
-            /*
-            HomeView newHomeView = new HomeView();
-            HomeModel newHomeModel = new HomeModel();
-            HomeController newHomeController = new HomeController(newHomeView, newHomeModel);
-            // Add this to the frame.
-            JFrame thisFrame = (JFrame) SwingUtilities.getWindowAncestor(userView);
-            thisFrame.getContentPane().add(HomeView);
-            // Close the StaffView
-             */
-            // Try to just change the visibility of the Jpanel instead of
-            // constructing a totally new HomeView.
-            // We need to use a card layout here.
-            //userView.setVisible(false);
-            //JFrame rootFrame = (JFrame) SwingUtilities.getWindowAncestor(userView);
+            staffView.goToHomeView();
         }
 
     } // End of the HomeListener class
