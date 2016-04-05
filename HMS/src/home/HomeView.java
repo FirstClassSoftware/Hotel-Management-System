@@ -5,13 +5,17 @@ package home;
  *
  * @author Yeejkoob Thao
  */
+import java.awt.CardLayout;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 public class HomeView extends javax.swing.JPanel {
 
+    private JPanel allPanelContainer;
     /**
      * Creates new form HomeView
      */
-    public HomeView() {
+    public HomeView(JPanel panelContainer) {
+        this.allPanelContainer = panelContainer;
         initComponents();
     }
 
@@ -45,7 +49,36 @@ public class HomeView extends javax.swing.JPanel {
     
     }
     
+    public void goToLoginView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "Login View");
+    }
     
+    public void goToUserManagementView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "User Management View");
+    }
+    
+    public void goToStaffManagementView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "Staff Management View");
+    }
+    
+    void addLogoutButtonListener(ActionListener listenForLogout) {
+        logoutButton.addActionListener(listenForLogout);
+    }
+    
+    void addUserManagementButtonListener(ActionListener listenForUserManagement) {
+        userMngButton.addActionListener(listenForUserManagement);
+    }
+    
+    void addStaffManagementButtonListener(ActionListener listenForStaffManagement) {
+        staffMngButton.addActionListener(listenForStaffManagement);
+    }
+    
+    void displayErrorMessage(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.

@@ -5,6 +5,8 @@ package home;
  *
  * @author Yeejkoob Thao
  */
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.*;
 public class HomeController {
@@ -17,7 +19,37 @@ public class HomeController {
     
         this.homeView = theView;
         this.homeModel = theModel;
+        this.homeView.addLogoutButtonListener(new LogoutListener());
+        this.homeView.addUserManagementButtonListener(new UserManagementListener());
+        this.homeView.addStaffManagementButtonListener(new StaffManagementListener());
                     
+    }
+    
+    class LogoutListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            homeView.goToLoginView();
+        }
+    
+    }
+    
+    class UserManagementListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            homeView.goToUserManagementView();
+        }
+    
+    }
+    
+    class StaffManagementListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            homeView.goToStaffManagementView();
+        }
+    
     }
     
     public void checkPermissions(String userLevel) {
