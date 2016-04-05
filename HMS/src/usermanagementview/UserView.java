@@ -4,17 +4,19 @@ package usermanagementview;
  *
  * @author Yeejkoob Thao
  */
+import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class UserView extends JPanel {
 
-    
+    private JPanel allPanelContainer;
     /**
      * Creates new form UserView
      */
-    public UserView() {
+    public UserView(JPanel panelContainer) {
+        this.allPanelContainer = panelContainer;
         initComponents();
         
     }
@@ -37,7 +39,11 @@ public class UserView extends JPanel {
         deleteButton.addActionListener(listenForDeleteButton);
     }
     
-
+    public void goToHomeView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "Home View");
+    }
+    
     void displayErrorMessage(String errorMessage) {
         
         JOptionPane.showMessageDialog(this, errorMessage);
