@@ -240,23 +240,14 @@ public class CustomerModel extends AbstractTableModel {
             colNameArrayValue = 0;
             while(result.next()) {
                 //System.out.println(rs.getInt(columnNamesSQL[colNameArrayValue++]));
-                Customer customer = new Customer(
-                        
-                        rs.getInt(columnNamesSQL[colNameArrayValue++]),
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++]), 
-                        rs.getString(columnNamesSQL[colNameArrayValue++])
-                );
+                Customer customer = new Customer(rs.getInt("ID"), rs.getString("FIRST_NAME"), 
+                        rs.getString("LAST_NAME"), rs.getString("NUMBER_OF_OCCUPANTS"), 
+                        rs.getString("OCCUPATION_DATE"), rs.getString("ADDRESS"), 
+                        rs.getString("CUSTOMER_TAB"), rs.getString("PREVIOUS_ROOM_NUMBER"), 
+                        rs.getString("PHONE_NUMBER"), rs.getString("EMAIL"), rs.getString("PAYMENT_METHOD"));
                 
-                System.out.println(customer.getID());
-                System.out.println(Customers.isEmpty());
+                //System.out.println(customer.getID());
+                //System.out.println(Customers.isEmpty());
                 Customers.add(customer);
             }
             
