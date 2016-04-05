@@ -157,6 +157,7 @@ public class ReservationModel extends AbstractTableModel {
                     + custLastName + "', '" + roomType + "', " + cost + ")");
             
             //System.out.println("Successfully added to database");
+            this.fireTableDataChanged();
         }
         catch(SQLException err) {
             System.out.println(err.getMessage());

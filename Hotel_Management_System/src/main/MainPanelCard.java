@@ -32,15 +32,15 @@ public class MainPanelCard extends JPanel {
     RoomsModel hotelModel;
     
     public MainPanelCard() {
-        resModel = new ReservationModel();
-        resView = new ReservationView(this, resModel);
-        resControl = new ReservationControl(resModel, resView);
-        resView.registerListener(resControl);
-        
         custModel = new CustomerModel();
         custView = new CustomerView(this, custModel);
         custControl = new CustomerControl(custModel, custView);
         custView.registerListener(custControl);
+        
+        resModel = new ReservationModel();
+        resView = new ReservationView(this, resModel);
+        resControl = new ReservationControl(resModel, resView, custModel);
+        resView.registerListener(resControl);
         
         hotelModel = new RoomsModel();
         

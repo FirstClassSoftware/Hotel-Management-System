@@ -22,6 +22,7 @@ public class ReservationView extends JPanel {
     JFrame popupFrame;
     AddNewResChoiceView choiceView;
     AddNewCustView newCustView;
+    AddNewResView newResView;
     
     JPanel contentPane;
     
@@ -57,6 +58,7 @@ public class ReservationView extends JPanel {
         popupFrame = new JFrame();
         choiceView = new AddNewResChoiceView(this);
         newCustView = new AddNewCustView();
+        newResView = new AddNewResView();
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
@@ -111,6 +113,8 @@ public class ReservationView extends JPanel {
         getBtnGoToCust().addActionListener(controller);
         choiceView.getBtnNewCust().addActionListener(controller);
         choiceView.getBtnExistingCust().addActionListener(controller);
+        newCustView.getBtnSubmit().addActionListener(controller);
+        newResView.getBtnSubmit().addActionListener(controller);
     }
 
     public JButton getBtnHome() {
@@ -185,6 +189,32 @@ public class ReservationView extends JPanel {
         popupFrame.setLocationRelativeTo(null);
         newCustView.resetFields();
         popupFrame.add(newCustView);
+    }
+    
+    public AddNewCustView getNewCustView() {
+        return newCustView;
+    }
+    
+    public void closeNewCustScreen() {
+        popupFrame.setVisible(false);
+    }
+    
+    public void showNewResScreen() {
+        popupFrame.getContentPane().removeAll();
+        //JFrame popupFrame1 = new JFrame();
+        popupFrame.setSize(440, 400);
+        popupFrame.setVisible(true);
+        popupFrame.setLocationRelativeTo(null);
+        newResView.resetFields();
+        popupFrame.add(newResView);
+    }
+    
+    public AddNewResView getNewResView() {
+        return newResView;
+    }
+    
+    public void closeNewResScreen() {
+        popupFrame.setVisible(false);
     }
      
     

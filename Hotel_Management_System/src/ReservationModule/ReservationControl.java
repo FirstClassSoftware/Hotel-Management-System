@@ -15,47 +15,48 @@ import CustomerModule.*;
  */
 public class ReservationControl implements ActionListener {
     
-    ReservationView view;
-    ReservationModel model;
+    ReservationView resView;
+    ReservationModel resModel;
     
-    public ReservationControl(ReservationModel m, ReservationView v) {
-        model = m;
-        view = v;
+    CustomerModel custModel;
+    
+    public ReservationControl(ReservationModel resModel, ReservationView resView, CustomerModel custModel) {
+        this.resModel = resModel;
+        this.resView = resView;
+        this.custModel = custModel;
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource() == view.getBtnHome()) {
+        if (e.getSource() == resView.getBtnHome()) {
             System.exit(0);
         }
         
-        if (e.getSource() == view.getBtnGoToCust()) {
-            view.goToCust();
+        if (e.getSource() == resView.getBtnGoToCust()) {
+            resView.goToCust();
         }
         
-        if (e.getSource() == view.getBtnNewRes()) {
-            view.showNewResChoiceView();
+        if (e.getSource() == resView.getBtnNewRes()) {
+            resView.showNewResChoiceView();
         }
              
-        if (e.getSource() == view.getBtnDeleteRow()) {
-            int row = view.getSelectedRow();
+        if (e.getSource() == resView.getBtnDeleteRow()) {
+            int row = resView.getSelectedRow();
             int column = 0;
             if (row >= 0) {
-                int id = view.getValueAtCell(row, column);
-                model.deleteRowFromTable(id);
-                view.refreshTableModel();
+                int id = resView.getValueAtCell(row, column);
+                resModel.deleteRowFromTable(id);
+                resView.refreshTableModel();
             }
         }
         
-        if (e.getSource() == view.getChoiceView().getBtnNewCust()) {
-            view.showNewCustScreen();
+        if (e.getSource() == resView.getChoiceView().getBtnNewCust()) {
+            resView.showNewCustScreen();
         }
         
-        /*
-        
-        if (e.getSource() == view.getChoiceView().getBtnSubmit()) {
-            AddNewCustView addPanel = view.getNewCustView();
+        if (e.getSource() == resView.getNewCustView().getBtnSubmit()) {
+            AddNewCustView addPanel = resView.getNewCustView();
             
             String firstName = addPanel.getTxtFirstName().getText();
             String lastName = addPanel.getTxtLastName().getText();
@@ -68,20 +69,51 @@ public class ReservationControl implements ActionListener {
             String email = addPanel.getTxtEmail().getText();
             String paymentMethod = addPanel.getTxtPaymentMethod().getText();
             
-            model.addNewCustomer(firstName, lastName, numOfOccupants, occupationDate, 
+            custModel.addNewCustomer(firstName, lastName, numOfOccupants, occupationDate, 
                     address, tab, lastRoomNum, phoneNum, email, paymentMethod);
             
-            view.closeNewCustScreen();
+            resView.closeNewCustScreen();
+            resView.showNewResScreen();
+        }
+        
+        
+        
+        if (e.getSource() == resView.getNewResView().getBtnSubmit()) {
+            AddNewResView addPanel = resView.getNewResView();
+            
+            String floorNumber = addPanel.getTxtFloorNumber().getText();
+            String roomNumber = addPanel.getTxtRoomNumber().getText();
+            String startDate = addPanel.getTxtStartDate().getText();
+            String endDate = addPanel.getTxtEndDate().getText();
+            String custFirstName = addPanel.getTxtCustomerFirstName().getText();
+            String custLastName = addPanel.getTxtCustomerLastName().getText();
+            String roomType = addPanel.getTxtRoomType().getText();
+            String cost = addPanel.getTxtCost().getText();
+                Double costDouble;
+                if (cost.isEmpty()) {
+                    costDouble = 0.0;
+                }
+                else {
+                    costDouble = Double.parseDouble(cost);
+                }
+            
+            resModel.addNewReservation(floorNumber, roomNumber, startDate, endDate, 
+                    custFirstName, custLastName, roomType, costDouble);
+            
+            System.out.println("Succesfully added Reservation");
+            resView.closeNewResScreen();
             
         }
         
-        if (e.getSource() == view.getBtnSearch()) {
-            int column = view.getComboColumn();
-            String querie = view.getFldSearchEntry().getText();
+        /*
+        if (e.getSource() == resView.getBtnSearch()) {
+            int column = resView.getComboColumn();
+            String querie = resView.getFldSearchEntry().getText();
             
             CustomerTableModelSearch newModel = new CustomerTableModelSearch(model.getCustSearch(column, querie));
             view.setTableModel(newModel);
         }
                 */
+                
     }
 }
