@@ -44,7 +44,7 @@ public class AddNewResView extends JPanel {
     private JButton btnSubmit;
     
     
-    public AddNewResView(/*CustomerView parentCustView*/) {
+    public AddNewResView() {
         //this.parentCustView = parentCustView;
         
         this.setLayout(new GridBagLayout());
@@ -148,6 +148,11 @@ public class AddNewResView extends JPanel {
         c.gridy = 7;
         this.add(txtCost, c);
         
+        /*
+        txtCustomerFirstName.setText(custFirstName);
+        txtCustomerLastName.setText(custLastName);
+        txtStartDate.setText(startDate);
+        */
         
         
         
@@ -262,8 +267,8 @@ public class AddNewResView extends JPanel {
         return txtStartDate;
     }
 
-    public void setTxtStartDate(JTextField txtStartDate) {
-        this.txtStartDate = txtStartDate;
+    public void setTxtStartDate(String txtStartDate) {
+        this.txtStartDate.setText(txtStartDate);
     }
 
     public JTextField getTxtEndDate() {
@@ -278,16 +283,17 @@ public class AddNewResView extends JPanel {
         return txtCustomerFirstName;
     }
 
-    public void setTxtCustomerFirstName(JTextField txtCustomerFirstName) {
-        this.txtCustomerFirstName = txtCustomerFirstName;
+    public void setTxtCustomerFirstName(String txtCustomerFirstName) {
+        this.txtCustomerFirstName.setText(txtCustomerFirstName);
+        System.out.println("text set");
     }
 
     public JTextField getTxtCustomerLastName() {
         return txtCustomerLastName;
     }
 
-    public void setTxtCustomerLastName(JTextField txtCustomerLastName) {
-        this.txtCustomerLastName = txtCustomerLastName;
+    public void setTxtCustomerLastName(String txtCustomerLastName) {
+        this.txtCustomerLastName.setText(txtCustomerLastName);
     }
 
     public JTextField getTxtRoomType() {

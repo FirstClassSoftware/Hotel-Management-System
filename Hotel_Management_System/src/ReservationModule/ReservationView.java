@@ -10,6 +10,7 @@ import main.*;
 import javax.swing.*;
 import java.awt.*;
 import CustomerModule.*;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -18,11 +19,15 @@ import CustomerModule.*;
 public class ReservationView extends JPanel {
     
     ReservationModel model;
+    CustomerModel custModel;
+    
+    TableRowSorter<ReservationModel> sorter;
     
     JFrame popupFrame;
     AddNewResChoiceView choiceView;
     AddNewCustView newCustView;
     AddNewResView newResView;
+    PickCustView pickCustView;
     
     JPanel contentPane;
     
@@ -54,11 +59,13 @@ public class ReservationView extends JPanel {
     private void initializeComponents() {
         //model = new ReservationModel();
         String[] cmbSearchCat = columnNames;
+        custModel = new CustomerModel();
         
         popupFrame = new JFrame();
         choiceView = new AddNewResChoiceView(this);
         newCustView = new AddNewCustView();
         newResView = new AddNewResView();
+        pickCustView = new PickCustView(custModel);
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
@@ -72,6 +79,9 @@ public class ReservationView extends JPanel {
         fldSearchEntry = new JTextField(20);
         cmbSearchCategory = new JComboBox(cmbSearchCat);
         btnSearch = new JButton();
+        
+        sorter = new TableRowSorter<>(model);
+        tblMain.setRowSorter(sorter);
         
         setLayout(new BorderLayout());
         
@@ -115,6 +125,7 @@ public class ReservationView extends JPanel {
         choiceView.getBtnExistingCust().addActionListener(controller);
         newCustView.getBtnSubmit().addActionListener(controller);
         newResView.getBtnSubmit().addActionListener(controller);
+        pickCustView.registerListener(controller);
     }
 
     public JButton getBtnHome() {
@@ -143,6 +154,10 @@ public class ReservationView extends JPanel {
 
     public JButton getBtnSearch() {
         return btnSearch;
+    }
+    
+    public int getComboColumn() {
+        return cmbSearchCategory.getSelectedIndex();
     }
     
     
@@ -177,8 +192,9 @@ public class ReservationView extends JPanel {
     }
     
     public int getValueAtCell(int row, int column) {
-        String idString = (String) tblMain.getValueAt(row, column);
-        int id = Integer.parseInt(idString);
+        //String idString = (String) tblMain.getValueAt(row, column);
+        //int id = Integer.parseInt(idString);
+        int id = (Integer) tblMain.getValueAt(row, column);
         return id;
     }
     
@@ -195,7 +211,7 @@ public class ReservationView extends JPanel {
         return newCustView;
     }
     
-    public void closeNewCustScreen() {
+    public void closePopupScreen() {
         popupFrame.setVisible(false);
     }
     
@@ -213,8 +229,30 @@ public class ReservationView extends JPanel {
         return newResView;
     }
     
-    public void closeNewResScreen() {
-        popupFrame.setVisible(false);
+    public TableRowSorter getSorter() {
+        return sorter;
+    }
+    
+    public void setSorter(TableRowSorter sorter) {
+        //this.sorter = sorter;
+        tblMain.setRowSorter(sorter);
+    }
+    
+    public void showPickCustScreen() {
+        
+        popupFrame.getContentPane().removeAll();
+        Toolkit tk = Toolkit.getDefaultToolkit();
+        int xSize = ((int) tk.getScreenSize().getWidth());
+        int ySize = ((int) tk.getScreenSize().getHeight());
+        popupFrame.setSize(xSize,ySize);
+        popupFrame.setVisible(true);
+        popupFrame.setLocationRelativeTo(null);
+      
+        popupFrame.add(pickCustView);
+    }
+    
+    public PickCustView getPickCustScreen() {
+        return pickCustView;
     }
      
     

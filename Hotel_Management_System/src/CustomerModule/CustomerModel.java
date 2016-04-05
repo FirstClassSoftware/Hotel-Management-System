@@ -39,7 +39,10 @@ public class CustomerModel extends AbstractTableModel {
     private final String[] columnNamesSQL = new String[] {"ID", "FIRST_NAME", "LAST_NAME", 
         "NUMBER_OF_OCCUPANTS", "OCCUPATION_DATE", "ADDRESS", "CUSTOMER_TAB", 
         "PREVIOUS_ROOM_NUMBER", "PHONE_NUMBER", "EMAIL", "PAYMENT_METHOD"};
+    
     int colNameArrayValue;
+    
+    boolean isEditable;
     
     public CustomerModel() {
          
@@ -74,11 +77,12 @@ public class CustomerModel extends AbstractTableModel {
             //System.out.println("table created");
             
         }
-                    
         
         catch(SQLException err) {
             System.out.println(err.getMessage());
         }
+        
+        isEditable = true;
         
     } 
     
@@ -123,7 +127,7 @@ public class CustomerModel extends AbstractTableModel {
     
     @Override
     public boolean isCellEditable(int row, int column) {
-        return true;
+        return isEditable;
     }
     
     
@@ -334,6 +338,10 @@ public class CustomerModel extends AbstractTableModel {
             System.out.println(err.getMessage());
         }
         
+    }
+    
+    public void setIsEditable(boolean isEdit) {
+        isEditable = isEdit;
     }
     
 }

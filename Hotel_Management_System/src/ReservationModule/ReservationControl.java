@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import CustomerModule.*;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -55,6 +58,25 @@ public class ReservationControl implements ActionListener {
             resView.showNewCustScreen();
         }
         
+        if (e.getSource() == resView.getChoiceView().getBtnExistingCust()) {
+            resView.closePopupScreen();
+            resView.showPickCustScreen();
+        }
+        
+        if (e.getSource() == resView.getPickCustScreen().getBtnSelectCustomer()) {
+            PickCustView pickCust = resView.getPickCustScreen();
+            int row = pickCust.getSelectedRow();
+            String firstName = (String) pickCust.getObjectAtCell(row, 2);
+            String lastName = (String) pickCust.getObjectAtCell(row, 3);
+            String startDate = (String) pickCust.getObjectAtCell(row, 3);
+            resView.closePopupScreen();
+            AddNewResView newResView = resView.getNewResView();
+            newResView.setTxtCustomerFirstName(firstName);
+            newResView.setTxtCustomerLastName(lastName);
+            newResView.setTxtStartDate(startDate);
+            resView.showNewResScreen();
+        }
+        
         if (e.getSource() == resView.getNewCustView().getBtnSubmit()) {
             AddNewCustView addPanel = resView.getNewCustView();
             
@@ -72,7 +94,11 @@ public class ReservationControl implements ActionListener {
             custModel.addNewCustomer(firstName, lastName, numOfOccupants, occupationDate, 
                     address, tab, lastRoomNum, phoneNum, email, paymentMethod);
             
-            resView.closeNewCustScreen();
+            resView.closePopupScreen();
+            AddNewResView newResView = resView.getNewResView();
+            newResView.setTxtCustomerFirstName(firstName);
+            newResView.setTxtCustomerLastName(lastName);
+            newResView.setTxtStartDate(occupationDate);
             resView.showNewResScreen();
         }
         
@@ -101,19 +127,40 @@ public class ReservationControl implements ActionListener {
                     custFirstName, custLastName, roomType, costDouble);
             
             System.out.println("Succesfully added Reservation");
-            resView.closeNewResScreen();
+            resView.closePopupScreen();
             
         }
         
-        /*
+        
         if (e.getSource() == resView.getBtnSearch()) {
             int column = resView.getComboColumn();
             String querie = resView.getFldSearchEntry().getText();
             
-            CustomerTableModelSearch newModel = new CustomerTableModelSearch(model.getCustSearch(column, querie));
-            view.setTableModel(newModel);
+            //String text = filterText.getText();
+            try {
+                TableRowSorter sorter = resView.getSorter();
+                sorter.setRowFilter(RowFilter.regexFilter(querie, column));
+                resView.setSorter(sorter);
+            } catch (PatternSyntaxException pse) {
+                System.err.println("Bad regex pattern");
+            }
         }
-                */
+        
+        if (e.getSource() == resView.getPickCustScreen().getBtnSearch()) {
+            PickCustView pickView = resView.getPickCustScreen();
+            int column = pickView.getComboColumn();
+            String querie = pickView.getFldSearchEntry().getText();
+            
+            //String text = filterText.getText();
+            try {
+                TableRowSorter sorter = pickView.getSorter();
+                sorter.setRowFilter(RowFilter.regexFilter(querie, column));
+                pickView.setSorter(sorter);
+            } catch (PatternSyntaxException pse) {
+                System.err.println("Bad regex pattern");
+            }
+        }
                 
+               
     }
 }

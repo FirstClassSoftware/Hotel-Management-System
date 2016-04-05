@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RoomModule;
+package ReservationModule;
 
-import RoomsModule.*;
+import CustomerModule.*;
 import main.*;
 
 import javax.swing.*;
@@ -17,13 +17,13 @@ import javax.swing.table.TableRowSorter;
  *
  * @author WhelanMyPC
  */
-public class RoomsView extends JPanel {
+public class PickCustView extends JPanel {
     
-    JPanel contentPane;
+    //JPanel contentPane;
     
-    RoomsModel model;
+    CustomerModel model;
     
-    TableRowSorter<RoomsModel> sorter;
+    TableRowSorter<CustomerModel> sorter;
             
     JFrame popupFrame;
     
@@ -32,30 +32,36 @@ public class RoomsView extends JPanel {
     JTable tblMain;
     JPanel pnlTopBtn;
     JPanel pnlBottomBtn;
-    AddNewRoomView newRoomView;
+    //AddNewCustView newCustView;
     
-    private JButton btnHome;
-    private JButton btnNewRoom;
-    private JButton btnDeleteRow;
+    //private JButton btnHome;
+    //private JButton btnNewCust;
+    //private JButton btnDeleteRow;
+    //private JButton btnGoToRes;
+    //private JButton btnRefreshTable;
     
     private JTextField fldSearchEntry;
     private JComboBox cmbSearchCategory;
     private JButton btnSearch;
     
+    private JButton btnSelectCustomer;
+    
     private String[] columnNames;
     
-    public RoomsView(MainPanelCard c, RoomsModel m) {
+    public PickCustView(/*MainPanelCard c,*/ CustomerModel m) {
         
         model = m;
-        contentPane = c;
+        //contentPane = c;
         initializeComponents();
         
     }
     
     private void initializeComponents() {
         columnNames = model.getColumnNames();
+        
+        model.setIsEditable(false);
         String[] cmbSearchCat = columnNames;
-        newRoomView = new AddNewRoomView();
+        //newCustView = new AddNewCustView();
         popupFrame = new JFrame();
         
         pnlGrid = new JPanel();
@@ -63,9 +69,12 @@ public class RoomsView extends JPanel {
         tblMain = new JTable(model);
         pnlTopBtn = new JPanel();
         pnlBottomBtn = new JPanel();
-        btnHome = new JButton();
-        btnNewRoom = new JButton();
+        btnSelectCustomer = new JButton();
+        /*btnHome = new JButton();
+        btnNewCust = new JButton();
         btnDeleteRow = new JButton();
+        btnGoToRes = new JButton();
+        btnRefreshTable = new JButton();*/
         fldSearchEntry = new JTextField(20);
         cmbSearchCategory = new JComboBox(cmbSearchCat);
         btnSearch = new JButton();
@@ -85,13 +94,20 @@ public class RoomsView extends JPanel {
         pnlGrid.add(scrTableHold, BorderLayout.CENTER);
         scrTableHold.setViewportView(tblMain);
         
-        btnHome.setText("Home");
-        btnNewRoom.setText("Add New Room");
+        btnSelectCustomer.setText("Select Customer");
+        /*btnHome.setText("Home");
+        btnNewCust.setText("Add New Customer");
         btnDeleteRow.setText("Delete Row");
+        btnGoToRes.setText("Go to Reservations Screen");
+        btnRefreshTable.setText("Refresh Table");*/
         
         pnlTopBtn.setLayout(new FlowLayout());
-        pnlTopBtn.add(btnHome);
+        pnlTopBtn.add(btnSelectCustomer);
+        /*pnlTopBtn.add(btnHome);
+        pnlTopBtn.add(btnNewCust);
         pnlTopBtn.add(btnDeleteRow);
+        pnlTopBtn.add(btnGoToRes);*/
+        //pnlTopBtn.add(btnRefreshTable);
         
         btnSearch.setText("Search");
         
@@ -109,16 +125,19 @@ public class RoomsView extends JPanel {
                 */
     }
     
-    public void registerListener(RoomsControl controller) {
-        btnHome.addActionListener(controller);
+    public void registerListener(ReservationControl controller) {
+        btnSearch.addActionListener(controller);
+        btnSelectCustomer.addActionListener(controller);
+        
+        /*btnHome.addActionListener(controller);
         btnNewCust.addActionListener(controller);
         btnDeleteRow.addActionListener(controller);
-        btnSearch.addActionListener(controller);
         btnGoToRes.addActionListener(controller);
         btnRefreshTable.addActionListener(controller);
-        newCustView.getBtnSubmit().addActionListener(controller);
+        newCustView.getBtnSubmit().addActionListener(controller);*/
     }
     
+    /*
     public AddNewCustView getNewCustView() {
         return newCustView;
     }
@@ -134,11 +153,15 @@ public class RoomsView extends JPanel {
     public JButton getBtnDeleteRow() {
         return btnDeleteRow;
     }
-    
+    */
     public JButton getBtnSearch() {
         return btnSearch;
     }
     
+    public JButton getBtnSelectCustomer() {
+        return btnSelectCustomer;
+    }
+    /*
     public JButton getBtnGoToRes() {
         return btnGoToRes;
     }
@@ -146,15 +169,15 @@ public class RoomsView extends JPanel {
     public JButton getBtnRefreshTable() {
         return btnRefreshTable;
     }
-    
+    */
     public int getComboColumn() {
         return cmbSearchCategory.getSelectedIndex();
     }
     
-    public String getFldSearchEntry() {
-        return fldSearchEntry.getText();
+    public JTextField getFldSearchEntry() {
+        return fldSearchEntry;
     }
-    
+    /*
     public void goToRes() {
         CardLayout cardLayout = (CardLayout) contentPane.getLayout();
         cardLayout.show(contentPane, "Reservation Screen");
@@ -167,10 +190,10 @@ public class RoomsView extends JPanel {
         newCustView.resetFields();
         popupFrame.add(newCustView);
     }
-    
+    */
     public int getSelectedRow() {
-        int row = tblMain.getSelectedRow();
-        System.out.println(row);
+        //int row = tblMain.getSelectedRow();
+        //System.out.println(row);
         return tblMain.getSelectedRow();
     }
     
@@ -201,6 +224,13 @@ public class RoomsView extends JPanel {
         return id;
     }
     
-    
+    public Object getObjectAtCell(int row ,int column) {
+        Object object = tblMain.getValueAt(row, column);
+        return object;
+    }
     
 }
+    
+    
+    
+

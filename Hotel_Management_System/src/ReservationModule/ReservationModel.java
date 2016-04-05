@@ -212,11 +212,11 @@ public class ReservationModel extends AbstractTableModel {
     
     
     
-    public void deleteRowFromTable(int row) {
+    public void deleteRowFromTable(int id) {
         
         try {
             //row++;
-            int id = Reservations.get(row).getID();
+            //int id = Reservations.get(row).getID();
             stmt.executeUpdate("delete from RESERVATIONS WHERE ID = " + id);
             this.fireTableDataChanged();
             
