@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import javax.swing.*;
+import home.*;
 
 public class LoginController {
 
@@ -44,12 +45,10 @@ public class LoginController {
                 
                 // Update the login date in the USER table in the database
                 currentLoginModel.recordUserLoginTime(effectiveUsername);
-                
-                
-                
-                
+   
                 ////////////////////////////////////////////////////////////////
                 // Generate the HomeView.
+                currentLoginView.goToHomeView();
                 
 
             } else {

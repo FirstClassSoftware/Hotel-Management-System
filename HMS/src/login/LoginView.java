@@ -9,6 +9,7 @@ package login;
  *
  * @author Main
  */
+import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 public class LoginView extends javax.swing.JPanel {
@@ -16,7 +17,9 @@ public class LoginView extends javax.swing.JPanel {
     /**
      * Creates new form LoginViewPanel
      */
-    public LoginView() {
+    private JPanel allPanelContainer;
+    public LoginView(JPanel panelContainer) {
+        this.allPanelContainer = panelContainer;
         initComponents();
     }
 
@@ -38,6 +41,11 @@ public class LoginView extends javax.swing.JPanel {
     
     void displayErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage);
+    }
+    
+    public void goToHomeView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "Home View");
     }
         
     /**
