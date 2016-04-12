@@ -42,7 +42,7 @@ public class CustomerControl implements ActionListener {
         }
         
         if (e.getSource() == view.getBtnRefreshTable()) {
-            view.refreshTableModel();
+            //view.refreshTableModel();
         }
         
         if (e.getSource() == view.getBtnDeleteRow()) {
@@ -51,26 +51,22 @@ public class CustomerControl implements ActionListener {
             if (row >= 0) {
                 int id = view.getValueAtCell(row, column);
                 model.deleteRowFromTable(id);
-                view.refreshTableModel();
+                //view.refreshTableModel();
             }
         }
         
         if (e.getSource() == view.getNewCustView().getBtnSubmit()) {
             AddNewCustView addPanel = view.getNewCustView();
+            String[] inputs = addPanel.getInputs();
             
-            String firstName = addPanel.getTxtFirstName().getText();
-            String lastName = addPanel.getTxtLastName().getText();
-            String numOfOccupants = addPanel.getTxtNumOfOccupants().getText();
-            String occupationDate = addPanel.getTxtOccupationDate().getText();
-            String address = addPanel.getTxtAddress().getText();
-            String tab = addPanel.getTxtTab().getText();
-            String lastRoomNum = addPanel.getTxtLastRoomNum().getText();
-            String phoneNum = addPanel.getTxtPhoneNum().getText();
-            String email = addPanel.getTxtEmail().getText();
-            String paymentMethod = addPanel.getTxtPaymentMethod().getText();
             
-            model.addNewCustomer(firstName, lastName, numOfOccupants, occupationDate, 
-                    address, tab, lastRoomNum, phoneNum, email, paymentMethod);
+            
+            //System.out.println(model.isDateNull(model.isCorrectDateFormat(occupationDate)));
+            if(model.isDateNull(model.isCorrectDateFormat(inputs[3])) == true) {
+                
+            }
+            model.addNewCustomer(inputs[0], inputs[1], inputs[2], inputs[3], 
+                    inputs[4], inputs[5], inputs[6], inputs[7], inputs[8], inputs[9]);
             
             view.closeNewCustScreen();
             
@@ -79,18 +75,18 @@ public class CustomerControl implements ActionListener {
         if (e.getSource() == view.getBtnSearch()) {
             int column = view.getComboColumn();
             String querie = view.getFldSearchEntry();
-            
-            //String text = filterText.getText();
             try {
                 TableRowSorter sorter = view.getSorter();
                 sorter.setRowFilter(RowFilter.regexFilter(querie, column));
                 view.setSorter(sorter);
             } catch (PatternSyntaxException pse) {
-                System.err.println("Bad regex pattern");
+                System.out.println(pse.getMessage());
             }
         }
-        
-        
-        
+       // This is actionperfomed 
     }
+    
+    
+    
+    // This is end of code
 }

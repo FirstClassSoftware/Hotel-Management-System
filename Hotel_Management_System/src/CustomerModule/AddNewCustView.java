@@ -494,4 +494,29 @@ public class AddNewCustView extends JPanel {
         
     }
     
+    public String[] getInputs() {
+        String[] output = new String[10];
+        String firstName = this.getTxtFirstName().getText();
+        output[0] = firstName;
+        String lastName = this.getTxtLastName().getText();
+        output[1] = lastName;
+        String numOfOccupants = this.getTxtNumOfOccupants().getText();
+        output[2] = numOfOccupants;
+        String occupationDate = this.getTxtOccupationDate().getText();
+        output[3] = occupationDate;
+        String address = this.getTxtAddress().getText();
+        output[4] = address;
+        String tab = this.getTxtTab().getText();
+        output[5] = tab;
+        String lastRoomNum = this.getTxtLastRoomNum().getText();
+        output[6] = lastRoomNum;
+        String phoneNum = this.getTxtPhoneNum().getText();
+        output[7] = phoneNum;
+        String email = this.getTxtEmail().getText();
+        output[8] = email;
+        String paymentMethod = this.getTxtPaymentMethod().getText();
+        output[9] = paymentMethod;
+        return output;
+    }
+    
 }

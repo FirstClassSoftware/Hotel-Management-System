@@ -12,7 +12,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -343,5 +347,35 @@ public class CustomerModel extends AbstractTableModel {
     public void setIsEditable(boolean isEdit) {
         isEditable = isEdit;
     }
+    
+    public Date isCorrectDateFormat(String input) {
+        Date date = null;
+        
+        DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        try {
+            date = format.parse(input);
+            System.out.println(date);
+            return date;
+            
+            //return true;
+        }
+        catch (java.text.ParseException err) {
+            System.out.println(err.getMessage());
+        }
+        
+        return date;
+        
+    }
+    
+    public boolean isDateNull(Date input) {
+        if(input == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    
     
 }

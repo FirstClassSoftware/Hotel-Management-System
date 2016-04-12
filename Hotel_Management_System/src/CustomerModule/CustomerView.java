@@ -186,14 +186,6 @@ public class CustomerView extends JPanel {
         popupFrame.setVisible(false);
     }
     
-    public Object getTableModel() {
-        return tblMain.getModel();
-    }
-    
-    public void refreshTableModel() {
-        tblMain.setModel(model);
-    }
-    
     public TableRowSorter getSorter() {
         return sorter;
     }
@@ -208,6 +200,8 @@ public class CustomerView extends JPanel {
         int id = Integer.parseInt(idString);
         return id;
     }
+    
+    
     
     
     
