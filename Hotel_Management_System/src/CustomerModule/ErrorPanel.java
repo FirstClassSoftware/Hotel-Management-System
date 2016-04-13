@@ -18,11 +18,15 @@ import java.awt.Insets;
  */
 public class ErrorPanel extends JPanel {
     
-    JLabel lblErrorLine1;
-    JLabel lblErrorLine2;
-    JButton btnExit;
+    private JLabel lblErrorLine1;
+    private JLabel lblErrorLine2;
+    private JButton btnExit;
     
-    public ErrorPanel(String errorMessage) {
+    public ErrorPanel() {
+        btnExit = new JButton("OK");
+    }
+    
+    public void setErrorMessage(String errorMessage) {
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         
@@ -45,10 +49,34 @@ public class ErrorPanel extends JPanel {
             lblErrorLine2.setText("MM/dd/YYYY Example 02/04/1987");
         }
         
-        btnExit = new JButton("OK");
+        //btnExit
         c.gridx = 0;
         c.gridy = 2;
         this.add(btnExit, c);
+    }
+
+    public JLabel getLblErrorLine1() {
+        return lblErrorLine1;
+    }
+
+    public void setLblErrorLine1(JLabel lblErrorLine1) {
+        this.lblErrorLine1 = lblErrorLine1;
+    }
+
+    public JLabel getLblErrorLine2() {
+        return lblErrorLine2;
+    }
+
+    public void setLblErrorLine2(JLabel lblErrorLine2) {
+        this.lblErrorLine2 = lblErrorLine2;
+    }
+
+    public JButton getBtnExit() {
+        return btnExit;
+    }
+
+    public void setBtnExit(JButton btnExit) {
+        this.btnExit = btnExit;
     }
     
 }

@@ -33,6 +33,7 @@ public class CustomerView extends JPanel {
     JPanel pnlTopBtn;
     JPanel pnlBottomBtn;
     AddNewCustPanel newCustView;
+    ErrorPanel errorPanel;
     
     private JButton btnHome;
     private JButton btnNewCust;
@@ -58,6 +59,7 @@ public class CustomerView extends JPanel {
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
         newCustView = new AddNewCustPanel();
+        errorPanel = new ErrorPanel();
         popupFrame = new JFrame();
         errorFrame = new JFrame();
         
@@ -127,10 +129,15 @@ public class CustomerView extends JPanel {
         btnGoToRes.addActionListener(controller);
         btnRefreshTable.addActionListener(controller);
         newCustView.getBtnSubmit().addActionListener(controller);
+        errorPanel.getBtnExit().addActionListener(controller);
     }
     
     public AddNewCustPanel getNewCustView() {
         return newCustView;
+    }
+    
+    public ErrorPanel getErrorPanel() {
+        return errorPanel;
     }
     
     public JButton getBtnHome() {
@@ -185,11 +192,15 @@ public class CustomerView extends JPanel {
     
     public void showNewCustError(String errorMessage) {
         errorFrame.getContentPane().removeAll();
-        errorFrame.setSize(400, 100);
+        errorFrame.setSize(400, 200);
         errorFrame.setVisible(true);
         errorFrame.setLocationRelativeTo(null);
-        ErrorPanel errorPanel = new ErrorPanel(errorMessage);
+        errorPanel.setErrorMessage(errorMessage);
         errorFrame.add(errorPanel);
+    }
+    
+    public void closeErrorFrame() {
+        errorFrame.setVisible(false);
     }
     
     public int getSelectedRow() {

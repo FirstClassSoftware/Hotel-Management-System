@@ -71,6 +71,10 @@ public class CustomerControl implements ActionListener {
             
         }
         
+        if (e.getSource() == view.getErrorPanel().getBtnExit()) {
+            view.closeErrorFrame();
+        }
+        
         if (e.getSource() == view.getBtnSearch()) {
             int column = view.getComboColumn();
             String querie = view.getFldSearchEntry();
