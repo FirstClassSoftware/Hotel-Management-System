@@ -56,19 +56,18 @@ public class CustomerControl implements ActionListener {
         }
         
         if (e.getSource() == view.getNewCustView().getBtnSubmit()) {
-            AddNewCustView addPanel = view.getNewCustView();
+            AddNewCustPanel addPanel = view.getNewCustView();
             String[] inputs = addPanel.getInputs();
             
-            
-            
-            //System.out.println(model.isDateNull(model.isCorrectDateFormat(occupationDate)));
-            if(model.isDateNull(model.isCorrectDateFormat(inputs[3])) == true) {
-                
+            if(model.isCorrectDateFormat(inputs[3]) == false) {
+                view.showNewCustError("Occupation Date");
             }
-            model.addNewCustomer(inputs[0], inputs[1], inputs[2], inputs[3], 
+            else {
+                model.addNewCustomer(inputs[0], inputs[1], inputs[2], inputs[3], 
                     inputs[4], inputs[5], inputs[6], inputs[7], inputs[8], inputs[9]);
+                view.closeNewCustScreen();
+            }
             
-            view.closeNewCustScreen();
             
         }
         

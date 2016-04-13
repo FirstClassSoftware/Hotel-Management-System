@@ -25,7 +25,7 @@ public class ReservationView extends JPanel {
     
     JFrame popupFrame;
     AddNewResChoiceView choiceView;
-    AddNewCustView newCustView;
+    AddNewCustPanel newCustView;
     AddNewResView newResView;
     PickCustView pickCustView;
     
@@ -63,7 +63,7 @@ public class ReservationView extends JPanel {
         
         popupFrame = new JFrame();
         choiceView = new AddNewResChoiceView(this);
-        newCustView = new AddNewCustView();
+        newCustView = new AddNewCustPanel();
         newResView = new AddNewResView();
         pickCustView = new PickCustView(custModel);
         
@@ -207,7 +207,7 @@ public class ReservationView extends JPanel {
         popupFrame.add(newCustView);
     }
     
-    public AddNewCustView getNewCustView() {
+    public AddNewCustPanel getNewCustView() {
         return newCustView;
     }
     

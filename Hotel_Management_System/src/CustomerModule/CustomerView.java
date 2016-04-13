@@ -25,13 +25,14 @@ public class CustomerView extends JPanel {
     TableRowSorter<CustomerModel> sorter;
             
     JFrame popupFrame;
+    JFrame errorFrame;
     
     JPanel pnlGrid;
     JScrollPane scrTableHold;
     JTable tblMain;
     JPanel pnlTopBtn;
     JPanel pnlBottomBtn;
-    AddNewCustView newCustView;
+    AddNewCustPanel newCustView;
     
     private JButton btnHome;
     private JButton btnNewCust;
@@ -56,8 +57,9 @@ public class CustomerView extends JPanel {
     private void initializeComponents() {
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
-        newCustView = new AddNewCustView();
+        newCustView = new AddNewCustPanel();
         popupFrame = new JFrame();
+        errorFrame = new JFrame();
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
@@ -127,7 +129,7 @@ public class CustomerView extends JPanel {
         newCustView.getBtnSubmit().addActionListener(controller);
     }
     
-    public AddNewCustView getNewCustView() {
+    public AddNewCustPanel getNewCustView() {
         return newCustView;
     }
     
@@ -169,6 +171,7 @@ public class CustomerView extends JPanel {
     }
     
     public void showNewCustScreen() {
+        popupFrame.getContentPane().removeAll();
         popupFrame.setSize(400, 500);
         popupFrame.setVisible(true);
         popupFrame.setLocationRelativeTo(null);
@@ -176,14 +179,23 @@ public class CustomerView extends JPanel {
         popupFrame.add(newCustView);
     }
     
+    public void closeNewCustScreen() {
+        popupFrame.setVisible(false);
+    }
+    
+    public void showNewCustError(String errorMessage) {
+        errorFrame.getContentPane().removeAll();
+        errorFrame.setSize(400, 100);
+        errorFrame.setVisible(true);
+        errorFrame.setLocationRelativeTo(null);
+        ErrorPanel errorPanel = new ErrorPanel(errorMessage);
+        errorFrame.add(errorPanel);
+    }
+    
     public int getSelectedRow() {
         int row = tblMain.getSelectedRow();
         System.out.println(row);
         return tblMain.getSelectedRow();
-    }
-    
-    public void closeNewCustScreen() {
-        popupFrame.setVisible(false);
     }
     
     public TableRowSorter getSorter() {

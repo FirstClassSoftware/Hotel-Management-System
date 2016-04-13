@@ -78,7 +78,7 @@ public class ReservationControl implements ActionListener {
         }
         
         if (e.getSource() == resView.getNewCustView().getBtnSubmit()) {
-            AddNewCustView addPanel = resView.getNewCustView();
+            AddNewCustPanel addPanel = resView.getNewCustView();
             
             String firstName = addPanel.getTxtFirstName().getText();
             String lastName = addPanel.getTxtLastName().getText();

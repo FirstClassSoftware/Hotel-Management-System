@@ -348,22 +348,26 @@ public class CustomerModel extends AbstractTableModel {
         isEditable = isEdit;
     }
     
-    public Date isCorrectDateFormat(String input) {
+    public boolean isCorrectDateFormat(String input) {
         Date date = null;
         
         DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
         try {
             date = format.parse(input);
             System.out.println(date);
-            return date;
+            
             
             //return true;
         }
         catch (java.text.ParseException err) {
             System.out.println(err.getMessage());
         }
-        
-        return date;
+        if(date == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
         
     }
     
