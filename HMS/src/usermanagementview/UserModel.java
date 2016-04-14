@@ -90,13 +90,11 @@ public class UserModel {
 
     }
     
-    public void updateUserValue (JTable userTable, Object value, int row, int column) {
+    public void updateUserValue (String columnName, int userId, Object value, int row, int column) {
         try {
             if(column != 0) {
-                int id = Integer.valueOf(userTable.getValueAt(row, 0).toString());
-                String columnName = userTable.getColumnName(column);
                 stmt.executeUpdate("UPDATE USERS SET " + columnName
-                        + " = '" + value + "' WHERE ID = " + id);
+                        + " = '" + value + "' WHERE ID = " + userId);
             }
         } catch (SQLException err) {
             System.out.println(err.getMessage());

@@ -117,10 +117,11 @@ public class UserController {
 
         @Override
         public void setValueAt(Object value, int row, int col) {
-            // getAllUsers();
-            // Customers.get(row).setValue(col, value);
             JTable userTable = userView.getUserTable();
-            userModel.updateUserValue(userTable, value, row, col);
+            String columnName = userTable.getColumnName(col);
+            int userId = Integer.valueOf(userTable.getValueAt(row, 0).toString());
+            
+            userModel.updateUserValue(columnName, userId, value, row, col);
             updateUserTable();
         }
         
