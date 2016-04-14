@@ -114,7 +114,8 @@ public class CustomerModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int row, int column) {
         getCustomers();
-        return Customers.get(row).get(column);
+        return Customers.get(row).get(column+1);
+        
     }
 
     @Override
@@ -323,20 +324,20 @@ public class CustomerModel extends AbstractTableModel {
             //row++;
             //int id = Customers.get(row).getID();
             stmt.executeUpdate("delete from " + tableNameSQL + " WHERE ID = " + id);
-            
+            /*
             int total = getCustomers().size();
+            System.out.println(total);
             
             // Delete row 3, rows 4 and 5 need to become rows 3 and 4
             // id = 3, when setting customer, new value is the old id -1
             // setCustomer(newValue, row, column)
             for(int i = id; i <= total; i++) {
-                //setCustomerValue(i,i+1,0);
-                stmt.executeUpdate("UPDATE " + tableNameSQL + " SET " + columnNamesSQL[0] 
-                    + " = '" + i + "' WHERE ID = " + i+1);
+                setCustomerValue(i,i+1,0);
+                
             }
             
             //deleteAllFromTable();
-            
+            */
             this.fireTableDataChanged();
             
         }

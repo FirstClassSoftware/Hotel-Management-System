@@ -9,8 +9,8 @@ import main.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.regex.PatternSyntaxException;
 import javax.swing.table.TableRowSorter;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -66,6 +66,8 @@ public class CustomerView extends JPanel {
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
         tblMain = new JTable(model);
+        TableColumn col = tblMain.getColumnModel().getColumn(0);
+        tblMain.removeColumn(col);
         pnlTopBtn = new JPanel();
         pnlBottomBtn = new JPanel();
         btnHome = new JButton();
