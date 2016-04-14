@@ -26,7 +26,7 @@ public class StaffView extends javax.swing.JPanel {
         initComponents();
     }
     
-    public JTable getUserTable() {
+    public JTable getEmployeeTable() {
 
         return employeeTable;
 
@@ -49,10 +49,11 @@ public class StaffView extends javax.swing.JPanel {
         cardLayout.show(allPanelContainer, "Home View");
     }
     
+    
+    
     void displayErrorMessage(String errorMessage) {
         
         JOptionPane.showMessageDialog(this, errorMessage);
-        
     }
     
     

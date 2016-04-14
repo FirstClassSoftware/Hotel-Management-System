@@ -33,9 +33,9 @@ public class StaffModel {
                     + " FIRSTNAME TEXT ,"
                     + " LASTNAME TEXT,"
                     + " STATUS TEXT,"
-                    + " HOURS_WORKED REAL,"
-                    + " HOURLY_WAGE REAL,"
-                    + " TOTAL_PAY REAL)";
+                    + " HOURS_WORKED TEXT,"
+                    + " HOURLY_WAGE TEXT,"
+                    + " TOTAL_PAY TEXT)";
 
             stmt.executeUpdate(SQL);
             System.out.println("Successfully connected to the database.");
@@ -97,7 +97,7 @@ public class StaffModel {
     public boolean deleteEmployee(int idOfEmployeeToDelete) {
 
         try {
-            SQL = "DELETE from EMPLOYEE where EMPLOYEEID = " + idOfEmployeeToDelete;
+            SQL = "DELETE from EMPLOYEES where EMPLOYEEID = " + idOfEmployeeToDelete;
             stmt.executeUpdate(SQL);
             return true;
         } catch (SQLException err) {
@@ -105,6 +105,17 @@ public class StaffModel {
             return false;
         }
 
-    }
+    } // End of the deleteEmployee method
+    
+    public void updateEmployeeValue (String columnName, int employeeId, Object value, int row, int column) {
+        try {
+            if(column != 0) {
+                stmt.executeUpdate("UPDATE EMPLOYEES SET " + columnName
+                        + " = '" + value + "' WHERE EMPLOYEEID = " + employeeId);
+            }
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+    } // End of the updateUserValue method
 
 } // End of the UserModel Class

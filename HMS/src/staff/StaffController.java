@@ -23,7 +23,7 @@ public class StaffController {
     private StaffModel staffModel;
     private StaffController staffController;
     
-     // Establish a connection with the database and populate the table in
+    // Establish a connection with the database and populate the table in
     // the view.
     public StaffController (StaffView view, StaffModel model) {
         staffView = view;
@@ -67,8 +67,8 @@ public class StaffController {
         public void actionPerformed(ActionEvent e) {
 
             // Stopped 4/2/16 - Did not get delete to work.
-            JTable userTable = staffView.getUserTable();
-            int userRowSelected = userTable.getSelectedRow();
+            JTable employeeTable = staffView.getEmployeeTable();
+            int userRowSelected = employeeTable.getSelectedRow();
             // column is set to 1 in order to always get the username of the row
             // selected.
             int selectedEmployeeId;
@@ -76,6 +76,7 @@ public class StaffController {
             String noRowSelectedErrorMessage = "Please select an employee row in the table to delete.";
             String confirmDeleteMessage = "Are you sure you want delete this employee?";
             String deleteWarningDialogTitle = "Delete Confirmation";
+            //////////////////////////////////////////////////////////////////
             if (userRowSelected == -1) {
                 staffView.displayErrorMessage(noRowSelectedErrorMessage);
             } else {
@@ -87,7 +88,7 @@ public class StaffController {
                         yesNoDialogButtons);
                 if (deleteConfirmationResult == JOptionPane.YES_OPTION) {
                     // Delete the user from the database
-                    selectedEmployeeId = (int) userTable.getValueAt(userRowSelected, 1);
+                    selectedEmployeeId = (int) employeeTable.getValueAt(userRowSelected, 0);
                     staffModel.deleteEmployee(selectedEmployeeId);
 
                     // Update the view on the deletion
@@ -97,7 +98,30 @@ public class StaffController {
 
         }
 
-    }
+    } // End of DeleteListener class
+    
+    class MyTableModel extends DefaultTableModel {
+
+        @Override
+        public void setValueAt(Object value, int row, int col) {
+            JTable employeeTable = staffView.getEmployeeTable();
+            String columnName = employeeTable.getColumnName(col);
+            int userId = Integer.valueOf(employeeTable.getValueAt(row, 0).toString());
+            
+            staffModel.updateEmployeeValue(columnName, userId, value, row, col);
+            updateEmployeeTable();
+        }
+        
+        @Override
+        public boolean isCellEditable(int row, int col) {
+            if (col == 0) {
+                // The first column will be uneditable.
+                return false;
+            } else {
+                return true;
+            }
+        }
+    } // End of the MyTableModel class
     
      public void updateEmployeeTable() {
 
@@ -106,9 +130,9 @@ public class StaffController {
         ResultSetMetaData allUsersMetaData;
         int totalColumns;
 
-        JTable userTable = staffView.getUserTable();
-        DefaultTableModel userTableModel = new DefaultTableModel();
-
+        JTable userTable = staffView.getEmployeeTable();
+        MyTableModel userTableModel = new MyTableModel();
+        
         try {
 
             allUsersMetaData = allUsers.getMetaData();
