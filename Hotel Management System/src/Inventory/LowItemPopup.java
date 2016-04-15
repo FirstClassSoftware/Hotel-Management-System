@@ -11,7 +11,7 @@ import javax.swing.*;
  *
  * @author jessicaluu
  */
-public class LowItemPopup extends JPanel {
+public class LowItemPopup extends JOptionPane {
     
     InventoryView parentInventoryView;
     

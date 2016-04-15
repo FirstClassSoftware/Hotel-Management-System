@@ -5,16 +5,20 @@
  */
 package Inventory;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 /**
  *
  * @author jessicaluu
  */
 public class AddNewInventory extends JPanel {
-    
-    InventoryView parentInventoryView;
     
     private JLabel lblItemName;
     private JLabel lblCurrentAmt;
@@ -28,38 +32,33 @@ public class AddNewInventory extends JPanel {
     
     private JButton btnOK;
     
-    public AddNewInventory(InventoryView parentInventoryView) {
-        this.parentInventoryView = parentInventoryView;
-        
+    public AddNewInventory() {
+    
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         
         c.ipadx = 10;
         c.anchor = c.LINE_END;
-        Insets topSpaceInset = new Insets (10, 0, 0, 0);
+        Insets topSpaceInset = new Insets (5, 0, 0, 0);
         c.insets = topSpaceInset;
         
         // LABELS - ITEMNAME, CURRENTAMT, MAXAMT, ITEMCOST
         lblItemName = new JLabel("Item Name:");
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         this.add(lblItemName, c);
         
         lblCurrentAmt = new JLabel("Current Amount:");
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 1;
         this.add(lblCurrentAmt, c);
         
         lblMaxAmt = new JLabel("Maximum Amount:");
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 2;
         this.add(lblMaxAmt, c);
         
         lblItemCost = new JLabel("Item Cost:");
-        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 3;
         this.add(lblItemCost, c);
@@ -67,21 +66,26 @@ public class AddNewInventory extends JPanel {
         // TEXT FIELDS - ITEMNAME, CURRENTAMT, MAXAMT, ITEMCOST
         int txtSize = 20;
         txtItemName = new JTextField(txtSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
         c.gridx = 1;
         c.gridy = 0;
         this.add(txtItemName, c);
         
         txtCurrentAmt = new JTextField(txtSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 1;
         this.add(txtCurrentAmt, c);
         
         txtMaxAmt = new JTextField(txtSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 2;
         this.add(txtMaxAmt, c);
         
         txtItemCost = new JTextField(txtSize);
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
         c.gridy = 3;
         this.add(txtItemCost, c);
@@ -96,6 +100,7 @@ public class AddNewInventory extends JPanel {
         this.add(btnOK, c);
         
     }
+
     // GETTERS
     public JLabel getLblItemName() {
         return lblItemName;

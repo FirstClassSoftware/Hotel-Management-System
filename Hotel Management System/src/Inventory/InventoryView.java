@@ -6,8 +6,12 @@
 package Inventory;
 
 import main.*;
+
 import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.awt.*;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -19,7 +23,9 @@ public class InventoryView extends JPanel {
     
     InventoryModel model;
     
-    JFrame frame;
+    TableRowSorter<InventoryModel> sorter;
+    
+    JFrame popupFrame;
     
     JPanel pnlGrid;
     JScrollPane scrTableHold;
@@ -31,8 +37,8 @@ public class InventoryView extends JPanel {
     
     private JButton btnHome;
     private JButton btnNewItem;
-    private JButton btnEditItem;
     private JButton btnDeleteItem;
+    //private JButton btnRefreshTable;
     
     private JProgressBar progressItemStatus;
     
@@ -42,8 +48,8 @@ public class InventoryView extends JPanel {
     
     private String[] columnNames;
     
-    public InventoryView(MainPanelCard c, InventoryModel m) {
-        this.model = m;
+    public InventoryView(MainPanel c, InventoryModel m) {
+        model = m;
         contentPane = c;
         initializeComponents();
     }
@@ -51,9 +57,9 @@ public class InventoryView extends JPanel {
     private void initializeComponents() {
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
-        newItemView = new AddNewInventory(this);
-        lowItemView = new LowItemPopup(this);
-        frame = new JFrame();
+        newItemView = new AddNewInventory();
+
+        popupFrame = new JFrame();
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
@@ -62,12 +68,16 @@ public class InventoryView extends JPanel {
         pnlBottom = new JPanel();
         btnHome = new JButton();
         btnNewItem = new JButton();
-        btnEditItem = new JButton();
         btnDeleteItem = new JButton();
+        
         progressItemStatus = new JProgressBar();
+        
         txtSearch = new JTextField(20);
         cmbSearch = new JComboBox(cmbSearchCat);
         btnSearch = new JButton();
+        
+        sorter = new TableRowSorter<>(model);
+        tblMain.setRowSorter(sorter);
         
         setLayout(new BorderLayout());
         
@@ -83,13 +93,12 @@ public class InventoryView extends JPanel {
         
         btnHome.setText("Home");
         btnNewItem.setText("Add New Item");
-        btnEditItem.setText("Edit Item");
         btnDeleteItem.setText("Delete Item");
+        //btnRefreshTable.setText("Refresh");
         
         pnlTop.setLayout(new FlowLayout());
         pnlTop.add(btnHome);
         pnlTop.add(btnNewItem);
-        pnlTop.add(btnEditItem);
         pnlTop.add(btnDeleteItem);
         
         btnSearch.setText("Search");
@@ -104,12 +113,12 @@ public class InventoryView extends JPanel {
     public void registerListener(InventoryController controller) {
         btnHome.addActionListener(controller);
         btnNewItem.addActionListener(controller);
-        btnEditItem.addActionListener(controller);
         btnDeleteItem.addActionListener(controller);
         btnSearch.addActionListener(controller);
+        //btnRefreshTable.addActionListener(controller);
         
         newItemView.getBtnOK().addActionListener(controller);
-        lowItemView.getBtnOK().addActionListener(controller);
+        //lowItemView.getBtnOK().addActionListener(controller);
     }
     
     public AddNewInventory getNewItemView() {
@@ -128,10 +137,6 @@ public class InventoryView extends JPanel {
         return btnNewItem;
     }
     
-    public JButton getBtnEditItem() {
-        return btnEditItem;
-    }
-    
     public JButton getBtnDeleteItem() {
         return btnDeleteItem;
     }
@@ -139,6 +144,10 @@ public class InventoryView extends JPanel {
     public JButton getBtnSearch() {
         return btnSearch;
     }
+    
+    //public JButton getBtnRefreshTable() {
+    //    return btnRefreshTable;
+    //}
     
     public String getTxtSearch() {
         return txtSearch.getText();
@@ -149,23 +158,43 @@ public class InventoryView extends JPanel {
     }
     
     public void showNewItemView() {
-        frame.setSize(360, 180);
-        frame.setVisible(true);
+        popupFrame.getContentPane().removeAll();
+        popupFrame.setSize(360, 180);
+        popupFrame.setVisible(true);
+        popupFrame.setLocationRelativeTo(null);
         newItemView.resetFields();
-        frame.add(newItemView);
+        popupFrame.add(newItemView);
     }
     
-    public void closeView() {
-        frame.setVisible(false);
+    public void closeNewItemView() {
+        popupFrame.setVisible(false);
     }
     
-    public void showLowItemView() {
+    /*public void showLowItemView(String message) {
+        frame.getContentPane().removeAll();
         frame.setSize(300, 140);
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
         frame.add(lowItemView);
+    }*/
+
+    public int getSelectedRow() {
+        int row = tblMain.getSelectedRow();
+        System.out.println(row);
+        return tblMain.getSelectedRow();
     }
     
-    public int getSelectedRow() {
-        return tblMain.getSelectedRow();
+    public TableRowSorter getSorter() {
+        return sorter;
+    }
+    
+    public void setSorter(TableRowSorter sorter) {
+        tblMain.setRowSorter(sorter);
+    }
+    
+    public int getValueAtCell(int row, int column) {
+        String idString = (String) tblMain.getValueAt(row, column);
+        int id = Integer.parseInt(idString);
+        return id;
     }
 }

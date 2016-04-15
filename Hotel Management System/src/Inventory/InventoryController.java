@@ -8,6 +8,10 @@ package Inventory;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.RowFilter;
+import java.util.regex.PatternSyntaxException;
+import javax.swing.table.TableRowSorter;
+
 /**
  *
  * @author jessicaluu
@@ -25,10 +29,9 @@ public class InventoryController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         
-        if (e.getSource() == view.getLowItemView().getBtnOK()) {
-            //view.closeView();
-            System.exit(0);
-        }
+        /*if (e.getSource() == view.getLowItemView().getBtnOK()) {
+            view.closeView();
+        }*/
         
         if (e.getSource() == view.getBtnHome()) {
             System.exit(0); // GO BACK TO HOME MAIN VIEW
@@ -51,21 +54,29 @@ public class InventoryController implements ActionListener {
             
             model.addNewInventory(itemName, currentAmt, maxAmt, itemCost);
             // METHOD TO RETRIEVE DATABASE CHANGES TO BE SENT TO VIEW
-            view.closeView();
-        }
-        
-        if (e.getSource() == view.getBtnEditItem()) {
-            
+            view.closeNewItemView();
         }
         
         if (e.getSource() == view.getBtnDeleteItem()) {
             int row = view.getSelectedRow();
-            model.deleteRow(row);
+            int column = 0;
+            if (row >= 0) {
+                int id = view.getValueAtCell(row, column);
+                model.deleteRow(id);
+            }
         }
         
         if (e.getSource() == view.getBtnSearch()) {
             int column = view.getCmbSearchColumn();
             String txtSearch = view.getTxtSearch();
+            
+            try {
+                TableRowSorter sorter = view.getSorter();
+                sorter.setRowFilter(RowFilter.regexFilter(txtSearch, column));
+                view.setSorter(sorter);
+            } catch (PatternSyntaxException pse) {
+                System.err.println("Bad regex pattern");
+            }
         }
     }
     
