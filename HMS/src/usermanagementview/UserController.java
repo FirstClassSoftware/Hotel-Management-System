@@ -14,6 +14,7 @@ import AddNewUser.*;
 import java.util.ArrayList;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableModel;
 
 public class UserController {
@@ -134,7 +135,7 @@ public class UserController {
                 return true;
             }
         }
-    }
+    } // End of the MyTableModel class
 
     public void updateUserTable() {
 
@@ -170,7 +171,18 @@ public class UserController {
             }
 
             userTable.setModel(userTableModel);
-
+            ////////////////////////////////////////////////////////////////////
+            // Setup the rest of the table everytime the model is updated.
+            // I believe the model resetting the model resets the columns. Thus,
+            // The code lies here, but I have not tested this assumption.
+            ////////////////////////////////////////////////////////////////////
+            TableColumn userTypeColumn = userTable.getColumnModel().getColumn(3);
+            JComboBox  userTypeOptions = new JComboBox();
+            userTypeOptions.addItem("Receptionist");
+            userTypeOptions.addItem("Manager");
+            userTypeOptions.addItem("Owner");
+            userTypeColumn.setCellEditor(new DefaultCellEditor(userTypeOptions));
+            ////////////////////////////////////////////////////////////////////
         } catch (SQLException err) {
 
             //String noRowSelectedErrorMessage = err.getMessage();

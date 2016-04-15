@@ -99,5 +99,5 @@ public class UserModel {
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
-    }
+    } // End of the updateUserValue method
 } // End of the UserModel Class
