@@ -25,24 +25,35 @@ public class RoomModel {
 
     ///////////////////////////////////////////////////////////////////////////
     public RoomModel() {
-        
+
         // Establish a connection to the database.
         dbConnection = null;
         stmt = null;
         try {
-            
+
             dbConnection = DriverManager.getConnection("jdbc:sqlite:hotelData.db");
-            
+
             stmt = dbConnection.createStatement(ResultSet.TYPE_FORWARD_ONLY,
                     ResultSet.CONCUR_READ_ONLY);
+            ///////////////////////////////////////////////////////////////////
             SQL = "CREATE TABLE IF NOT EXISTS ROOMS"
                     + "(ID INTEGER PRIMARY KEY    AUTOINCREMENT,"
+                    + " FLOOR INTEGER,"
                     + " ROOM_NUMBER INTEGER unique,"
-                    + " TYPE_OF_ROOM TEXT  unique,"
-                    + " USERLEVEL VARCHAR(255),"
-                    + " LAST_LOGIN VARCHAR(255))";
+                    + " ROOM_TYPE TEXT,"
+                    + " ROOM_STATUS TEXT,"
+                    + " CUSTOMER TEXT,"
+                    + " PRICE INTEGER)";
 
             stmt.executeUpdate(SQL);
+            ///////////////////////////////////////////////////////////////////
+            SQL = "CREATE TABLE IF NOT EXISTS FLOORS"
+                    + "(ID INTEGER PRIMARY KEY    AUTOINCREMENT,"
+                    + " FLOOR INTEGER,"
+                    + " TOTAL_ROOMS INTEGER)";
+
+            stmt.executeUpdate(SQL);
+            ///////////////////////////////////////////////////////////////////
             System.out.println("Successfully connected to the database.");
         } catch (SQLException err) {
 
@@ -51,4 +62,32 @@ public class RoomModel {
         }
 
     } // End of the RoomModel constructor
+    
+    public ResultSet getAllRooms() {
+
+        try {
+
+            SQL = "SELECT * FROM ROOMS;";
+            rs = stmt.executeQuery(SQL);
+            return rs;
+
+        } catch (SQLException err) {
+
+            System.out.println(err.getMessage());
+            return null;
+
+        }
+
+    } // End of getAllRooms method
+    
+    public void updateRoomValue (String columnName, int roomId, Object value, int row, int column) {
+        try {
+            if(column != 0) {
+                stmt.executeUpdate("UPDATE ROOMS SET " + columnName
+                        + " = '" + value + "' WHERE ID = " + roomId);
+            }
+        } catch (SQLException err) {
+            System.out.println(err.getMessage());
+        }
+    } // End of the updateRoomValue method
 } // End of the RoomModel class
