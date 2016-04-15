@@ -16,6 +16,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import home.*;
 import AddNewEmployee.*;
+import javax.swing.table.TableColumn;
 
 public class StaffController {
     
@@ -154,7 +155,20 @@ public class StaffController {
             }
 
             userTable.setModel(userTableModel);
-
+            ////////////////////////////////////////////////////////////////////
+            // Setup the rest of the table everytime the model is updated.
+            // I believe the model resetting the model resets the columns. Thus,
+            // The code lies here, but I have not tested this assumption.
+            ////////////////////////////////////////////////////////////////////
+            TableColumn employeeStatusColumn = userTable.getColumnModel().getColumn(3);
+            JComboBox  employeeStatusOptions = new JComboBox();
+            employeeStatusOptions.addItem("Overtime");
+            employeeStatusOptions.addItem("Vacation");
+            employeeStatusOptions.addItem("Clocked In");
+            employeeStatusOptions.addItem("AWOL");
+            employeeStatusOptions.addItem("Clocked Out");
+            employeeStatusColumn.setCellEditor(new DefaultCellEditor(employeeStatusOptions));
+            ////////////////////////////////////////////////////////////////////
         } catch (SQLException err) {
 
             //String noRowSelectedErrorMessage = err.getMessage();
