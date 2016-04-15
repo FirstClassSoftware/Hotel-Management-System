@@ -62,7 +62,7 @@ public class RoomModel {
         }
 
     } // End of the RoomModel constructor
-    
+
     public ResultSet getAllRooms() {
 
         try {
@@ -79,10 +79,10 @@ public class RoomModel {
         }
 
     } // End of getAllRooms method
-    
-    public void updateRoomValue (String columnName, int roomId, Object value, int row, int column) {
+
+    public void updateRoomValue(String columnName, int roomId, Object value, int row, int column) {
         try {
-            if(column != 0) {
+            if (column != 0) {
                 stmt.executeUpdate("UPDATE ROOMS SET " + columnName
                         + " = '" + value + "' WHERE ID = " + roomId);
             }
@@ -90,4 +90,17 @@ public class RoomModel {
             System.out.println(err.getMessage());
         }
     } // End of the updateRoomValue method
+
+    public boolean deleteRoom(int roomId) {
+        try {
+            SQL = "DELETE from ROOMS where ID = " + roomId + ";";
+            stmt.executeUpdate(SQL);
+            return true;
+        } catch (SQLException err) {
+            // Find a way to print out the error or not.
+            return false;
+        }
+
+    }
+
 } // End of the RoomModel class

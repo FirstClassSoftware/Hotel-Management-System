@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import AddNewRoomComponents.*;
 import javax.swing.table.TableColumn;
+
 /**
  *
  * @author Yeejkoob Thao
@@ -33,7 +34,8 @@ public class RoomController {
         roomView.addHomeButtonListener(new HomeListener());
         roomView.addAddRoomButtonListener(new AddNewRoomListener());
         roomView.addAddFloorButtonListener(new AddNewFloorListener());
-        roomView.addRemoveFloorButtonListener(new RemoveFloorListener());
+        roomView.addDeleteFloorButtonListener(new DeleteFloorListener());
+        roomView.addDeleteRoomButtonListener(new DeleteRoomListener());
         updateRoomTable();
     }
 
@@ -45,7 +47,7 @@ public class RoomController {
         }
 
     } // End of the HomeListener class
-   
+
     class AddNewRoomListener implements ActionListener {
 
         @Override
@@ -55,39 +57,73 @@ public class RoomController {
             AddNewRoomController addNewRoomController = new AddNewRoomController(addNewRoomView, addNewRoomModel);
             addNewRoomView.setVisible(true);
         }
-    
+
     }
-    
+
     class AddNewFloorListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+
         }
-    
+
     }
-    
-    class RemoveFloorListener implements ActionListener {
+
+    class DeleteFloorListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            
+
         }
-    
+
     }
-    
+
+    class DeleteRoomListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JTable roomTable = roomView.getRoomTable();
+            int roomRowSelected = roomTable.getSelectedRow();
+            
+            int selectedRoomId;
+
+            String noRowSelectedErrorMessage = "Please select a room row in the table to delete.";
+            String confirmDeleteMessage = "Are you sure you want delete this room?";
+            String deleteWarningDialogTitle = "Delete Confirmation";
+            if (roomRowSelected == -1) {
+                roomView.displayErrorMessage(noRowSelectedErrorMessage);
+            } else {
+                // Display a delete confirmation
+                int yesNoDialogButtons = JOptionPane.YES_NO_OPTION;
+                int deleteConfirmationResult = JOptionPane.showConfirmDialog(null,
+                        confirmDeleteMessage,
+                        deleteWarningDialogTitle,
+                        yesNoDialogButtons);
+                if (deleteConfirmationResult == JOptionPane.YES_OPTION) {
+                    // Delete the room from the database
+                    selectedRoomId = Integer.parseInt(roomTable.getValueAt(roomRowSelected, 0).toString());
+                    roomModel.deleteRoom(selectedRoomId);
+
+                    // Update the view on the deletion
+                    updateRoomTable();
+                }
+            }
+        }
+
+    }
+
     class MyTableModel extends DefaultTableModel {
-        
+
         @Override
         public void setValueAt(Object value, int row, int col) {
             JTable roomTable = roomView.getRoomTable();
             String columnName = roomTable.getColumnName(col);
             int roomId = Integer.valueOf(roomTable.getValueAt(row, 0).toString());
-            
+
             roomModel.updateRoomValue(columnName, roomId, value, row, col);
             updateRoomTable();
         }
-        
+
         @Override
         public boolean isCellEditable(int row, int col) {
             if (col == 0) {
@@ -139,7 +175,7 @@ public class RoomController {
             // The code lies here, but I have not tested this assumption.
             ////////////////////////////////////////////////////////////////////
             TableColumn roomTypeColumn = userTable.getColumnModel().getColumn(3);
-            JComboBox  roomTypeOptions = new JComboBox();
+            JComboBox roomTypeOptions = new JComboBox();
             roomTypeOptions.addItem("Single");
             roomTypeOptions.addItem("Double");
             roomTypeOptions.addItem("King");

@@ -39,8 +39,11 @@ public class RoomView extends javax.swing.JPanel {
     void addAddFloorButtonListener(ActionListener listenForAddFloorButton) {
         addFloorButton.addActionListener(listenForAddFloorButton);
     }
-    void addRemoveFloorButtonListener(ActionListener listenForRemoveFloorButton) {
-        removeFloorButton.addActionListener(listenForRemoveFloorButton);
+    void addDeleteFloorButtonListener(ActionListener listenForDeleteFloorButton) {
+        deleteFloorButton.addActionListener(listenForDeleteFloorButton);
+    }
+    void addDeleteRoomButtonListener(ActionListener listenForDeleteRoomButton) {
+        deleteRoomButton.addActionListener(listenForDeleteRoomButton);
     }
 
     public void goToHomeView() {
@@ -77,7 +80,8 @@ public class RoomView extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         addRoomButton = new javax.swing.JButton();
         addFloorButton = new javax.swing.JButton();
-        removeFloorButton = new javax.swing.JButton();
+        deleteFloorButton = new javax.swing.JButton();
+        deleteRoomButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -184,7 +188,9 @@ public class RoomView extends javax.swing.JPanel {
 
         addFloorButton.setText("Add Floor");
 
-        removeFloorButton.setText("Remove Floor");
+        deleteFloorButton.setText("Delete Floor");
+
+        deleteRoomButton.setText("Delete Room");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -199,7 +205,9 @@ public class RoomView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addFloorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(removeFloorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(deleteFloorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteRoomButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
@@ -217,7 +225,8 @@ public class RoomView extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addRoomButton)
                     .addComponent(addFloorButton)
-                    .addComponent(removeFloorButton))
+                    .addComponent(deleteFloorButton)
+                    .addComponent(deleteRoomButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -251,6 +260,8 @@ public class RoomView extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addFloorButton;
     private javax.swing.JButton addRoomButton;
+    private javax.swing.JButton deleteFloorButton;
+    private javax.swing.JButton deleteRoomButton;
     private javax.swing.JButton homeButton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -264,7 +275,6 @@ public class RoomView extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JButton removeFloorButton;
     private javax.swing.JTable roomTable;
     // End of variables declaration//GEN-END:variables
 }

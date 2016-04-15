@@ -219,7 +219,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="addFloorButton" min="-2" pref="193" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="removeFloorButton" min="-2" pref="193" max="-2" attributes="0"/>
+                  <Component id="deleteFloorButton" min="-2" pref="193" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="deleteRoomButton" min="-2" pref="193" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -241,7 +243,8 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="addRoomButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="addFloorButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="removeFloorButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteFloorButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="deleteRoomButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -284,9 +287,14 @@
             <Property name="text" type="java.lang.String" value="Add Floor"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="removeFloorButton">
+        <Component class="javax.swing.JButton" name="deleteFloorButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Remove Floor"/>
+            <Property name="text" type="java.lang.String" value="Delete Floor"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="deleteRoomButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Delete Room"/>
           </Properties>
         </Component>
       </SubComponents>
