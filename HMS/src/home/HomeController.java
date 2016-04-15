@@ -22,7 +22,27 @@ public class HomeController {
         this.homeView.addLogoutButtonListener(new LogoutListener());
         this.homeView.addUserManagementButtonListener(new UserManagementListener());
         this.homeView.addStaffManagementButtonListener(new StaffManagementListener());
-                    
+        this.homeView.addReservationCustomerManagementButtonListener(new ResCusManagementListener());
+        this.homeView.addRoomManagementButtonListener(new RoomManagementListener());
+    }
+    
+    class RoomManagementListener implements ActionListener {
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            homeView.goToRoomManagemetView();
+        }
+        
+    }
+
+    class ResCusManagementListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            homeView.goToResCusManagementView();
+        }
+    
+    
     }
     
     class LogoutListener implements ActionListener {

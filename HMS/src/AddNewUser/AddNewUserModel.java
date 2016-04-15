@@ -123,13 +123,6 @@ public class AddNewUserModel {
     public void addNewUser(String newUsername, String newPassword, String newUserLevel) {
 
         try {
-
-            /*
-            Working copy
-            SQL = "INSERT INTO USERS (ID, USERNAME, PASSWORD, USERLEVEL)"
-                    + "VALUES ( 3, '" + newUsername + "', '" + newPassword + "', '" + newUserLevel + "');";
-             */
-            // Attempt to autoincrement ID field
             SQL = "INSERT INTO USERS (USERNAME, PASSWORD, USERLEVEL)"
                     + "VALUES ('" + newUsername + "', '" + newPassword + "', '" + newUserLevel + "');";
             stmt.executeUpdate(SQL);

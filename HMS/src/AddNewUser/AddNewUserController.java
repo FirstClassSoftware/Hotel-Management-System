@@ -44,6 +44,7 @@ public class AddNewUserController {
         public void actionPerformed(ActionEvent e) {
 
             // Validate the username and password fields
+            String successMessage = "Successfully added a new user.";
             String inputUsername = addNewUserView.getUsernameField();
             String inputPassword = addNewUserView.getPasswordField();
             String inputRetypePassword = addNewUserView.getRetypePasswordField();
@@ -107,6 +108,7 @@ public class AddNewUserController {
                                 inputUserLevel);
                         // Update the table in the UserView
                         addNewUserView.getAssociatedUserController().updateUserTable();
+                        addNewUserView.displayErrorMessage(successMessage);
                         addNewUserView.dispose();
                     }
                 }

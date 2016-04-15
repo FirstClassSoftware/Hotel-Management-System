@@ -54,6 +54,11 @@ public class HomeView extends javax.swing.JPanel {
         cardLayout.show(allPanelContainer, "Login View");
     }
     
+    public void goToRoomManagemetView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "Room View");
+    }
+    
     public void goToUserManagementView() {
         CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
         cardLayout.show(allPanelContainer, "User Management View");
@@ -62,6 +67,11 @@ public class HomeView extends javax.swing.JPanel {
     public void goToStaffManagementView() {
         CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
         cardLayout.show(allPanelContainer, "Staff Management View");
+    }
+    
+    public void goToResCusManagementView() {
+        CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
+        cardLayout.show(allPanelContainer, "Reservation Screen");
     }
     
     void addLogoutButtonListener(ActionListener listenForLogout) {
@@ -74,6 +84,14 @@ public class HomeView extends javax.swing.JPanel {
     
     void addStaffManagementButtonListener(ActionListener listenForStaffManagement) {
         staffMngButton.addActionListener(listenForStaffManagement);
+    }
+    
+    void addReservationCustomerManagementButtonListener(ActionListener listenForReservationCustomerManagement) {
+        ResCustMngButton.addActionListener(listenForReservationCustomerManagement);
+    }
+    
+    void addRoomManagementButtonListener(ActionListener listenForRoomManagement) {
+        roomMngButton.addActionListener(listenForRoomManagement);
     }
     
     void displayErrorMessage(String errorMessage) {
@@ -109,6 +127,9 @@ public class HomeView extends javax.swing.JPanel {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(38, 25, 0, 0);
         add(title, gridBagConstraints);
 
         roomMngButton.setText("Room Management");
@@ -119,48 +140,68 @@ public class HomeView extends javax.swing.JPanel {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 114;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         add(roomMngButton, gridBagConstraints);
 
         ResCustMngButton.setText("Reservation/Customer Management");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         add(ResCustMngButton, gridBagConstraints);
 
         inventoryMngButton.setText("Inventory Management");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 88;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         add(inventoryMngButton, gridBagConstraints);
 
         staffMngButton.setText("Staff Management");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 124;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         add(staffMngButton, gridBagConstraints);
 
         financeMngButton.setText("Finance Management");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 102;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         add(financeMngButton, gridBagConstraints);
 
         userMngButton.setText("User Management");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 124;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
         add(userMngButton, gridBagConstraints);
 
         logoutButton.setText("Logout");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(0, 105, 39, 0);
         add(logoutButton, gridBagConstraints);
 
         userLevelLabel.setText("Userlevel");
@@ -168,7 +209,7 @@ public class HomeView extends javax.swing.JPanel {
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 15);
+        gridBagConstraints.insets = new java.awt.Insets(38, 30, 0, 19);
         add(userLevelLabel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
