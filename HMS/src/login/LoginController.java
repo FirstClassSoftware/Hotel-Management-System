@@ -45,7 +45,7 @@ public class LoginController {
                 
                 // Update the login date in the USER table in the database
                 currentLoginModel.recordUserLoginTime(effectiveUsername);
-   
+                currentLoginView.getAssociatedUserController().updateUserTable();
                 ////////////////////////////////////////////////////////////////
                 // Generate the HomeView.
                 HomeView associatedHomeView = currentLoginView.getAssociatedHomeView();

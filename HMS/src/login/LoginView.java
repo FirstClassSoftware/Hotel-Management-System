@@ -13,6 +13,7 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import home.*;
+import usermanagementview.UserController;
 public class LoginView extends javax.swing.JPanel {
 
     /**
@@ -21,10 +22,12 @@ public class LoginView extends javax.swing.JPanel {
     private JPanel allPanelContainer;
     private HomeView associatedHomeView;
     private HomeController associatedHomeController;
-    public LoginView(JPanel panelContainer, HomeView homeView, HomeController homeController) {
+    private UserController associatedUserController;
+    public LoginView(JPanel panelContainer, HomeView homeView, HomeController homeController, UserController userController) {
         this.allPanelContainer = panelContainer;
         this.associatedHomeView = homeView;
         this.associatedHomeController = homeController;
+        this.associatedUserController = userController;
         initComponents();
     }
 
@@ -34,6 +37,10 @@ public class LoginView extends javax.swing.JPanel {
     
     public HomeController getAssociatedHomeController() {
         return this.associatedHomeController;
+    }
+    
+    public UserController getAssociatedUserController() {
+        return this.associatedUserController;
     }
     
     public String getInputUsername() {
