@@ -2,7 +2,7 @@
 package home;
 
 /**
- *
+ * 
  * @author Yeejkoob Thao
  */
 import java.awt.CardLayout;
@@ -23,6 +23,10 @@ public class HomeView extends javax.swing.JPanel {
     
         return userLevelLabel;
             
+    }
+    
+    public void setUserLevelLabel(String userLevel) {
+        this.userLevelLabel.setText(userLevel);
     }
     
     public JButton getInventoryMngButton() {

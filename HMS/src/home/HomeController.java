@@ -24,6 +24,7 @@ public class HomeController {
         this.homeView.addStaffManagementButtonListener(new StaffManagementListener());
         this.homeView.addReservationCustomerManagementButtonListener(new ResCusManagementListener());
         this.homeView.addRoomManagementButtonListener(new RoomManagementListener());
+        
     }
     
     class RoomManagementListener implements ActionListener {
@@ -72,15 +73,22 @@ public class HomeController {
     
     }
     
-    public void checkPermissions(String userLevel) {
-    
-        if(userLevel == "Receptionist") {
+    public void checkPermissions() {
+        String userLevel = homeView.getUserLevelLabel().getText();
+        System.out.println("This is the current user level " + userLevel);
+        if(userLevel.equals("Receptionist")) {
         
             homeView.getInventoryMngButton().setEnabled(false);
             homeView.getStaffMngButton().setEnabled(false);
             homeView.getFinanceMngButton().setEnabled(false);
             homeView.getUserMngButton().setEnabled(false);
         
+        }
+        else {
+            homeView.getInventoryMngButton().setEnabled(true);
+            homeView.getStaffMngButton().setEnabled(true);
+            homeView.getFinanceMngButton().setEnabled(true);
+            homeView.getUserMngButton().setEnabled(true);
         }
             
     }
