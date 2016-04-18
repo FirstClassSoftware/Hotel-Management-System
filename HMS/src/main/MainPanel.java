@@ -76,13 +76,13 @@ public class MainPanel extends JPanel {
         roomModel = new RoomModel();
         roomController = new RoomController(roomView, roomModel);
         //////////////////////////////////////////////////////////////////////
-        loginView = new LoginView(this);
-        loginModel = new LoginModel();
-        loginController = new LoginController(loginView, loginModel);
-        //////////////////////////////////////////////////////////////////////
         homeView = new HomeView(this);
         homeModel = new HomeModel();
         homeController = new HomeController(homeView, homeModel);
+        //////////////////////////////////////////////////////////////////////
+        loginView = new LoginView(this, homeView, homeController);
+        loginModel = new LoginModel();
+        loginController = new LoginController(loginView, loginModel);
         //////////////////////////////////////////////////////////////////////
         userView = new UserView(this);
         userModel = new UserModel();
