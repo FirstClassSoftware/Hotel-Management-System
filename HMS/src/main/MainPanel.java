@@ -80,13 +80,13 @@ public class MainPanel extends JPanel {
         homeModel = new HomeModel();
         homeController = new HomeController(homeView, homeModel);
         //////////////////////////////////////////////////////////////////////
-        loginView = new LoginView(this, homeView, homeController);
-        loginModel = new LoginModel();
-        loginController = new LoginController(loginView, loginModel);
-        //////////////////////////////////////////////////////////////////////
         userView = new UserView(this);
         userModel = new UserModel();
         userController = new UserController(userView, userModel);
+        //////////////////////////////////////////////////////////////////////
+        loginView = new LoginView(this, homeView, homeController, userController);
+        loginModel = new LoginModel();
+        loginController = new LoginController(loginView, loginModel);
         //////////////////////////////////////////////////////////////////////
         staffView = new StaffView(this);
         staffModel = new StaffModel();
