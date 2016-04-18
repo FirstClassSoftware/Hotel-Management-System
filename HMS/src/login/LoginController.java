@@ -48,6 +48,10 @@ public class LoginController {
    
                 ////////////////////////////////////////////////////////////////
                 // Generate the HomeView.
+                HomeView associatedHomeView = currentLoginView.getAssociatedHomeView();
+                HomeController associatedHomeController = currentLoginView.getAssociatedHomeController();
+                associatedHomeView.setUserLevelLabel(effectiveUserLevel);
+                associatedHomeController.checkPermissions();
                 currentLoginView.goToHomeView();
                 
 
