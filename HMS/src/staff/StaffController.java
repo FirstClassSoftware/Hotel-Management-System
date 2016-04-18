@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import home.*;
 import AddNewEmployee.*;
 import javax.swing.table.TableColumn;
-
+import MoreEmployeeInformationComponents.*;
 public class StaffController {
     
     private StaffView staffView;
@@ -33,6 +33,7 @@ public class StaffController {
         staffView.addHomeButtonListener(new HomeListener());
         staffView.addAddNewEmployeeButtonListener(new AddNewEmployeeListener());
         staffView.addDeleteButtonListener(new DeleteListener());
+        staffView.addMoreEmployeeInformationButtonListener(new MoreEmployeeInformationListener());
         updateEmployeeTable();
         
     }
@@ -100,6 +101,21 @@ public class StaffController {
         }
 
     } // End of DeleteListener class
+    
+    class MoreEmployeeInformationListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //  Generate the more information view and components
+            MoreEmployeeInformationView moreEmployeeInfoView = new MoreEmployeeInformationView();
+            MoreEmployeeInformationModel moreEmployeeInfoModel = new MoreEmployeeInformationModel();
+            MoreEmployeeInformationController moreEmployeeInfoController = new MoreEmployeeInformationController(moreEmployeeInfoView, moreEmployeeInfoModel);
+            
+            moreEmployeeInfoView.setVisible(true);
+            
+        } // End of the actionPerformed method
+        
+    } // End of the MoreInformationListener class
     
     class MyTableModel extends DefaultTableModel {
 

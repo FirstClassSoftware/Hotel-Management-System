@@ -44,12 +44,14 @@ public class StaffView extends javax.swing.JPanel {
         deleteButton.addActionListener(listenForDeleteButton);
     }
     
+    void addMoreEmployeeInformationButtonListener(ActionListener listenForMoreEmployeeInformationButton) {
+        moreEmployeeInformationButton.addActionListener(listenForMoreEmployeeInformationButton);
+    }
+    
     public void goToHomeView() {
         CardLayout cardLayout = (CardLayout) allPanelContainer.getLayout();
         cardLayout.show(allPanelContainer, "Home View");
     }
-    
-    
     
     void displayErrorMessage(String errorMessage) {
         
@@ -74,6 +76,7 @@ public class StaffView extends javax.swing.JPanel {
         employeeTable = new javax.swing.JTable();
         searchField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
+        moreEmployeeInformationButton = new javax.swing.JButton();
 
         title.setText("Hotel Management System - Staff Management");
 
@@ -120,11 +123,13 @@ public class StaffView extends javax.swing.JPanel {
             }
         });
 
+        moreEmployeeInformationButton.setText("More Employee Information");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1024, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,9 +144,11 @@ public class StaffView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addNewEmployeeButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteButton))
+                        .addComponent(deleteButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(moreEmployeeInformationButton))
                     .addComponent(title))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addContainerGap(464, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,7 +158,8 @@ public class StaffView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(homeButton)
                     .addComponent(addNewEmployeeButton)
-                    .addComponent(deleteButton))
+                    .addComponent(deleteButton)
+                    .addComponent(moreEmployeeInformationButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,6 +185,7 @@ public class StaffView extends javax.swing.JPanel {
     private javax.swing.JTable employeeTable;
     private javax.swing.JButton homeButton;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton moreEmployeeInformationButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchField;
     private javax.swing.JLabel title;
