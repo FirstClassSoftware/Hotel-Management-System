@@ -33,7 +33,7 @@ public class ReservationControl implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         
         if (e.getSource() == resView.getBtnHome()) {
-            resView.goToHome();
+            System.exit(0);
         }
         
         if (e.getSource() == resView.getBtnGoToCust()) {
@@ -64,13 +64,13 @@ public class ReservationControl implements ActionListener {
         }
         
         if (e.getSource() == resView.getPickCustScreen().getBtnSelectCustomer()) {
-            PickCustView pickCust = resView.getPickCustScreen();
+            AddNewResPickCustView pickCust = resView.getPickCustScreen();
             int row = pickCust.getSelectedRow();
             String firstName = (String) pickCust.getObjectAtCell(row, 2);
             String lastName = (String) pickCust.getObjectAtCell(row, 3);
             String startDate = (String) pickCust.getObjectAtCell(row, 3);
             resView.closePopupScreen();
-            AddNewResView newResView = resView.getNewResView();
+            AddNewResFieldsView newResView = resView.getNewResView();
             newResView.setTxtCustomerFirstName(firstName);
             newResView.setTxtCustomerLastName(lastName);
             newResView.setTxtStartDate(startDate);
@@ -78,7 +78,7 @@ public class ReservationControl implements ActionListener {
         }
         
         if (e.getSource() == resView.getNewCustView().getBtnSubmit()) {
-            AddNewCustView addPanel = resView.getNewCustView();
+            AddNewCustPanel addPanel = resView.getNewCustView();
             
             String firstName = addPanel.getTxtFirstName().getText();
             String lastName = addPanel.getTxtLastName().getText();
@@ -95,7 +95,7 @@ public class ReservationControl implements ActionListener {
                     address, tab, lastRoomNum, phoneNum, email, paymentMethod);
             
             resView.closePopupScreen();
-            AddNewResView newResView = resView.getNewResView();
+            AddNewResFieldsView newResView = resView.getNewResView();
             newResView.setTxtCustomerFirstName(firstName);
             newResView.setTxtCustomerLastName(lastName);
             newResView.setTxtStartDate(occupationDate);
@@ -105,7 +105,7 @@ public class ReservationControl implements ActionListener {
         
         
         if (e.getSource() == resView.getNewResView().getBtnSubmit()) {
-            AddNewResView addPanel = resView.getNewResView();
+            AddNewResFieldsView addPanel = resView.getNewResView();
             
             String floorNumber = addPanel.getTxtFloorNumber().getText();
             String roomNumber = addPanel.getTxtRoomNumber().getText();
@@ -147,7 +147,7 @@ public class ReservationControl implements ActionListener {
         }
         
         if (e.getSource() == resView.getPickCustScreen().getBtnSearch()) {
-            PickCustView pickView = resView.getPickCustScreen();
+            AddNewResPickCustView pickView = resView.getPickCustScreen();
             int column = pickView.getComboColumn();
             String querie = pickView.getFldSearchEntry().getText();
             

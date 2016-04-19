@@ -10,6 +10,7 @@ import main.*;
 import javax.swing.*;
 import java.awt.*;
 import CustomerModule.*;
+import javax.swing.table.TableColumn;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -25,9 +26,9 @@ public class ReservationView extends JPanel {
     
     JFrame popupFrame;
     AddNewResChoiceView choiceView;
-    AddNewCustView newCustView;
-    AddNewResView newResView;
-    PickCustView pickCustView;
+    AddNewCustPanel newCustView;
+    AddNewResFieldsView newResView;
+    AddNewResPickCustView pickCustView;
     
     JPanel contentPane;
     
@@ -46,30 +47,30 @@ public class ReservationView extends JPanel {
     private JComboBox cmbSearchCategory;
     private JButton btnSearch;
     
-    private final String[] columnNames = new String[] {"ID", "Floor Number", 
-        "Room Number", "Start Date", "End Date", "Customer First Name", 
-        "Customer Last Name", "Room Type", "Cost"};
+    private String[] columnNames;
     
-    public ReservationView(MainPanel c, ReservationModel model) {
+    public ReservationView(MainPanelCard c, ReservationModel model) {
         this.model = model;
         contentPane = c;
         initializeComponents();
     }
     
     private void initializeComponents() {
-        //model = new ReservationModel();
+        columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
         custModel = new CustomerModel();
         
         popupFrame = new JFrame();
-        choiceView = new AddNewResChoiceView(this);
-        newCustView = new AddNewCustView();
-        newResView = new AddNewResView();
-        pickCustView = new PickCustView(custModel);
+        choiceView = new AddNewResChoiceView();
+        newCustView = new AddNewCustPanel();
+        newResView = new AddNewResFieldsView();
+        pickCustView = new AddNewResPickCustView(custModel);
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
         tblMain = new JTable(model);
+        TableColumn col = tblMain.getColumnModel().getColumn(0);
+        tblMain.removeColumn(col);
         pnlTopBtn = new JPanel();
         pnlBottomBtn = new JPanel();
         btnHome = new JButton();
@@ -167,12 +168,6 @@ public class ReservationView extends JPanel {
         //cardLayout.next(contentPane);
     }
     
-    public void goToHome() {
-        CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-        cardLayout.show(contentPane, "Home View");
-        //cardLayout.next(contentPane);
-    }
-    
     public void showNewResChoiceView() {
         popupFrame.getContentPane().removeAll();
         popupFrame.setSize(400, 300);
@@ -213,7 +208,7 @@ public class ReservationView extends JPanel {
         popupFrame.add(newCustView);
     }
     
-    public AddNewCustView getNewCustView() {
+    public AddNewCustPanel getNewCustView() {
         return newCustView;
     }
     
@@ -231,7 +226,7 @@ public class ReservationView extends JPanel {
         popupFrame.add(newResView);
     }
     
-    public AddNewResView getNewResView() {
+    public AddNewResFieldsView getNewResView() {
         return newResView;
     }
     
@@ -257,7 +252,7 @@ public class ReservationView extends JPanel {
         popupFrame.add(pickCustView);
     }
     
-    public PickCustView getPickCustScreen() {
+    public AddNewResPickCustView getPickCustScreen() {
         return pickCustView;
     }
      

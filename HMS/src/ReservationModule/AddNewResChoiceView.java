@@ -5,14 +5,9 @@
  */
 package ReservationModule;
 
-import CustomerModule.*;
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 
-import javax.swing.BoxLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -22,13 +17,11 @@ import java.awt.Insets;
  * @author Whelan
  */
 public class AddNewResChoiceView extends JPanel {
-    ReservationView parentResView;
     
-    private JButton newCust;
-    private JButton existingCust;
+    private final JButton newCust;
+    private final JButton existingCust;
     
-    public AddNewResChoiceView(ReservationView parentResView) {
-        this.parentResView = parentResView;
+    public AddNewResChoiceView() {
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         

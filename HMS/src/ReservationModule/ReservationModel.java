@@ -116,7 +116,13 @@ public class ReservationModel extends AbstractTableModel {
     
     
     
-    
+    public String[] getColumnNames() {
+        String[] columnNamesOut = new String[8];
+        for(int i=0; i<8; i++) {
+            columnNamesOut[i] = columnNames[i+1];
+        }
+        return columnNamesOut;
+    }
     
     public int getNumRows() {
         int rows = 0;
