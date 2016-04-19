@@ -6,7 +6,7 @@
 package AddNewEmployee;
 
 /**
- *
+ * 
  * @author Yeejkoob Thao
  */
 import java.awt.event.ActionListener;
@@ -111,6 +111,7 @@ public class AddNewEmployeeView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add A New Employee");
+        setResizable(false);
 
         descriptionLabel.setText("Please fill out the information below to create a new employee");
 

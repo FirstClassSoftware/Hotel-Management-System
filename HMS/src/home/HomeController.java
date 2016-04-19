@@ -5,6 +5,7 @@ package home;
  *
  * @author Yeejkoob Thao
  */
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -24,7 +25,8 @@ public class HomeController {
         this.homeView.addStaffManagementButtonListener(new StaffManagementListener());
         this.homeView.addReservationCustomerManagementButtonListener(new ResCusManagementListener());
         this.homeView.addRoomManagementButtonListener(new RoomManagementListener());
-        
+        this.homeView.addInventoryManagementButtonListener(new InventoryManagementListener());
+        this.homeView.addFinanceManagementButtonListener(new FinanceManagementListener());
     }
     
     class RoomManagementListener implements ActionListener {
@@ -73,9 +75,27 @@ public class HomeController {
     
     }
     
+    class InventoryManagementListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            homeView.goToInventoryView();
+        }
+        
+    }
+    
+    class FinanceManagementListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            homeView.goToFinanceView();
+        }
+        
+    }
+    
     public void checkPermissions() {
         String userLevel = homeView.getUserLevelLabel().getText();
-        System.out.println("This is the current user level " + userLevel);
+       
         if(userLevel.equals("Receptionist")) {
         
             homeView.getInventoryMngButton().setEnabled(false);

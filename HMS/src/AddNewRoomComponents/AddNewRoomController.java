@@ -7,6 +7,9 @@ package AddNewRoomComponents;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  *
@@ -16,15 +19,16 @@ public class AddNewRoomController {
 
     private AddNewRoomView addNewRoomView;
     private AddNewRoomModel addNewRoomModel;
-    
+
     public AddNewRoomController(AddNewRoomView view, AddNewRoomModel model) {
         addNewRoomView = view;
         addNewRoomModel = model;
         addNewRoomView.addSubtmitButtonListener(new SubmitListener());
-        
+
     }
-    
+
     class SubmitListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             ///////////////////////////////////////////////////////////////////
@@ -53,19 +57,19 @@ public class AddNewRoomController {
             // display any pop up errors that occur
             // update the database with this valid information
             // Set up some if and else statements and display errors accordingly
-            if(isFloorNumberValid == false) {
+            if (isFloorNumberValid == false) {
                 errorMessage = "An incorrect value was entered for floor number.";
                 addNewRoomView.displayErrorMessage(errorMessage);
             }
-            if(isRoomNumberValid == false) {
+            if (isRoomNumberValid == false) {
                 errorMessage = "An incorrect value was entered for room number.";
                 addNewRoomView.displayErrorMessage(errorMessage);
             }
-            if(isRoomPriceValid == false) {
+            if (isRoomPriceValid == false) {
                 errorMessage = "An incorrect value was entered for room price.";
                 addNewRoomView.displayErrorMessage(errorMessage);
             }
-            if(isFloorNumberValid && isRoomNumberValid && isRoomPriceValid) {
+            if (isFloorNumberValid && isRoomNumberValid && isRoomPriceValid) {
                 // Convert string values into integers
                 int roomFloorNumberIntVersion = Integer.parseInt(floorNumber);
                 int roomNumberIntVersion = Integer.parseInt(roomNumber);
@@ -76,6 +80,6 @@ public class AddNewRoomController {
                 addNewRoomView.dispose();
             }
         }
-    
+
     }
 }

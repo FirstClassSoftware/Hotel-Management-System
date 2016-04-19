@@ -63,8 +63,6 @@ public class UserController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            // Stopped 4/2/16 - Did not get delete to work.
             JTable userTable = userView.getUserTable();
             int userRowSelected = userTable.getSelectedRow();
             // column is set to 1 in order to always get the username of the row

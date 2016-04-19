@@ -6,7 +6,7 @@
 package AddNewUser;
 
 /**
- *
+ * 
  * @author Yeejkoob Thao
  */
 import java.awt.event.ActionListener;
@@ -138,6 +138,7 @@ public class AddNewUserView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add A New HMS User");
+        setResizable(false);
 
         title.setText("Please type in a unique username and password");
 

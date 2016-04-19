@@ -57,6 +57,7 @@ public class AddNewEmployeeController {
             isInputEmployeeHourlyWageValid = addNewEmployeeModel.validateEmployeeHourlyWage(employeeHourlyWage);
             isInputEmployeeTotalPayValid = addNewEmployeeModel.validateEmployeeTotalPay(employeeTotalPay);       
             ///////////////////////////////////////////////////////////////////
+            // DO NOT FORGET TO CHECK FOR INVALID INPUT
             if (isInputEmployeeFirstNameValid
                     && isInputEmployeeLastNameValid
                     && isInputEmployeeStatusValid
@@ -70,6 +71,12 @@ public class AddNewEmployeeController {
                         employeeHoursWorked,
                         employeeHourlyWage,
                         employeeTotalPay);
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception err) {
+                    System.out.println(err.getMessage());
+                }
+                addNewEmployeeModel.serializeEmployee(employeeFirstName, employeeLastName, employeeHourlyWage);
                 // Update the table in the StaffView
                 addNewEmployeeView.getAssociatedStaffController().updateEmployeeTable();
                 addNewEmployeeView.displayErrorMessage(successMessage);

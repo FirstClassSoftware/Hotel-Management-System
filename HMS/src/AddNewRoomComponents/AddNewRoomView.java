@@ -74,6 +74,7 @@ public class AddNewRoomView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add New Hotel Room");
+        setResizable(false);
 
         instructionsLabel.setText("Please fill out the room information below to add a new hotel room");
 
@@ -107,12 +108,11 @@ public class AddNewRoomView extends javax.swing.JFrame {
                             .addComponent(roomTypeField, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(roomPriceField)
                             .addComponent(roomNumberField)
-                            .addComponent(floorNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
+                            .addComponent(floorNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(170, 170, 170)
-                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(259, 259, 259))))
+                        .addComponent(submitButton, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(259, 259, 259))
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
                 .addComponent(instructionsLabel)

@@ -7,18 +7,29 @@ package MoreEmployeeInformationComponents;
 
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 /**
  *
  * @author Yeejkoob Thao
  */
 public class MoreEmployeeInformationView extends javax.swing.JFrame {
-
+    
+    private int selectedEmployeeId;
     /**
      * Creates new form MoreEmployeeInformationView
      */
-    public MoreEmployeeInformationView() {
+    public MoreEmployeeInformationView(int employeeId) {
+        this.selectedEmployeeId = employeeId;
         initComponents();
+    }
+    
+    public JTable getMoreEmployeeInfoTable() {
+        return this.moreEmployeeInfoTable;
+    }
+    
+    public int getSelectedEmployeeId() {
+        return this.selectedEmployeeId;
     }
 
     void addGoBackButtonListener(ActionListener listenForGoBackButton) {
@@ -49,6 +60,8 @@ public class MoreEmployeeInformationView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
+        deductionsLabel = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
         goBackButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -56,13 +69,13 @@ public class MoreEmployeeInformationView extends javax.swing.JFrame {
 
         moreEmployeeInfoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Pay Period", "Clock In", "Clock Out", "Hours Worked", "Hourly Wage", "Daily Pay"
             }
         ));
         jScrollPane1.setViewportView(moreEmployeeInfoTable);
@@ -78,6 +91,8 @@ public class MoreEmployeeInformationView extends javax.swing.JFrame {
 
         jLabel3.setText("Total Pay:");
 
+        deductionsLabel.setText("Deductions:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -88,13 +103,14 @@ public class MoreEmployeeInformationView extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2)
                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel1))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField2)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1)
+                    .addComponent(deductionsLabel))
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jTextField2)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 102, Short.MAX_VALUE)
+                    .addComponent(jTextField4)
+                    .addComponent(jTextField1))
                 .addGap(56, 56, 56))
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,7 +124,11 @@ public class MoreEmployeeInformationView extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deductionsLabel)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -182,12 +202,13 @@ public class MoreEmployeeInformationView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MoreEmployeeInformationView().setVisible(true);
+                //new MoreEmployeeInformationView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel deductionsLabel;
     private javax.swing.JLabel employeeNameLabel;
     private javax.swing.JButton goBackButton;
     private javax.swing.JLabel jLabel1;
@@ -198,6 +219,7 @@ public class MoreEmployeeInformationView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable moreEmployeeInfoTable;
     // End of variables declaration//GEN-END:variables
 }

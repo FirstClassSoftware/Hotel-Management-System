@@ -39,6 +39,8 @@ public class UserModel {
                     + " LAST_LOGIN VARCHAR(255))";
 
             stmt.executeUpdate(SQL);
+            ////////////////////////////////////////////////////////////////////
+            this.addNewUser("admin", "admin", "Owner");
             System.out.println("Successfully connected to the database.");
         } catch (SQLException err) {
 

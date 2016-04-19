@@ -7,6 +7,7 @@ package staff;
 
 import java.awt.CardLayout;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -30,6 +31,10 @@ public class StaffView extends javax.swing.JPanel {
 
         return employeeTable;
 
+    }
+    
+    public JButton getMoreEmployeeInformationButton() {
+        return this.moreEmployeeInformationButton;
     }
 
     void addAddNewEmployeeButtonListener(ActionListener listenForAddNewEmployeeButton) {

@@ -18,15 +18,16 @@ import home.*;
 import AddNewEmployee.*;
 import javax.swing.table.TableColumn;
 import MoreEmployeeInformationComponents.*;
+
 public class StaffController {
-    
+
     private StaffView staffView;
     private StaffModel staffModel;
     private StaffController staffController;
-    
+
     // Establish a connection with the database and populate the table in
     // the view.
-    public StaffController (StaffView view, StaffModel model) {
+    public StaffController(StaffView view, StaffModel model) {
         staffView = view;
         staffModel = model;
         staffController = this;
@@ -34,9 +35,12 @@ public class StaffController {
         staffView.addAddNewEmployeeButtonListener(new AddNewEmployeeListener());
         staffView.addDeleteButtonListener(new DeleteListener());
         staffView.addMoreEmployeeInformationButtonListener(new MoreEmployeeInformationListener());
+        staffView.getMoreEmployeeInformationButton().setEnabled(false);
+        // The get more employee information button locks the database up which prevents future updates.
         updateEmployeeTable();
-        
+
     }
+
     class HomeListener implements ActionListener {
 
         @Override
@@ -45,24 +49,22 @@ public class StaffController {
         }
 
     } // End of the HomeListener class
-    
+
     class AddNewEmployeeListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
 
             // Generate a form to fill to make a new employee
-            
             AddNewEmployeeView addNewEmployeeForm = new AddNewEmployeeView(staffView, staffModel, staffController);
             AddNewEmployeeModel addNewEmployeeModel = new AddNewEmployeeModel();
-            AddNewEmployeeController addNewEmployeeController  = new AddNewEmployeeController(addNewEmployeeForm, addNewEmployeeModel);
+            AddNewEmployeeController addNewEmployeeController = new AddNewEmployeeController(addNewEmployeeForm, addNewEmployeeModel);
             addNewEmployeeForm.setVisible(true);
-            
+
         }
 
-    
     }
-    
+
     class DeleteListener implements ActionListener {
 
         @Override
@@ -70,7 +72,7 @@ public class StaffController {
 
             // Stopped 4/2/16 - Did not get delete to work.
             JTable employeeTable = staffView.getEmployeeTable();
-            int userRowSelected = employeeTable.getSelectedRow();
+            int employeeRowSelected = employeeTable.getSelectedRow();
             // column is set to 1 in order to always get the username of the row
             // selected.
             int selectedEmployeeId;
@@ -79,7 +81,7 @@ public class StaffController {
             String confirmDeleteMessage = "Are you sure you want delete this employee?";
             String deleteWarningDialogTitle = "Delete Confirmation";
             //////////////////////////////////////////////////////////////////
-            if (userRowSelected == -1) {
+            if (employeeRowSelected == -1) {
                 staffView.displayErrorMessage(noRowSelectedErrorMessage);
             } else {
                 // Display a delete confirmation
@@ -90,9 +92,9 @@ public class StaffController {
                         yesNoDialogButtons);
                 if (deleteConfirmationResult == JOptionPane.YES_OPTION) {
                     // Delete the user from the database
-                    selectedEmployeeId = (int) employeeTable.getValueAt(userRowSelected, 0);
+                    selectedEmployeeId = (int) employeeTable.getValueAt(employeeRowSelected, 0);
                     staffModel.deleteEmployee(selectedEmployeeId);
-
+                    staffModel.deleteEmployeeByteArray(selectedEmployeeId);
                     // Update the view on the deletion
                     updateEmployeeTable();
                 }
@@ -101,22 +103,34 @@ public class StaffController {
         }
 
     } // End of DeleteListener class
-    
+
     class MoreEmployeeInformationListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
             //  Generate the more information view and components
-            MoreEmployeeInformationView moreEmployeeInfoView = new MoreEmployeeInformationView();
-            MoreEmployeeInformationModel moreEmployeeInfoModel = new MoreEmployeeInformationModel();
-            MoreEmployeeInformationController moreEmployeeInfoController = new MoreEmployeeInformationController(moreEmployeeInfoView, moreEmployeeInfoModel);
-            
-            moreEmployeeInfoView.setVisible(true);
-            
+            JTable employeeTable = staffView.getEmployeeTable();
+            int employeeRowSelected = employeeTable.getSelectedRow();
+            String errorMessage = "Please select a employee row to view more information about that employee.";
+            if(employeeRowSelected == -1) {
+                staffView.displayErrorMessage(errorMessage);
+            }
+            else {
+                // You're going to need to pass in the employee id and first name and last name too.
+                // But employee id should be unique so passing that in only the id should be enough.
+                int employeeId = Integer.valueOf(employeeTable.getValueAt(employeeRowSelected, 0).toString());
+                MoreEmployeeInformationView moreEmployeeInfoView = new MoreEmployeeInformationView(employeeId);
+                MoreEmployeeInformationModel moreEmployeeInfoModel = new MoreEmployeeInformationModel();
+                MoreEmployeeInformationController moreEmployeeInfoController = new MoreEmployeeInformationController(moreEmployeeInfoView, moreEmployeeInfoModel);
+
+                moreEmployeeInfoView.setVisible(true);
+            }
+           
+
         } // End of the actionPerformed method
-        
+
     } // End of the MoreInformationListener class
-    
+
     class MyTableModel extends DefaultTableModel {
 
         @Override
@@ -124,11 +138,11 @@ public class StaffController {
             JTable employeeTable = staffView.getEmployeeTable();
             String columnName = employeeTable.getColumnName(col);
             int userId = Integer.valueOf(employeeTable.getValueAt(row, 0).toString());
-            
+ 
             staffModel.updateEmployeeValue(columnName, userId, value, row, col);
             updateEmployeeTable();
         }
-        
+
         @Override
         public boolean isCellEditable(int row, int col) {
             if (col == 0) {
@@ -139,17 +153,17 @@ public class StaffController {
             }
         }
     } // End of the MyTableModel class
-    
-     public void updateEmployeeTable() {
+
+    public void updateEmployeeTable() {
 
         ResultSet allUsers = staffModel.getAllEmployees();
 
         ResultSetMetaData allUsersMetaData;
         int totalColumns;
 
-        JTable userTable = staffView.getEmployeeTable();
-        MyTableModel userTableModel = new MyTableModel();
-        
+        JTable employeeTable = staffView.getEmployeeTable();
+        MyTableModel employeeTableModel = new MyTableModel();
+
         try {
 
             allUsersMetaData = allUsers.getMetaData();
@@ -158,7 +172,7 @@ public class StaffController {
             // Get all the column names from the meta data and add the column
             // names to the table model.
             for (int columnIndex = 1; columnIndex <= totalColumns; columnIndex++) {
-                userTableModel.addColumn(allUsersMetaData.getColumnLabel(columnIndex));
+                employeeTableModel.addColumn(allUsersMetaData.getColumnLabel(columnIndex));
             }
 
             Object[] row = new Object[totalColumns];
@@ -167,17 +181,28 @@ public class StaffController {
                 for (int currentColumn = 0; currentColumn < totalColumns; currentColumn++) {
                     row[currentColumn] = allUsers.getObject(currentColumn + 1);
                 }
-                userTableModel.addRow(row);
+                employeeTableModel.addRow(row);
             }
 
-            userTable.setModel(userTableModel);
+            employeeTable.setModel(employeeTableModel);
             ////////////////////////////////////////////////////////////////////
             // Setup the rest of the table everytime the model is updated.
             // I believe the model resetting the model resets the columns. Thus,
             // The code lies here, but I have not tested this assumption.
             ////////////////////////////////////////////////////////////////////
-            TableColumn employeeStatusColumn = userTable.getColumnModel().getColumn(3);
-            JComboBox  employeeStatusOptions = new JComboBox();
+            /*
+            TableColumn employeeJobDecriptionColumn = employeeTable.getColumnModel().getColumn(3);
+            JComboBox employeeJobOptions = new JComboBox();
+            employeeJobOptions.addItem("Janitor");
+            employeeJobOptions.addItem("Receptionist");
+            employeeJobOptions.addItem("Manager");
+            employeeJobOptions.addItem("House Keeper");
+            employeeJobOptions.addItem("Bell Hop");
+            employeeJobDecriptionColumn.setCellEditor(new DefaultCellEditor(employeeJobOptions));
+            */
+            ////////////////////////////////////////////////////////////////////
+            TableColumn employeeStatusColumn = employeeTable.getColumnModel().getColumn(3);
+            JComboBox employeeStatusOptions = new JComboBox();
             employeeStatusOptions.addItem("Overtime");
             employeeStatusOptions.addItem("Vacation");
             employeeStatusOptions.addItem("Clocked In");
@@ -192,5 +217,5 @@ public class StaffController {
         }
 
     } // End of the updateAllUsers method
-    
+
 }

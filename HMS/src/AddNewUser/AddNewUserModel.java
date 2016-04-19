@@ -15,7 +15,7 @@ import javax.swing.ButtonModel;
 import javax.swing.JRadioButton;
 
 /**
- *
+ * 
  * @author Yeejkoob Thao
  */
 public class AddNewUserModel {

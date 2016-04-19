@@ -26,6 +26,8 @@ import AddNewUser.*;
 import room.*;
 import ReservationModule.*;
 import CustomerModule.*;
+import Inventory.*;
+import Finance.*;
 /**
  *
  * @author Yeejkoob Thao
@@ -60,6 +62,14 @@ public class MainPanel extends JPanel {
     StaffModel staffModel;
     StaffController staffController;
     //////////////////////////////////////////////////////////////////////
+    InventoryView inventoryView;
+    InventoryModel inventoryModel;
+    InventoryController inventoryController;
+    //////////////////////////////////////////////////////////////////////
+    FinanceView financeView;
+    FinanceModel financeModel;
+    FinanceController financeController;
+    //////////////////////////////////////////////////////////////////////
     public MainPanel() {
         
         custModel = new CustomerModel();
@@ -92,6 +102,15 @@ public class MainPanel extends JPanel {
         staffModel = new StaffModel();
         staffController = new StaffController(staffView, staffModel);
         //////////////////////////////////////////////////////////////////////
+        inventoryModel = new InventoryModel();
+        inventoryView = new InventoryView(this, inventoryModel);
+        inventoryController = new InventoryController(inventoryModel, inventoryView);
+        inventoryView.registerListener(inventoryController);
+        //////////////////////////////////////////////////////////////////////
+        financeView = new FinanceView(this);
+        financeModel = new FinanceModel();
+        financeController = new FinanceController(financeView, financeModel);
+        //////////////////////////////////////////////////////////////////////
         this.setLayout(new CardLayout());
         this.add(loginView, "Login View");
         this.add(roomView, "Room View");
@@ -100,6 +119,8 @@ public class MainPanel extends JPanel {
         this.add(staffView, "Staff Management View");
         this.add(resView, "Reservation Screen");
         this.add(custView, "Customer Screen");
+        this.add(inventoryView, "Inventory View");
+        this.add(financeView, "Finance View");
     }
     
 }

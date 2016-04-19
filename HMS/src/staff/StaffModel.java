@@ -23,21 +23,33 @@ public class StaffModel {
         dbConnection = null;
         stmt = null;
         try {
-            
+
             dbConnection = DriverManager.getConnection("jdbc:sqlite:hotelData.db");
-            
+
             stmt = dbConnection.createStatement(ResultSet.TYPE_FORWARD_ONLY,
                     ResultSet.CONCUR_READ_ONLY);
             SQL = "CREATE TABLE IF NOT EXISTS EMPLOYEES"
                     + "(EMPLOYEEID INTEGER PRIMARY KEY    AUTOINCREMENT,"
                     + " FIRSTNAME TEXT ,"
                     + " LASTNAME TEXT,"
+                    //+ " JOB_DESCRIPTION,"
                     + " STATUS TEXT,"
                     + " HOURS_WORKED TEXT,"
                     + " HOURLY_WAGE TEXT,"
                     + " TOTAL_PAY TEXT)";
 
             stmt.executeUpdate(SQL);
+            ////////////////////////////////////////////////////////////////////
+            // Create a table to hold Employee Byte Arrays that came from Employee
+            // Objects
+            SQL = "CREATE TABLE IF NOT EXISTS EMPLOYEE_BYTE_ARRAYS"
+                    + "(EMPLOYEEID INTEGER PRIMARY KEY NOT NULL,"
+                    + " FIRSTNAME TEXT ,"
+                    + " LASTNAME TEXT,"
+                    + " BYTE_ARRAY BLOB)";
+
+            stmt.executeUpdate(SQL);
+            ////////////////////////////////////////////////////////////////////
             System.out.println("Successfully connected to the database.");
         } catch (SQLException err) {
 
@@ -66,28 +78,32 @@ public class StaffModel {
     public void addNewEmployee(
             String newEmployeeFirstName,
             String newEmployeeLastName,
+            String newEmployeeJobDescription,
             String newEmployeeStatus,
             double newEmployeeHoursWorked,
             double newEmployeeHourlyWage,
             double newEmployeeTotalPay) {
 
         try {
-            // Attempt to autoincrement ID field
+            // Attempt to autoincrement ID field by not mentioning the ID field.
             SQL = "INSERT INTO EMPLOYEES ("
                     + "FIRSTNAME, "
                     + "LASTNAME, "
+                    + "JOB_DESCRIPTION,"
                     + "STATUS,"
                     + "HOURS_WORKED,"
                     + "HOURLY_WAGE,"
                     + "TOTAL_PAY)"
                     + "VALUES ('" + newEmployeeFirstName
                     + "', '" + newEmployeeLastName + "', '"
-                    + newEmployeeStatus + "',"
+                    + "', '" + newEmployeeJobDescription + "', "
+                    //+ newEmployeeStatus + "',"
                     + newEmployeeHoursWorked + ", "
                     + newEmployeeHourlyWage + ", "
                     + newEmployeeTotalPay + ");";
             stmt.executeUpdate(SQL);
-
+            
+            
         } catch (SQLException err) {
             System.out.println(err.getMessage());
         }
@@ -107,13 +123,25 @@ public class StaffModel {
 
     } // End of the deleteEmployee method
     
-    public void updateEmployeeValue (String columnName, int employeeId, Object value, int row, int column) {
+    public boolean deleteEmployeeByteArray(int idOfEmployeeToDelete) {
         try {
-            if(column != 0) {
+            SQL = "DELETE from EMPLOYEE_BYTE_ARRAYS where EMPLOYEEID = " + idOfEmployeeToDelete;
+            stmt.executeUpdate(SQL);
+            return true;
+        } catch (SQLException err) {
+            // Find a way to print out the error or not.
+            return false;
+        }
+    }
+
+    public void updateEmployeeValue(String columnName, int employeeId, Object value, int row, int column) {
+        
+        try {
+            if (column != 0) {
                 stmt.executeUpdate("UPDATE EMPLOYEES SET " + columnName
                         + " = '" + value + "' WHERE EMPLOYEEID = " + employeeId);
             }
-        } catch (SQLException err) {
+        } catch (Exception err) {
             System.out.println(err.getMessage());
         }
     } // End of the updateUserValue method
