@@ -12,7 +12,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -111,6 +115,7 @@ public class CustomerModel extends AbstractTableModel {
     public Object getValueAt(int row, int column) {
         getCustomers();
         return Customers.get(row).get(column);
+        
     }
 
     @Override
@@ -139,7 +144,11 @@ public class CustomerModel extends AbstractTableModel {
 
     
     public String[] getColumnNames() {
-        return columnNames;
+        String[] columnNamesOut = new String[10];
+        for(int i=0; i<10; i++) {
+            columnNamesOut[i] = columnNames[i+1];
+        }
+        return columnNamesOut;
     }
     
     public int getNumRows() {
@@ -319,6 +328,20 @@ public class CustomerModel extends AbstractTableModel {
             //row++;
             //int id = Customers.get(row).getID();
             stmt.executeUpdate("delete from " + tableNameSQL + " WHERE ID = " + id);
+            /*
+            int total = getCustomers().size();
+            System.out.println(total);
+            
+            // Delete row 3, rows 4 and 5 need to become rows 3 and 4
+            // id = 3, when setting customer, new value is the old id -1
+            // setCustomer(newValue, row, column)
+            for(int i = id; i <= total; i++) {
+                setCustomerValue(i,i+1,0);
+                
+            }
+            
+            //deleteAllFromTable();
+            */
             this.fireTableDataChanged();
             
         }
@@ -343,5 +366,39 @@ public class CustomerModel extends AbstractTableModel {
     public void setIsEditable(boolean isEdit) {
         isEditable = isEdit;
     }
+    
+    public boolean isCorrectDateFormat(String input) {
+        Date date = null;
+        
+        DateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+        try {
+            date = format.parse(input);
+            System.out.println(date);
+            
+            
+            //return true;
+        }
+        catch (java.text.ParseException err) {
+            System.out.println(err.getMessage());
+        }
+        if(date == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+        
+    }
+    
+    public boolean isDateNull(Date input) {
+        if(input == null) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    
     
 }

@@ -9,8 +9,8 @@ import main.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.regex.PatternSyntaxException;
 import javax.swing.table.TableRowSorter;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -25,13 +25,15 @@ public class CustomerView extends JPanel {
     TableRowSorter<CustomerModel> sorter;
             
     JFrame popupFrame;
+    JFrame errorFrame;
     
     JPanel pnlGrid;
     JScrollPane scrTableHold;
     JTable tblMain;
     JPanel pnlTopBtn;
     JPanel pnlBottomBtn;
-    AddNewCustView newCustView;
+    AddNewCustPanel newCustView;
+    ErrorPanel errorPanel;
     
     private JButton btnHome;
     private JButton btnNewCust;
@@ -45,7 +47,7 @@ public class CustomerView extends JPanel {
     
     private String[] columnNames;
     
-    public CustomerView(MainPanel c, CustomerModel m) {
+    public CustomerView(MainPanelCard c, CustomerModel m) {
         
         model = m;
         contentPane = c;
@@ -56,12 +58,16 @@ public class CustomerView extends JPanel {
     private void initializeComponents() {
         columnNames = model.getColumnNames();
         String[] cmbSearchCat = columnNames;
-        newCustView = new AddNewCustView();
+        newCustView = new AddNewCustPanel();
+        errorPanel = new ErrorPanel();
         popupFrame = new JFrame();
+        errorFrame = new JFrame();
         
         pnlGrid = new JPanel();
         scrTableHold = new JScrollPane();
         tblMain = new JTable(model);
+        TableColumn col = tblMain.getColumnModel().getColumn(0);
+        tblMain.removeColumn(col);
         pnlTopBtn = new JPanel();
         pnlBottomBtn = new JPanel();
         btnHome = new JButton();
@@ -125,10 +131,15 @@ public class CustomerView extends JPanel {
         btnGoToRes.addActionListener(controller);
         btnRefreshTable.addActionListener(controller);
         newCustView.getBtnSubmit().addActionListener(controller);
+        errorPanel.getBtnExit().addActionListener(controller);
     }
     
-    public AddNewCustView getNewCustView() {
+    public AddNewCustPanel getNewCustView() {
         return newCustView;
+    }
+    
+    public ErrorPanel getErrorPanel() {
+        return errorPanel;
     }
     
     public JButton getBtnHome() {
@@ -168,13 +179,8 @@ public class CustomerView extends JPanel {
         cardLayout.show(contentPane, "Reservation Screen");
     }
     
-    public void goToHome() {
-        CardLayout cardLayout = (CardLayout) contentPane.getLayout();
-        cardLayout.show(contentPane, "Home View");
-        //cardLayout.next(contentPane);
-    }
-    
     public void showNewCustScreen() {
+        popupFrame.getContentPane().removeAll();
         popupFrame.setSize(400, 500);
         popupFrame.setVisible(true);
         popupFrame.setLocationRelativeTo(null);
@@ -182,22 +188,27 @@ public class CustomerView extends JPanel {
         popupFrame.add(newCustView);
     }
     
-    public int getSelectedRow() {
-        int row = tblMain.getSelectedRow();
-        System.out.println(row);
-        return tblMain.getSelectedRow();
-    }
-    
     public void closeNewCustScreen() {
         popupFrame.setVisible(false);
     }
     
-    public Object getTableModel() {
-        return tblMain.getModel();
+    public void showNewCustError(String errorMessage) {
+        errorFrame.getContentPane().removeAll();
+        errorFrame.setSize(400, 200);
+        errorFrame.setVisible(true);
+        errorFrame.setLocationRelativeTo(null);
+        errorPanel.setErrorMessage(errorMessage);
+        errorFrame.add(errorPanel);
     }
     
-    public void refreshTableModel() {
-        tblMain.setModel(model);
+    public void closeErrorFrame() {
+        errorFrame.setVisible(false);
+    }
+    
+    public int getSelectedRow() {
+        int row = tblMain.getSelectedRow();
+        System.out.println(row);
+        return tblMain.getSelectedRow();
     }
     
     public TableRowSorter getSorter() {
@@ -214,6 +225,8 @@ public class CustomerView extends JPanel {
         int id = Integer.parseInt(idString);
         return id;
     }
+    
+    
     
     
     
