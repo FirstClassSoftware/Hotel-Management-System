@@ -12,31 +12,31 @@ package main;
  */
 import java.awt.Toolkit;
 import javax.swing.*;
+import javax.swing.UIManager.*;
 public class HotelMain {
     public static void main(String[]args) {
         try {
-            // Set System L&F
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        } catch (UnsupportedLookAndFeelException e) {
-            // handle exception
-        } catch (ClassNotFoundException e) {
-            // handle exception
-        } catch (InstantiationException e) {
-            // handle exception
-        } catch (IllegalAccessException e) {
-            // handle exception
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // If Nimbus is not available, you can set the GUI to another look and feel.
         }
         MainPanel mainPanel = new MainPanel();
         JFrame j = new JFrame();
         Toolkit tk = Toolkit.getDefaultToolkit();
-        int xSize = ((int) tk.getScreenSize().getWidth());
-        int ySize = ((int) tk.getScreenSize().getHeight());
-        j.setSize(xSize,ySize);
+        //int xSize = ((int) tk.getScreenSize().getWidth());
+        //int ySize = ((int) tk.getScreenSize().getHeight());
+        //j.setSize(xSize,ySize);
+        j.setSize(1500,917);
         j.setLocationRelativeTo(null);
         j.setVisible(true);
         j.add(mainPanel);
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        j.setResizable(false);
     
     }
 }
