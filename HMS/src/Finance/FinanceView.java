@@ -6,6 +6,8 @@
 package Finance;
 
 import java.awt.CardLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,6 +28,26 @@ public class FinanceView extends javax.swing.JPanel {
         
     }
     
+    @Override
+    public void paintComponent(Graphics g) {
+        ImageIcon background = new ImageIcon(getClass().getResource("/Images/ReceptionRoom.jpg"));
+        Image image = background.getImage();
+        super.paintComponent(g);
+        g.drawImage(image, 0, 0, this);
+    }
+    
+    public JTextField getUserDefinedExpensesField() {
+        return this.userDefinedExpensesField;
+    }
+    
+    public JTextField getUserDefinedRevenueField() {
+        return this.userDefinedRevenueField;
+    }
+    
+    public JTextField getYearlyProfitField() {
+        return this.yearlyProfitField;
+    }
+    
     public JComboBox getFinanceYearComboBox() {
         return this.financeYear;
     }
@@ -39,8 +61,20 @@ public class FinanceView extends javax.swing.JPanel {
         cardLayout.show(allPanelContainer, "Home View");
     }
     
+    void addCalculateButtonListener(ActionListener listenForCalculateButton) {
+        calculateButton.addActionListener(listenForCalculateButton);
+    }
+    
     void addHomeButtonListener(ActionListener listenForHomeButton) {
         homeButton.addActionListener(listenForHomeButton);
+    }
+    
+    void addDeleteButtonListener(ActionListener listenForDeleteButton) {
+        deleteButton.addActionListener(listenForDeleteButton);
+    }
+    
+    void addAddNewFinanceYearButtonListener(ActionListener listenForAddNewFinanceYear) {
+        addNewFinanceYearButton.addActionListener(listenForAddNewFinanceYear);
     }
     
     void displayErrorMessage(String errorMessage) {
@@ -59,38 +93,22 @@ public class FinanceView extends javax.swing.JPanel {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel1 = new javax.swing.JPanel();
-        homeButton = new javax.swing.JButton();
-        titleLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         financeTable = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        financeYear = new javax.swing.JComboBox<>();
+        titleLabel = new javax.swing.JLabel();
+        homeButton = new javax.swing.JButton();
         userDefinedRevenueLabel = new javax.swing.JLabel();
         userDefinedExpensesLabel = new javax.swing.JLabel();
         yearlyProfitLabel = new javax.swing.JLabel();
         userDefinedRevenueField = new javax.swing.JTextField();
         userDefinedExpensesField = new javax.swing.JTextField();
         yearlyProfitField = new javax.swing.JTextField();
-        financeYear = new javax.swing.JComboBox<>();
+        addNewFinanceYearButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        calculateButton = new javax.swing.JButton();
 
-        jPanel1.setLayout(new java.awt.GridBagLayout());
-
-        homeButton.setText("Home");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 53;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(25, 15, 16, 0);
-        jPanel1.add(homeButton, gridBagConstraints);
-
-        titleLabel.setText("Finance Management");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(16, 313, 0, 426);
-        jPanel1.add(titleLabel, gridBagConstraints);
+        setLayout(new java.awt.GridBagLayout());
 
         financeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,91 +123,132 @@ public class FinanceView extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(financeTable);
 
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        userDefinedRevenueLabel.setText("User Defined Revenue:");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 998;
+        gridBagConstraints.ipady = 283;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(19, 48, 0, 0);
-        jPanel2.add(userDefinedRevenueLabel, gridBagConstraints);
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(16, 0, 0, 0);
+        add(jScrollPane1, gridBagConstraints);
 
-        userDefinedExpensesLabel.setText("User Defined Expenses: ");
+        financeYear.setFont(new java.awt.Font("Kalinga", 0, 18)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 48, 0, 0);
-        jPanel2.add(userDefinedExpensesLabel, gridBagConstraints);
+        gridBagConstraints.ipadx = 91;
+        gridBagConstraints.insets = new java.awt.Insets(6, 19, 4, 4);
+        add(financeYear, gridBagConstraints);
 
-        yearlyProfitLabel.setText("Yearly Profit:");
+        titleLabel.setFont(new java.awt.Font("Kalinga", 1, 36)); // NOI18N
+        titleLabel.setForeground(new java.awt.Color(255, 0, 51));
+        titleLabel.setText("Finance Management");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        add(titleLabel, gridBagConstraints);
+
+        homeButton.setFont(new java.awt.Font("Kalinga", 0, 18)); // NOI18N
+        homeButton.setText("Home");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 53;
+        gridBagConstraints.insets = new java.awt.Insets(25, 15, 16, 0);
+        add(homeButton, gridBagConstraints);
+
+        userDefinedRevenueLabel.setFont(new java.awt.Font("Kalinga", 1, 18)); // NOI18N
+        userDefinedRevenueLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/UserDefinedRevenue.png"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(19, 48, 0, 0);
+        add(userDefinedRevenueLabel, gridBagConstraints);
+
+        userDefinedExpensesLabel.setFont(new java.awt.Font("Kalinga", 1, 18)); // NOI18N
+        userDefinedExpensesLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/UserDefinedExpenses.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 48, 0, 0);
-        jPanel2.add(yearlyProfitLabel, gridBagConstraints);
+        add(userDefinedExpensesLabel, gridBagConstraints);
+
+        yearlyProfitLabel.setFont(new java.awt.Font("Kalinga", 1, 18)); // NOI18N
+        yearlyProfitLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/YearlyProfit.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 122;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 84, 0, 598);
-        jPanel2.add(userDefinedRevenueField, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(12, 48, 0, 0);
+        add(yearlyProfitLabel, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 122;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(9, 84, 0, 598);
-        jPanel2.add(userDefinedExpensesField, gridBagConstraints);
+        add(userDefinedRevenueField, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 122;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(9, 84, 22, 598);
-        jPanel2.add(yearlyProfitField, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(9, 84, 0, 598);
+        add(userDefinedExpensesField, gridBagConstraints);
 
-        financeYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        yearlyProfitField.setEditable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.ipadx = 122;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(9, 84, 0, 598);
+        add(yearlyProfitField, gridBagConstraints);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(financeYear, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(financeYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        addNewFinanceYearButton.setFont(new java.awt.Font("Kalinga", 0, 18)); // NOI18N
+        addNewFinanceYearButton.setText("Add New Finance Year");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.ipadx = 53;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.insets = new java.awt.Insets(25, 15, 16, 0);
+        add(addNewFinanceYearButton, gridBagConstraints);
+
+        deleteButton.setFont(new java.awt.Font("Kalinga", 0, 18)); // NOI18N
+        deleteButton.setText("Delete Year");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        add(deleteButton, gridBagConstraints);
+
+        calculateButton.setFont(new java.awt.Font("Kalinga", 0, 18)); // NOI18N
+        calculateButton.setText("Calculate");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 600);
+        add(calculateButton, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addNewFinanceYearButton;
+    private javax.swing.JButton calculateButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JTable financeTable;
     private javax.swing.JComboBox<String> financeYear;
     private javax.swing.JButton homeButton;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JTextField userDefinedExpensesField;
